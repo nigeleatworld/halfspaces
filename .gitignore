@@ -1,0 +1,7 @@
+.DS_Store
+DESIGN.md
+handover-from-claude.md
+index.original.html
+assets/*
+!assets/nigel-hero-crop.png
+!assets/nigel-lin-cv.pdf

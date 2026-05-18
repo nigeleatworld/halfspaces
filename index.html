@@ -1,59 +1,2248 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="palette-field">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>halfspaces</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="description" content="halfspaces is Nigel Lin's public workbench: research tools, AI experiments, and small products in motion.">
+    <title>halfspaces / Nigel Lin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --sans: "DM Sans", system-ui, -apple-system, sans-serif;
+            --mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+            --max: 1160px;
+        }
+
+        .palette-field {
+            --warm-white: #FEFCF7;
+            --parchment: #F3E8C9;
+            --linen: #E7DED1;
+            --stone: #D2C6B6;
+            --sage-wash: #DEE7D3;
+            --blue-wash: #E2E9F0;
+            --yellow-wash: #F0D77A;
+            --clay-wash: #E8D1C5;
+            --charcoal: #111B2E;
+            --slate: #53657D;
+            --ash: #8C917F;
+            --terracotta: #B9654D;
+            --forest: #7D8B65;
+            --slate-blue: #53657D;
+            --ochre: #C6A449;
+            --line: rgba(17, 27, 46, 0.12);
+            --line-strong: rgba(17, 27, 46, 0.3);
+        }
+
+        .palette-atelier {
+            --warm-white: #FCFAF2;
+            --parchment: #EFE1BC;
+            --linen: #E8DBCB;
+            --stone: #CDBFAE;
+            --sage-wash: #D7E1CE;
+            --blue-wash: #DCE7EA;
+            --yellow-wash: #F4DF88;
+            --clay-wash: #EBCAB8;
+            --charcoal: #22302D;
+            --slate: #5B6159;
+            --ash: #8D8879;
+            --terracotta: #A9553F;
+            --forest: #5E8061;
+            --slate-blue: #496D7D;
+            --ochre: #B88D33;
+            --line: rgba(34, 48, 45, 0.12);
+            --line-strong: rgba(34, 48, 45, 0.3);
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .container {
-            padding: 2rem;
+        body {
+            margin: 0;
+            color: var(--charcoal);
+            font-family: var(--sans);
+            font-weight: 400;
+            line-height: 1.5;
+            background: var(--warm-white);
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        p, h1, h2, h3, h4, figure {
+            margin: 0;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--terracotta);
+            outline-offset: 4px;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 30;
+            transform: translateY(-160%);
+            background: var(--charcoal);
+            color: var(--warm-white);
+            padding: 10px 12px;
+            font: 0.75rem var(--mono);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .skip-link:focus-visible {
+            transform: translateY(0);
+        }
+
+        .shell {
+            width: min(100% - 32px, var(--max));
+            margin: 0 auto;
+        }
+
+        .label,
+        .eyebrow,
+        .chip,
+        .text-link,
+        .small-note {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow,
+        .label {
+            color: var(--terracotta);
+        }
+
+        .text-link {
+            border-bottom: 1px solid currentColor;
+            color: var(--charcoal);
+            padding-bottom: 1px;
+        }
+
+        .text-link:hover {
+            color: var(--terracotta);
+        }
+
+        /* Name primer */
+        .name-primer {
+            border-bottom: 1px solid var(--line);
+            padding: 14px 0 12px;
+            color: var(--slate);
+        }
+
+        .name-primer-inner {
+            display: grid;
+            grid-template-columns: auto minmax(140px, 0.18fr) minmax(0, 1fr);
+            gap: clamp(14px, 2.4vw, 28px);
+            align-items: center;
+        }
+
+        .halfspace-diagram {
+            width: 58px;
+            height: 34px;
+            position: relative;
+            border: 1px solid var(--line-strong);
+            background:
+                linear-gradient(180deg,
+                    transparent 0 20%,
+                    rgba(44, 42, 38, 0.1) 20% 40%,
+                    transparent 40% 60%,
+                    rgba(44, 42, 38, 0.1) 60% 80%,
+                    transparent 80% 100%);
+            overflow: hidden;
+        }
+
+        .halfspace-diagram::before {
+            content: "";
+            position: absolute;
+            left: 66%;
+            top: 30%;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--terracotta);
+            transform: translate(-50%, -50%);
+        }
+
+        .name-primer-title {
+            border-right: 1px solid var(--line);
+            padding-right: clamp(14px, 2vw, 24px);
+        }
+
+        .name-primer h2 {
+            color: var(--charcoal);
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: clamp(1.06rem, 1.4vw, 1.32rem);
+            line-height: 1;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        .name-primer-copy {
+            display: grid;
+            gap: 4px;
+            align-items: center;
+            font-size: clamp(0.74rem, 0.78vw, 0.82rem);
+            line-height: 1.5;
+        }
+
+        .name-primer-copy p {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 8px;
+            align-items: baseline;
+            border-left: 1px solid var(--line);
+            padding-left: clamp(10px, 1.5vw, 14px);
+            white-space: nowrap;
+        }
+
+        .name-primer-copy strong {
+            color: var(--charcoal);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            display: grid;
+            align-content: start;
+            padding: clamp(44px, 5vw, 72px) 0 clamp(94px, 10vw, 136px);
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0;
+            height: clamp(90px, 13vw, 170px);
+            pointer-events: none;
+            background:
+                linear-gradient(180deg,
+                    rgba(250, 248, 245, 0) 0%,
+                    rgba(250, 248, 245, 0.62) 58%,
+                    rgba(241, 233, 210, 0.52) 100%);
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 0.64fr) minmax(280px, 0.36fr);
+            column-gap: clamp(40px, 5vw, 76px);
+            row-gap: clamp(34px, 4vw, 52px);
+            align-items: start;
+        }
+
+        .life-strip {
+            display: grid;
+            justify-content: start;
+            color: var(--ash);
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .life-dots {
+            display: grid;
+            grid-template-columns: repeat(90, 6px);
+            gap: 3px;
+            align-items: center;
+        }
+
+        .life-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            background: transparent;
+        }
+
+        .life-dots .is-filled {
+            border-color: var(--charcoal);
+            background: var(--charcoal);
+        }
+
+        .life-dots span:nth-child(n+27):nth-child(-n+39) {
+            border-color: var(--slate-blue);
+            background: var(--slate-blue);
+        }
+
+        .life-dots span:nth-child(39) {
+            animation: alive-dot 1.8s ease-in-out infinite;
+            box-shadow: 0 0 0 0 color-mix(in srgb, var(--slate-blue) 42%, transparent);
+        }
+
+        @keyframes alive-dot {
+            0%, 100% {
+                box-shadow: 0 0 0 0 color-mix(in srgb, var(--slate-blue) 38%, transparent);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 0 5px color-mix(in srgb, var(--slate-blue) 0%, transparent);
+                transform: scale(1.18);
+            }
+        }
+
+        .life-research-brace {
+            position: relative;
+            width: 114px;
+            height: 14px;
+            margin-top: 8px;
+            margin-left: 234px;
+            color: var(--slate-blue);
+        }
+
+        .life-research-brace::before {
+            content: "";
+            position: absolute;
+            left: 2px;
+            right: 2px;
+            top: 0;
+            height: 9px;
+            border-bottom: 1.5px solid currentColor;
+            border-left: 1.5px solid currentColor;
+            border-right: 1.5px solid currentColor;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .life-research-brace::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 9px;
+            height: 9px;
+            border-left: 1.5px solid currentColor;
+            border-bottom: 1.5px solid currentColor;
+            transform: translateX(-50%) rotate(-45deg);
+            background: var(--warm-white);
+        }
+
+        .life-annotation {
+            display: block;
+            margin-top: 4px;
+            margin-left: 196px;
+            color: var(--slate-blue);
+            font-family: var(--mono);
+            font-size: 0.64rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-align: center;
+            width: 190px;
+        }
+
+        .hero-copy {
+            max-width: 920px;
+            display: grid;
+            gap: clamp(24px, 2.4vw, 34px);
+        }
+
+        .hero-thread-card {
+            position: relative;
+            align-self: center;
+            border: 1px solid color-mix(in srgb, var(--ochre) 34%, transparent);
+            background: color-mix(in srgb, var(--yellow-wash) 78%, var(--warm-white));
+            padding: 20px 18px 18px;
+            box-shadow: 0 18px 34px color-mix(in srgb, var(--charcoal) 12%, transparent);
+            transform: rotate(1.3deg);
+        }
+
+        .hero-thread-card::before {
+            content: "";
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            width: 72px;
+            height: 24px;
+            background: color-mix(in srgb, var(--warm-white) 72%, transparent);
+            border: 1px solid color-mix(in srgb, var(--charcoal) 8%, transparent);
+            box-shadow: 0 3px 10px color-mix(in srgb, var(--charcoal) 8%, transparent);
+            transform: translateX(-50%) rotate(-3deg);
+        }
+
+        .hero-thread-card h2 {
+            color: var(--charcoal);
+            display: inline;
+            font-family: var(--sans);
+            font-size: clamp(1.48rem, 2.1vw, 2.08rem);
+            font-weight: 700;
+            line-height: 1.02;
+            letter-spacing: -0.035em;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            background:
+                linear-gradient(transparent 58%, color-mix(in srgb, var(--slate-blue) 26%, transparent) 58% 86%, transparent 86%);
+        }
+
+        .hero-thread-list {
+            display: grid;
+            margin-top: 18px;
+            border-top: 1px solid rgba(44, 42, 38, 0.16);
+        }
+
+        .hero-thread {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 10px;
+            align-items: baseline;
+            border-bottom: 1px solid rgba(44, 42, 38, 0.14);
+            padding: 10px 0;
+            color: var(--slate);
+            font-size: 0.86rem;
+        }
+
+        .hero-thread em {
+            color: var(--ash);
+            font: 0.68rem var(--mono);
+            font-style: normal;
+        }
+
+        .hero-thread strong {
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        .hero-thread span {
+            color: var(--slate-blue);
+            font: 0.62rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
 
         h1 {
-            font-size: 1.4rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: lowercase;
-            opacity: 0.5;
-            margin-bottom: 2rem;
+            margin: 0;
+            font-family: var(--sans);
+            font-size: clamp(2.8rem, 7vw, 5.6rem);
+            font-weight: 700;
+            line-height: 0.95;
+            letter-spacing: -0.025em;
+            color: var(--charcoal);
+            text-wrap: balance;
         }
 
-        p {
-            font-size: 2.4rem;
+        .hero-kicker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            color: var(--slate);
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .hero-kicker span + span::before {
+            content: "/";
+            margin-right: 10px;
+            color: var(--ash);
+        }
+
+        .intro-note {
+            max-width: 36rem;
+            display: grid;
+            gap: 12px;
+            border-left: 1px solid var(--line-strong);
+            padding-left: clamp(16px, 2vw, 22px);
+        }
+
+        .intro-note .label {
+            color: var(--slate);
+        }
+
+        .lead {
+            color: var(--charcoal);
+            font-size: clamp(1.08rem, 1.6vw, 1.36rem);
+            line-height: 1.42;
+            font-weight: 400;
+        }
+
+        .lead-secondary {
+            color: var(--slate);
+            font-size: clamp(0.98rem, 1.18vw, 1.1rem);
+            line-height: 1.5;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+            max-width: 36rem;
+            margin-top: 2px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(74, 124, 94, 0.32);
+            background: rgba(74, 124, 94, 0.08);
+            color: var(--forest);
+            padding: 7px 11px;
+            font: 0.72rem var(--mono);
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .status-pill::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--forest);
+        }
+
+        .operating-bias {
+            grid-column: 1 / -1;
+            justify-self: start;
+            border-top: 1px solid var(--line);
+            padding-top: 12px;
+            color: var(--slate);
+            font-family: var(--mono);
+            font-size: clamp(0.76rem, 1vw, 0.9rem);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .operating-bias::before {
+            content: "operating bias:";
+            margin-right: 8px;
+            color: var(--ash);
+        }
+
+        /* Bands */
+        .band {
+            border-top: 1px solid var(--line);
+            padding: clamp(64px, 9vw, 112px) 0;
+            background:
+                linear-gradient(180deg,
+                    var(--section-from, rgba(250, 248, 245, 0.96)) 0%,
+                    var(--section-to, rgba(250, 248, 245, 0.96)) 100%);
+        }
+
+        .band-parchment {
+            --section-from: color-mix(in srgb, var(--parchment) 92%, transparent);
+            --section-to: color-mix(in srgb, var(--parchment) 72%, transparent);
+            border-top-color: var(--line);
+        }
+
+        .proof-start {
+            --section-from: color-mix(in srgb, var(--parchment) 74%, transparent);
+            --section-to: color-mix(in srgb, var(--warm-white) 98%, transparent);
+            border-top: 0;
+            padding-top: clamp(72px, 8vw, 104px);
+        }
+
+        .proof-start .chapter {
+            border-top-color: rgba(44, 42, 38, 0.18);
+        }
+
+        .band-sage {
+            --section-from: color-mix(in srgb, var(--warm-white) 96%, transparent);
+            --section-to: color-mix(in srgb, var(--sage-wash) 96%, transparent);
+        }
+
+        .band-blue {
+            --section-from: color-mix(in srgb, var(--sage-wash) 96%, transparent);
+            --section-to: color-mix(in srgb, var(--blue-wash) 94%, transparent);
+        }
+
+        .band-yellow {
+            --section-from: color-mix(in srgb, var(--blue-wash) 94%, transparent);
+            --section-to: color-mix(in srgb, var(--yellow-wash) 54%, var(--warm-white));
+        }
+
+        .band-clay {
+            --section-from: color-mix(in srgb, var(--yellow-wash) 54%, var(--warm-white));
+            --section-to: color-mix(in srgb, var(--clay-wash) 94%, transparent);
+        }
+
+        .band-closing {
+            --section-from: var(--charcoal);
+            --section-to: color-mix(in srgb, var(--charcoal) 92%, var(--slate-blue));
+            border-top-color: color-mix(in srgb, var(--warm-white) 18%, transparent);
+        }
+
+        .section-head {
+            display: grid;
+            grid-template-columns: minmax(0, 0.6fr) minmax(280px, 0.4fr);
+            gap: 36px;
+            align-items: end;
+            margin-bottom: 40px;
+        }
+
+        .section-head h2 {
+            margin-top: 12px;
+            max-width: 780px;
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: clamp(2.4rem, 5vw, 4.6rem);
+            line-height: 0.95;
+            letter-spacing: -0.025em;
+            color: var(--charcoal);
+            text-wrap: balance;
+        }
+
+        .section-head p {
+            color: var(--slate);
+            font-size: 1.02rem;
+            line-height: 1.55;
+        }
+
+        /* Chapters */
+        .chapter {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: clamp(28px, 4vw, 56px);
+            align-items: center;
+            min-height: clamp(500px, 45vw, 560px);
+            border-top: 1px solid var(--line-strong);
+            padding-top: 34px;
+        }
+
+        .chapter + .chapter {
+            margin-top: clamp(64px, 9vw, 112px);
+        }
+
+        .chapter-copy {
+            display: grid;
+            gap: 28px;
+            min-width: 0;
+        }
+
+        .chapter-head {
+            display: grid;
+            gap: 10px;
+        }
+
+        .chapter h3 {
+            margin-top: 8px;
+            max-width: 14ch;
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: clamp(2rem, 3.6vw, 3.6rem);
+            line-height: 0.98;
+            letter-spacing: -0.025em;
+            color: var(--charcoal);
+            overflow-wrap: break-word;
+        }
+
+        .chapter-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            font: 0.74rem var(--mono);
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ash);
+        }
+
+        .chapter-meta .meta-divider {
+            color: var(--line-strong);
+        }
+
+        .chapter-lead {
+            max-width: 620px;
+            color: var(--slate);
+            font-size: 1.06rem;
+            line-height: 1.55;
+        }
+
+        .qa {
+            display: grid;
+            gap: 16px;
+        }
+
+        .answer {
+            border-top: 1px solid var(--line);
+            padding-top: 14px;
+        }
+
+        .answer strong {
+            display: block;
+            margin-bottom: 6px;
             font-weight: 600;
+            color: var(--charcoal);
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .answer p {
+            color: var(--slate);
+            line-height: 1.55;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            border: 1px solid var(--line);
+            color: var(--slate);
+            padding: 6px 10px;
+            background: rgba(44, 42, 38, 0.02);
+        }
+
+        /* Artefact frames */
+        .artifact {
+            min-height: clamp(430px, 38vw, 500px);
+            display: grid;
+            place-items: center end;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .artifact > * {
+            max-height: 500px;
+        }
+
+        /* SpacePod demo */
+        .spacepod-demo {
+            width: 100%;
+            max-width: 620px;
+            border: 1px solid var(--line-strong);
+            background: var(--linen);
+            color: var(--charcoal);
+            box-shadow: 0 22px 54px rgba(44, 42, 38, 0.10);
+            overflow: hidden;
+        }
+
+        .spacepod-demo-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--stone);
+            padding: 13px 15px;
+        }
+
+        .spacepod-logo {
+            font-family: var(--sans);
+            font-size: 1.18rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .spacepod-nav {
+            display: flex;
+            gap: 14px;
+            color: var(--slate);
+            font: 0.72rem var(--mono);
+            font-weight: 500;
+        }
+
+        .spacepod-stage {
+            display: grid;
+            grid-template-columns: 0.34fr 0.66fr;
+            gap: 14px;
+            padding: 16px;
+        }
+
+        .pod-library {
+            background: var(--warm-white);
+            border: 1px solid var(--stone);
+            padding: 12px;
+        }
+
+        .pod-library-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+            font: 0.7rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--charcoal);
+        }
+
+        .pod-library-head span {
+            color: var(--ash);
+            font-weight: 500;
+        }
+
+        .pod-item {
+            border-top: 1px solid var(--stone);
+            padding: 9px 0;
+        }
+
+        .pod-item strong {
+            display: block;
+            color: var(--charcoal);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .pod-item span {
+            display: block;
+            margin-top: 4px;
+            color: var(--slate);
+            font-size: 0.7rem;
+            line-height: 1.4;
+        }
+
+        .pod-add {
+            margin-top: 10px;
+            border: 1px dashed var(--stone);
+            padding: 8px;
+            text-align: center;
+            color: var(--terracotta);
+            font: 0.7rem var(--mono);
+            font-weight: 600;
+        }
+
+        .pod-answer {
+            display: grid;
+            gap: 10px;
+            align-content: start;
+        }
+
+        .pod-question {
+            font-family: var(--sans);
+            font-size: clamp(1.04rem, 1.7vw, 1.32rem);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--charcoal);
+        }
+
+        .pod-card {
+            border-top: 2px solid var(--terracotta);
+            background: var(--warm-white);
+            border: 1px solid var(--stone);
+            border-top-width: 2px;
+            border-top-color: var(--terracotta);
+            padding: 14px;
+        }
+
+        .pod-card strong {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.94rem;
+            color: var(--charcoal);
+        }
+
+        .pod-card p {
+            color: var(--slate);
+            font-size: 0.84rem;
+            line-height: 1.55;
+        }
+
+        .pod-source {
+            border: 1px solid var(--stone);
+            background: var(--warm-white);
+            color: var(--ash);
+            padding: 8px 11px;
+            font: 0.7rem var(--mono);
+            font-weight: 500;
+        }
+
+        .pod-ask {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+        }
+
+        .pod-ask span {
+            padding: 10px 12px;
+            font: 0.72rem var(--mono);
+            font-weight: 500;
+        }
+
+        .pod-ask span {
+            border: 1px solid var(--stone);
+            color: var(--ash);
+            background: var(--warm-white);
+        }
+
+        .pod-ask .pod-ask-button {
+            border: 0;
+            background: var(--charcoal);
+            color: var(--warm-white);
+            font-weight: 600;
+        }
+
+        /* Telegram phone */
+        .telegram-phone {
+            width: min(100%, 330px);
+            justify-self: center;
+            border: 8px solid var(--charcoal);
+            border-radius: 30px;
+            background: #e6f0dd;
+            box-shadow: 0 22px 54px rgba(44, 42, 38, 0.20);
+            overflow: hidden;
+        }
+
+        .telegram-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f7f8f7;
+            color: #12151a;
+            padding: 12px 18px 8px;
+            font: 0.78rem var(--mono);
+        }
+
+        .telegram-top {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 10px;
+            align-items: center;
+            border-bottom: 1px solid #dde2dc;
+            background: #f7f8f7;
+            padding: 8px 14px 12px;
+        }
+
+        .telegram-back {
+            color: #1581d8;
+            font-size: 1.45rem;
+            line-height: 1;
+        }
+
+        .telegram-title {
+            display: grid;
+            gap: 2px;
+            text-align: center;
+        }
+
+        .telegram-title strong {
+            color: #12151a;
+            font-size: 1rem;
+        }
+
+        .telegram-title span {
+            color: #7c857b;
+            font-size: 0.76rem;
+        }
+
+        .telegram-avatar {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #229ed9;
+            color: #fff;
+            font: 0.74rem var(--mono);
+            font-weight: 600;
+        }
+
+        .telegram-chat {
+            min-height: 330px;
+            display: grid;
+            align-content: end;
+            gap: 8px;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.42), transparent 10%),
+                radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.35), transparent 11%),
+                linear-gradient(135deg, #d9e9d1, #eef1da);
+            padding: 18px 14px;
+        }
+
+        .telegram-bubble {
+            width: fit-content;
+            max-width: 88%;
+            border-radius: 17px 17px 17px 4px;
+            background: #fff;
+            box-shadow: 0 3px 10px rgba(44, 42, 38, 0.08);
+            color: #20242a;
+            padding: 9px 11px;
+            font-size: 0.8rem;
+            line-height: 1.42;
+        }
+
+        .telegram-bubble.is-user {
+            justify-self: end;
+            border-radius: 17px 17px 4px 17px;
+            background: #d9fdd3;
+        }
+
+        .telegram-bubble strong {
+            color: #229ed9;
+        }
+
+        .telegram-time {
+            margin-left: 8px;
+            color: #949c91;
+            font-size: 0.72rem;
+            white-space: nowrap;
+        }
+
+        .telegram-bubble.is-user .telegram-time::after {
+            content: " ✓✓";
+            color: #4b9e6b;
+        }
+
+        .telegram-input {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 7px;
+            border-top: 1px solid rgba(44, 42, 38, 0.08);
+            background: #f7f8f7;
+            padding: 10px;
+        }
+
+        .telegram-input span {
+            border-radius: 999px;
+            background: #fff;
+            color: #9aa095;
+            padding: 9px 12px;
+            font-size: 0.82rem;
+        }
+
+        .telegram-input i {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #edf0ed;
+            color: #788075;
+            font-style: normal;
+        }
+
+        .telegram-input .telegram-send {
+            border: 0;
+            border-radius: 50%;
+            background: #229ed9;
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            font: 0.72rem var(--mono);
+        }
+
+        /* Budget dashboard demo */
+        .budget-demo {
+            width: 100%;
+            max-width: 620px;
+            border: 1px solid var(--line-strong);
+            background: var(--warm-white);
+            box-shadow: 0 22px 58px rgba(44, 42, 38, 0.12);
+            overflow: hidden;
+            color: var(--charcoal);
+            font-family: var(--sans);
+        }
+
+        .budget-demo-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--line);
+            padding: 15px 18px;
+            background: var(--linen);
+        }
+
+        .budget-demo-title {
+            font-weight: 700;
             letter-spacing: -0.02em;
         }
 
-        .sign-off {
-            font-size: 1rem;
+        .budget-demo-title span,
+        .budget-demo-date {
+            color: var(--ash);
+            font: 0.68rem var(--mono);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+        }
+
+        .budget-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            border-bottom: 1px solid var(--line);
+            padding: 11px 18px;
+            color: var(--ash);
+            font: 0.72rem var(--mono);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .budget-tabs span:first-child {
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        .budget-demo-body {
+            padding: 18px;
+        }
+
+        .budget-section-title {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 9px;
+            font: 0.72rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .budget-section-note {
+            margin: 10px 0 14px;
+            color: var(--ash);
+            font-size: 0.78rem;
+        }
+
+        .budget-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            border: 1px solid var(--line);
+            background: var(--linen);
+            padding: 10px;
+        }
+
+        .budget-card {
+            min-height: 84px;
+            border: 1px solid var(--line);
+            background: var(--warm-white);
+            padding: 11px;
+        }
+
+        .budget-card-head,
+        .rank-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .budget-card-name {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--slate);
+            font: 0.62rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .budget-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--terracotta);
+        }
+
+        .budget-card-value {
+            font: 0.82rem var(--mono);
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .spark {
+            width: 100%;
+            height: 35px;
+            margin: 8px 0 5px;
+            color: var(--slate-blue);
+        }
+
+        .spark path {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+        }
+
+        .spark polygon {
+            fill: currentColor;
+            opacity: 0.10;
+        }
+
+        .budget-card-foot {
+            color: var(--forest);
+            font: 0.64rem var(--mono);
+            font-weight: 500;
+        }
+
+        .budget-ranked {
+            margin-top: 18px;
+        }
+
+        .rank-list {
+            display: grid;
+            gap: 12px;
+            border: 1px solid var(--line);
+            background: var(--warm-white);
+            padding: 13px;
+        }
+
+        .rank-row {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr) auto;
+            font-size: 0.78rem;
+            color: var(--charcoal);
+        }
+
+        .rank-track {
+            height: 3px;
+            margin-top: 6px;
+            background: var(--linen);
+        }
+
+        .rank-fill {
+            display: block;
+            height: 100%;
+            background: var(--terracotta);
+        }
+
+        .rank-value {
+            font: 0.74rem var(--mono);
+            font-weight: 600;
+        }
+
+        /* Introspace demo */
+        .introspace-demo {
+            width: 100%;
+            max-width: 560px;
+            border: 1px solid #22251e;
+            background: #0c0e0b;
+            box-shadow: 0 18px 44px color-mix(in srgb, var(--charcoal) 16%, transparent);
+            overflow: hidden;
+            font-family: var(--mono);
+            transform: scale(0.96);
+            transform-origin: center right;
+        }
+
+        .introspace-top {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 3px solid #eee29a;
+            background: #0c0e0b;
+            color: #eee29a;
+            padding: 10px 12px;
+        }
+
+        .introspace-mark {
+            width: 22px;
+            height: 22px;
+            border: 4px solid #d95a45;
+            background: #eee29a;
+            box-shadow: 4px 0 0 #0c0e0b inset, 0 4px 0 #0c0e0b inset;
+        }
+
+        .introspace-title {
+            color: #d95a45;
+            font: 0.86rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-shadow: 1px 0 0 #eee29a;
+        }
+
+        .introspace-top span:last-child {
+            justify-self: end;
+            color: #d8c947;
+            font: 0.62rem var(--mono);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .introspace-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            border-bottom: 3px solid #27356f;
+            background: #e4d44d;
+            color: #0c0e0b;
+            padding: 0 12px;
+            font: 0.62rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .introspace-strip span {
+            padding: 7px 10px;
+            border-right: 2px solid #0c0e0b;
+        }
+
+        .introspace-strip span:first-child {
+            background: #27356f;
+            color: #f9f2c7;
+        }
+
+        .introspace-body {
+            display: grid;
+            gap: 12px;
+            padding: 16px;
+            background:
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 4px),
+                radial-gradient(circle at 50% 0, rgba(238, 226, 154, 0.08), transparent 38%),
+                #0c0e0b;
+        }
+
+        .introspace-card {
+            border: 1px solid #34382f;
+            background: #11140f;
+            padding: 13px;
+            color: #f9f2c7;
+        }
+
+        .introspace-card.is-request {
+            border-left: 6px solid #d95a45;
+        }
+
+        .introspace-card.is-decision {
+            border-left: 6px solid #78b782;
+        }
+
+        .introspace-card .label {
+            display: inline-block;
+            background: #7fc5cf;
+            color: #0c0e0b;
+            padding: 4px 6px;
+            font-size: 0.56rem;
+        }
+
+        .introspace-card h4 {
+            margin-top: 10px;
+            color: #e4d44d;
+            font: clamp(0.94rem, 1.45vw, 1.16rem) var(--mono);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        .introspace-card p {
+            margin-top: 9px;
+            color: #d6ddc4;
+            font-size: 0.72rem;
+            line-height: 1.55;
+        }
+
+        .introspace-flow {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .introspace-step {
+            border: 1px solid #34382f;
+            background: #141811;
+            padding: 9px;
+            color: #eef0dd;
+            font-size: 0.66rem;
+            line-height: 1.45;
+        }
+
+        .introspace-step strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #7fc5cf;
+            font: 0.62rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .introspace-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .introspace-actions span {
+            border: 1px solid #e7e0b6;
+            background: #0c0e0b;
+            color: #f9f2c7;
+            display: inline-block;
+            padding: 7px 9px;
+            font: 0.62rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .introspace-actions span:first-child {
+            border-color: #78b782;
+            background: #78b782;
+            color: #0c0e0b;
+        }
+
+        /* Reusable image artefact frame */
+        .image-artifact {
+            width: 100%;
+            max-width: 760px;
+            min-height: 430px;
+            border: 1px solid var(--line-strong);
+            background: var(--linen);
+            box-shadow: 0 22px 54px rgba(44, 42, 38, 0.12);
+            overflow: hidden;
+        }
+
+        .image-artifact img {
+            width: 100%;
+            height: 100%;
+            min-height: 430px;
+            object-fit: cover;
+            object-position: top left;
+        }
+
+        /* Bitpybit demo */
+        .bit-demo {
+            width: min(100%, 330px);
+            justify-self: center;
+            border: 8px solid var(--charcoal);
+            border-radius: 30px;
+            background: var(--warm-white);
+            box-shadow: 0 22px 54px rgba(44, 42, 38, 0.18);
+            overflow: hidden;
+        }
+
+        .bit-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--line);
+            padding: 14px 16px;
+            color: var(--slate);
+            font: 0.72rem var(--mono);
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .bit-screen {
+            display: grid;
+            gap: 14px;
+            padding: 20px;
+        }
+
+        .bit-tag {
+            justify-self: start;
+            border: 1px solid rgba(82, 114, 130, 0.36);
+            color: var(--slate-blue);
+            background: rgba(82, 114, 130, 0.06);
+            padding: 5px 9px;
+            font: 0.7rem var(--mono);
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .bit-question {
+            font-family: var(--sans);
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--charcoal);
+        }
+
+        .bit-code {
+            border: 1px solid var(--line);
+            background: var(--charcoal);
+            color: var(--warm-white);
+            padding: 13px;
+            font: 0.86rem var(--mono);
             font-weight: 400;
-            opacity: 0.4;
-            margin-top: 1.5rem;
+            white-space: pre-wrap;
+        }
+
+        .bit-options {
+            display: grid;
+            gap: 8px;
+        }
+
+        .bit-option {
+            width: 100%;
+            border: 1px solid var(--line);
+            background: var(--warm-white);
+            color: var(--charcoal);
+            cursor: pointer;
+            padding: 11px 12px;
+            text-align: left;
+            font: inherit;
+            font-size: 0.92rem;
+        }
+
+        .bit-option:hover,
+        .bit-option:focus-visible {
+            border-color: var(--slate-blue);
+            outline: 2px solid rgba(82, 114, 130, 0.28);
+            outline-offset: 2px;
+        }
+
+        .bit-option.correct {
+            border-color: var(--forest);
+            background: rgba(74, 124, 94, 0.08);
+            color: var(--forest);
+        }
+
+        .bit-option.wrong {
+            border-color: var(--terracotta);
+            background: rgba(184, 88, 66, 0.08);
+            color: var(--terracotta);
+        }
+
+        .bit-feedback {
+            min-height: 64px;
+            border-top: 1px solid var(--line);
+            padding-top: 12px;
+            color: var(--slate);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .bit-next {
+            justify-self: start;
+            border: 1px solid var(--charcoal);
+            background: var(--charcoal);
+            color: var(--warm-white);
+            cursor: pointer;
+            padding: 10px 14px;
+            font: 0.72rem var(--mono);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* Closing */
+        .closing {
+            display: grid;
+            grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
+            gap: clamp(28px, 5vw, 64px);
+            align-items: start;
+        }
+
+        .closing h2 {
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: clamp(1.72rem, 2.9vw, 2.72rem);
+            line-height: 1.12;
+            letter-spacing: -0.025em;
+            color: var(--warm-white);
+            text-wrap: balance;
+        }
+
+        .closing cite {
+            display: block;
+            margin-top: 16px;
+            color: color-mix(in srgb, var(--yellow-wash) 78%, var(--warm-white));
+            font: 0.72rem var(--mono);
+            font-style: normal;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .closing-copy {
+            display: grid;
+            gap: 18px;
+            color: color-mix(in srgb, var(--warm-white) 72%, var(--blue-wash));
+            font-size: clamp(1.04rem, 1.4vw, 1.18rem);
+            line-height: 1.55;
+        }
+
+        .closing-copy p:first-child {
+            color: var(--warm-white);
+        }
+
+        .contact-card {
+            display: grid;
+            grid-template-columns: 86px 1fr;
+            gap: 14px;
+            align-items: center;
+            border: 1px solid color-mix(in srgb, var(--warm-white) 22%, transparent);
+            background: color-mix(in srgb, var(--warm-white) 10%, transparent);
+            padding: 12px;
+            max-width: 440px;
+        }
+
+        .contact-card img {
+            width: 86px;
+            height: 104px;
+            object-fit: cover;
+            object-position: 50% 18%;
+            filter: saturate(0.82) contrast(0.96);
+        }
+
+        .contact-card strong {
+            display: block;
+            color: var(--warm-white);
+            font-weight: 600;
+        }
+
+        .contact-card span {
+            display: block;
+            margin-top: 4px;
+            color: color-mix(in srgb, var(--warm-white) 72%, var(--blue-wash));
+            font-size: 0.92rem;
+            line-height: 1.45;
+        }
+
+        .band-closing .label,
+        .band-closing .text-link {
+            color: color-mix(in srgb, var(--yellow-wash) 78%, var(--warm-white));
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            gap: 16px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 26px 0 42px;
+            color: var(--ash);
+            font: 0.74rem var(--mono);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: flex-end;
+            gap: 18px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+            color: var(--slate);
+        }
+
+        .footer-links a {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 1px;
+        }
+
+        .footer-links a:hover {
+            color: var(--terracotta);
+            border-color: var(--terracotta);
+        }
+
+        /* Reveal anim */
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            animation: rise 700ms ease forwards;
+        }
+
+        .reveal:nth-child(2) {
+            animation-delay: 120ms;
+        }
+
+        @keyframes rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+
+            .life-dots span:nth-child(39) {
+                box-shadow: none;
+                transform: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 980px) {
+            .name-primer-inner,
+            .name-primer-copy,
+            .hero-inner,
+            .section-head,
+            .chapter,
+            .closing {
+                grid-template-columns: 1fr;
+            }
+
+            .chapter {
+                min-height: auto;
+            }
+
+            .artifact {
+                min-height: auto;
+                place-items: start;
+            }
+
+            .spacepod-stage {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .shell {
+                width: min(100% - 22px, var(--max));
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 32px;
+                padding-bottom: 72px;
+            }
+
+            h1 {
+                font-size: clamp(2.6rem, 13vw, 4rem);
+            }
+
+            .band {
+                padding: 58px 0;
+            }
+
+            .proof-start {
+                padding-top: 64px;
+            }
+
+            .life-dots {
+                grid-template-columns: repeat(30, 6px);
+            }
+
+            .life-annotation {
+                margin-left: 64px;
+            }
+
+            .life-research-brace {
+                margin-left: 78px;
+            }
+
+            .name-primer-title {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+                padding-right: 0;
+                padding-bottom: 12px;
+            }
+
+            .name-primer-copy p {
+                white-space: normal;
+            }
+
+            .hero-thread-card {
+                transform: none;
+            }
+
+            .budget-card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .introspace-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner,
+            .footer-links {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <p>watch this halfspace.</p>
-        <p class="sign-off">—nigel</p>
-    </div>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <main id="main">
+        <section class="name-primer" id="name" aria-label="Meaning of halfspace">
+            <div class="shell name-primer-inner">
+                <div class="halfspace-diagram" aria-hidden="true"></div>
+                <div class="name-primer-title">
+                    <h2>halfspaces</h2>
+                </div>
+                <div class="name-primer-copy">
+                    <p><strong>In geometry:</strong> one side of a boundary; a region made clear by a constraint.</p>
+                    <p><strong>In football:</strong> the inside channel between centre and wing; where creative play often resides.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero">
+            <div class="shell hero-inner">
+                <div class="hero-copy reveal">
+                    <div class="life-strip" aria-label="Life in years marker">
+                        <div class="life-dots" aria-hidden="true">
+                            <span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span class="is-filled"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <span class="life-research-brace" aria-hidden="true"></span>
+                        <span class="life-annotation">13 years in market research</span>
+                    </div>
+                    <p class="eyebrow">Nigel Lin / Singapore / May 2026</p>
+                    <h1>Hello! Nigel here.</h1>
+                    <div class="hero-kicker" aria-label="Current positioning">
+                        <span>market researcher</span>
+                        <span>product builder</span>
+                        <span>AI explorer</span>
+                    </div>
+                    <div class="intro-note">
+                        <span class="label">public workbench</span>
+                        <p class="lead">I&rsquo;m a market researcher with 13 years of experience, now using AI to turn my ideas into interfaces. This site is my proof-of-work layer: a place to show how I think, and what I&rsquo;ve built.</p>
+                        <p class="lead-secondary">Enjoy your stay.</p>
+                    </div>
+                    <div class="hero-actions">
+                        <span class="status-pill" aria-label="Currently open to work">Open to work</span>
+                        <a class="text-link" href="#spacepod">Threads</a>
+                        <a class="text-link" href="assets/nigel-lin-cv.pdf">CV</a>
+                        <a class="text-link" href="https://www.linkedin.com/in/nigellin/">LinkedIn</a>
+                        <a class="text-link" href="mailto:nigeleatworld@gmail.com">Email</a>
+                    </div>
+                </div>
+                <aside class="hero-thread-card reveal" aria-label="Live threads preview">
+                    <h2>Five proof-of-work threads.</h2>
+                    <div class="hero-thread-list">
+                        <a class="hero-thread" href="#spacepod"><em>01</em><strong>SpacePod</strong><span>beta</span></a>
+                        <a class="hero-thread" href="#mrb"><em>02</em><strong>Mr. B</strong><span>live</span></a>
+                        <a class="hero-thread" href="#budget"><em>03</em><strong>Budget dashboard</strong><span>in use</span></a>
+                        <a class="hero-thread" href="#introspace"><em>04</em><strong>Introspace</strong><span>idea</span></a>
+                        <a class="hero-thread" href="#bitpybit"><em>05</em><strong>Bitpybit</strong><span>pre-launch</span></a>
+                    </div>
+                </aside>
+                <p class="operating-bias reveal">high agency, hands-on, low theatre.</p>
+            </div>
+        </section>
+
+        <section class="band proof-start" id="spacepod">
+            <div class="shell">
+                <article class="chapter">
+                    <div class="chapter-copy">
+                        <div class="chapter-head">
+                            <p class="label">01 / SpacePod</p>
+                            <h3>Turning listening into searchable memory.</h3>
+                            <div class="chapter-meta"><span>2025</span><span class="meta-divider">/</span><span>Beta</span><span class="meta-divider">/</span><a href="https://spacepod.co" class="text-link">spacepod.co</a></div>
+                        </div>
+                        <p class="chapter-lead">I&rsquo;d listen to podcasts and forget a lot of what was said. SpacePod helps keep the wisdom within reach.</p>
+                        <div class="qa">
+                            <div class="answer"><strong>What it is</strong><p>A podcast knowledge base: followed shows become transcripts, transcripts become searchable memory, and search becomes cited synthesis.</p></div>
+                            <div class="answer"><strong>Why I built it</strong><p>Most knowledge tools treat listening as disposable. I wanted a place where good conversations could be queried later, with sources attached.</p></div>
+                        </div>
+                        <div class="chips">
+                            <span class="chip">Flask</span>
+                            <span class="chip">SQLite FTS5</span>
+                            <span class="chip">Spotify</span>
+                            <span class="chip">Deepgram</span>
+                            <span class="chip">Claude</span>
+                        </div>
+                    </div>
+                    <div class="artifact">
+                        <div class="spacepod-demo" aria-label="SpacePod product interface demo">
+                            <div class="spacepod-demo-top">
+                                <div class="spacepod-logo">SpacePod</div>
+                                <div class="spacepod-nav"><span>Library (3)</span><span>Ask</span></div>
+                            </div>
+                            <div class="spacepod-stage">
+                                <aside class="pod-library" aria-label="Podcast library">
+                                    <div class="pod-library-head">Library <span>3 searchable</span></div>
+                                    <div class="pod-item"><strong>David Senra</strong><span>Adam Foroughi, AppLovin</span></div>
+                                    <div class="pod-item"><strong>Invest Like The Best</strong><span>Nick Kokonas; Know What You Are Selling</span></div>
+                                    <div class="pod-add">+ Add podcast</div>
+                                </aside>
+                                <div class="pod-answer">
+                                    <h4 class="pod-question">Find me three quotes on resilience.</h4>
+                                    <div class="pod-card">
+                                        <strong>Three useful pulls</strong>
+                                        <p>Failure as process. Ownership instead of waiting. Persistence through loss. The thread is simple: small advantages compound when you keep moving.</p>
+                                    </div>
+                                    <div class="pod-source">1 source cited &middot; Invest Like The Best</div>
+                                    <div class="pod-ask">
+                                        <span>What would you like to know?</span>
+                                        <span class="pod-ask-button">Ask</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="band band-sage" id="mrb">
+            <div class="shell">
+                <article class="chapter">
+                    <div class="chapter-copy">
+                        <div class="chapter-head">
+                            <p class="label">02 / Mr. B</p>
+                            <h3>Meet my assistant, Mr. B.</h3>
+                            <div class="chapter-meta"><span>2026</span><span class="meta-divider">/</span><span>Live</span><span class="meta-divider">/</span><span>Telegram</span></div>
+                        </div>
+                        <p class="chapter-lead">I wanted an assistant to help me move the right things forward. My wife named him.</p>
+                        <div class="qa">
+                            <div class="answer"><strong>What it is</strong><p>A personal AI chief-of-staff for calendar scheduling, daily briefings, nudges, and recurring work.</p></div>
+                            <div class="answer"><strong>Why I built it</strong><p>Agentic AI becomes interesting when it is attached to real recurring work, real constraints, and real consequences.</p></div>
+                        </div>
+                        <div class="chips">
+                            <span class="chip">Telegram-first</span>
+                            <span class="chip">briefing files</span>
+                            <span class="chip">agent ops</span>
+                            <span class="chip">progressive trust</span>
+                        </div>
+                    </div>
+                    <div class="artifact">
+                        <div class="telegram-phone" aria-label="Mr. B Telegram chat mockup">
+                            <div class="telegram-status"><span>9:41</span><span>5G 78%</span></div>
+                            <div class="telegram-top">
+                                <span class="telegram-back">&lsaquo;</span>
+                                <div class="telegram-title"><strong>Mr. B</strong><span>bot</span></div>
+                                <div class="telegram-avatar">B</div>
+                            </div>
+                            <div class="telegram-chat">
+                                <div class="telegram-bubble is-user">Morning. What needs moving today?<span class="telegram-time">8:13</span></div>
+                                <div class="telegram-bubble"><strong>Mr. B</strong><br>Three nudges today. Nothing invented.<span class="telegram-time">8:14</span></div>
+                                <div class="telegram-bubble">1. Send the SpacePod update.<br>2. Tailor one resume before lunch.<br>3. Protect family dinner.<span class="telegram-time">8:14</span></div>
+                                <div class="telegram-bubble is-user">Snooze the resume nudge by 45 mins.<span class="telegram-time">8:15</span></div>
+                                <div class="telegram-bubble">Done. I&rsquo;ll bring it back at 9:00.<span class="telegram-time">8:15</span></div>
+                            </div>
+                            <div class="telegram-input">
+                                <i>&#9906;</i>
+                                <span>Message</span>
+                                <span class="telegram-send" aria-hidden="true">&uarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="band band-blue" id="budget">
+            <div class="shell">
+                <article class="chapter">
+                    <div class="chapter-copy">
+                        <div class="chapter-head">
+                            <p class="label">03 / Budget dashboard</p>
+                            <h3>Personal finance, at a glance.</h3>
+                            <div class="chapter-meta"><span>2026</span><span class="meta-divider">/</span><span>In use</span><span class="meta-divider">/</span><span>private</span></div>
+                        </div>
+                        <p class="chapter-lead">I built a dashboard that tracks every transaction and monitors my financial health.</p>
+                        <div class="qa">
+                            <div class="answer"><strong>What it is</strong><p>A private dashboard that turns messy exports into trends, subscriptions, ranked spend, runway, and net-worth views.</p></div>
+                            <div class="answer"><strong>Why I built it</strong><p>Money is easier to manage when the system shows what moved, what matters, and what decisions are available next.</p></div>
+                        </div>
+                    </div>
+                    <div class="artifact">
+                        <div class="budget-demo" aria-label="Sanitised budget dashboard demo">
+                            <div class="budget-demo-top">
+                                <div class="budget-demo-title">Budget Dashboard <span>(demo)</span></div>
+                                <div class="budget-demo-date">Demo &middot; Apr 2026</div>
+                            </div>
+                            <div class="budget-tabs" aria-hidden="true">
+                                <span>Snapshot</span><span>Insights</span><span>Cash Flow</span><span>Movers</span><span>Trends</span><span>Transactions</span>
+                            </div>
+                            <div class="budget-demo-body">
+                                <div class="budget-section-title">Category trends</div>
+                                <p class="budget-section-note">Each sparkline shows how that category has trended across months. Numbers show the latest month vs the average.</p>
+                                <div class="budget-card-grid">
+                                    <div class="budget-card">
+                                        <div class="budget-card-head"><span class="budget-card-name"><i class="budget-dot"></i>Shopping</span><span class="budget-card-value">$1,500</span></div>
+                                        <svg class="spark" viewBox="0 0 120 36" aria-hidden="true"><polygon points="0,32 0,25 28,13 42,9 58,12 72,24 92,27 120,22 120,32"></polygon><path d="M0 25 C20 18 28 9 42 9 S62 23 72 24 S100 27 120 22"></path></svg>
+                                        <div class="budget-card-foot">&darr; 14% vs avg</div>
+                                    </div>
+                                    <div class="budget-card">
+                                        <div class="budget-card-head"><span class="budget-card-name"><i class="budget-dot" style="background:var(--slate-blue)"></i>Household</span><span class="budget-card-value">$1,400</span></div>
+                                        <svg class="spark" viewBox="0 0 120 36" aria-hidden="true" style="color:var(--slate-blue)"><polygon points="0,32 0,23 28,17 44,16 64,22 82,25 120,24 120,32"></polygon><path d="M0 23 C24 17 38 15 50 16 S70 25 88 25 S108 24 120 24"></path></svg>
+                                        <div class="budget-card-foot">&darr; 13% vs avg</div>
+                                    </div>
+                                    <div class="budget-card">
+                                        <div class="budget-card-head"><span class="budget-card-name"><i class="budget-dot" style="background:var(--ochre)"></i>Childcare</span><span class="budget-card-value">$1,000</span></div>
+                                        <svg class="spark" viewBox="0 0 120 36" aria-hidden="true" style="color:var(--ochre)"><polygon points="0,32 0,25 30,22 48,20 72,21 120,21 120,32"></polygon><path d="M0 25 C28 21 42 20 52 20 S74 21 120 21"></path></svg>
+                                        <div class="budget-card-foot" style="color:var(--terracotta)">&uarr; 33% vs avg</div>
+                                    </div>
+                                    <div class="budget-card">
+                                        <div class="budget-card-head"><span class="budget-card-name"><i class="budget-dot" style="background:var(--forest)"></i>Food/drink</span><span class="budget-card-value">$1,000</span></div>
+                                        <svg class="spark" viewBox="0 0 120 36" aria-hidden="true" style="color:var(--forest)"><polygon points="0,32 0,16 36,18 74,20 120,20 120,32"></polygon><path d="M0 16 C30 18 58 20 88 20 S108 20 120 20"></path></svg>
+                                        <div class="budget-card-foot">&darr; 12% vs avg</div>
+                                    </div>
+                                    <div class="budget-card">
+                                        <div class="budget-card-head"><span class="budget-card-name"><i class="budget-dot" style="background:var(--terracotta)"></i>Subscriptions</span><span class="budget-card-value">$900</span></div>
+                                        <svg class="spark" viewBox="0 0 120 36" aria-hidden="true" style="color:var(--terracotta)"><polygon points="0,32 0,20 30,12 48,10 76,21 96,21 120,12 120,32"></polygon><path d="M0 20 C24 15 32 10 48 10 S72 22 90 21 S110 15 120 12"></path></svg>
+                                        <div class="budget-card-foot" style="color:var(--terracotta)">&uarr; 26% vs avg</div>
+                                    </div>
+                                    <div class="budget-card">
+                                        <div class="budget-card-head"><span class="budget-card-name"><i class="budget-dot" style="background:var(--slate)"></i>Transport</span><span class="budget-card-value">$300</span></div>
+                                        <svg class="spark" viewBox="0 0 120 36" aria-hidden="true" style="color:var(--slate)"><polygon points="0,32 0,19 30,24 56,25 82,24 120,26 120,32"></polygon><path d="M0 19 C32 25 45 25 64 25 S94 24 120 26"></path></svg>
+                                        <div class="budget-card-foot">&darr; 27% vs avg</div>
+                                    </div>
+                                </div>
+
+                                <div class="budget-ranked">
+                                    <div class="budget-section-title">Ranked &mdash; this month</div>
+                                    <div class="rank-list">
+                                        <div class="rank-row"><i class="budget-dot"></i><span>Shopping<span class="rank-track"><span class="rank-fill" style="width:78%"></span></span></span><span class="rank-value">$1,500</span></div>
+                                        <div class="rank-row"><i class="budget-dot" style="background:var(--slate-blue)"></i><span>Household<span class="rank-track"><span class="rank-fill" style="width:72%; background:var(--slate-blue)"></span></span></span><span class="rank-value">$1,400</span></div>
+                                        <div class="rank-row"><i class="budget-dot" style="background:var(--ochre)"></i><span>Childcare<span class="rank-track"><span class="rank-fill" style="width:54%; background:var(--ochre)"></span></span></span><span class="rank-value">$1,000</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="band band-yellow" id="introspace">
+            <div class="shell">
+                <article class="chapter">
+                    <div class="chapter-copy">
+                        <div class="chapter-head">
+                            <p class="label">04 / Introspace</p>
+                            <h3>Trust-based referrals as a workflow.</h3>
+                            <div class="chapter-meta"><span>2025</span><span class="meta-divider">/</span><span>Idea</span><span class="meta-divider">/</span><span>concept</span></div>
+                        </div>
+                        <p class="chapter-lead">I wanted to make the invisible work around referrals more explicit: context, trust, fit, and the right to say no.</p>
+                        <div class="qa">
+                            <div class="answer"><strong>What it is</strong><p>A private professional network for people in transition and connectors willing to make trust-based referrals.</p></div>
+                            <div class="answer"><strong>Why I built it</strong><p>Cold applications flatten people. Good introductions carry context, but most tools do not structure that context well.</p></div>
+                        </div>
+                        <div class="chips">
+                            <span class="chip">Flask</span>
+                            <span class="chip">SQLite</span>
+                            <span class="chip">trust design</span>
+                        </div>
+                    </div>
+                    <div class="artifact">
+                        <div class="introspace-demo" aria-label="Introspace referral workflow demo">
+                            <div class="introspace-top">
+                                <div class="introspace-mark" aria-hidden="true"></div>
+                                <div class="introspace-title">Introspace</div>
+                                <span>private referral network</span>
+                            </div>
+                            <div class="introspace-strip" aria-hidden="true">
+                                <span>Start here</span>
+                                <span>private profiles</span>
+                                <span>context first</span>
+                                <span>human yes/no intros</span>
+                            </div>
+                            <div class="introspace-body">
+                                <div class="introspace-card is-request">
+                                    <span class="label">request packet</span>
+                                    <h4>Can you introduce me to someone hiring for AI product roles?</h4>
+                                    <p>A request carries context before asking for access: who I am, why this role, why this connector, and what a useful introduction would look like.</p>
+                                </div>
+                                <div class="introspace-flow">
+                                    <div class="introspace-step"><strong>Profile</strong>Concise context, current search, constraints, proof of work.</div>
+                                    <div class="introspace-step"><strong>Opportunity</strong>Privately shared roles with fit notes, not public job-board noise.</div>
+                                    <div class="introspace-step"><strong>Connector</strong>The person decides whether trust, timing, and fit are strong enough.</div>
+                                </div>
+                                <div class="introspace-card is-decision">
+                                    <span class="label">connector console</span>
+                                    <h4>Warm intro only if the context earns it.</h4>
+                                    <p>The workflow protects both sides: the seeker gets a fair read, and the connector keeps the right to say no.</p>
+                                    <div class="introspace-actions" aria-hidden="true">
+                                        <span>Make intro</span>
+                                        <span>Ask for context</span>
+                                        <span>Pass</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="band band-clay" id="bitpybit">
+            <div class="shell">
+                <article class="chapter">
+                    <div class="chapter-copy">
+                        <div class="chapter-head">
+                            <p class="label">05 / Bitpybit</p>
+                            <h3>Small learning loops on mobile.</h3>
+                            <div class="chapter-meta"><span>2026</span><span class="meta-divider">/</span><span>Pre-launch</span><span class="meta-divider">/</span><span>iOS</span></div>
+                        </div>
+                        <p class="chapter-lead">Bitpybit is deliberately small: one to three Python questions a day, short explanations, and a habit loop that does not ask for too much.</p>
+                        <div class="qa">
+                            <div class="answer"><strong>What it is</strong><p>A notification-first iPhone learning app for daily bite-sized Python practice.</p></div>
+                            <div class="answer"><strong>Why I built it</strong><p>I wanted to test whether programming practice could feel light enough to survive a normal day.</p></div>
+                        </div>
+                        <div class="chips">
+                            <span class="chip">SwiftUI</span>
+                            <span class="chip">local-first</span>
+                            <span class="chip">180 questions</span>
+                        </div>
+                    </div>
+                    <div class="artifact">
+                        <div class="bit-demo" aria-label="Interactive Bitpybit quiz demo">
+                            <div class="bit-status">
+                                <span>bitpybit</span>
+                                <span data-bit-progress>1 / 3</span>
+                            </div>
+                            <div class="bit-screen">
+                                <span class="bit-tag" data-bit-tag>print</span>
+                                <h4 class="bit-question" data-bit-question>What does this code display?</h4>
+                                <pre class="bit-code" data-bit-code>print("hello")</pre>
+                                <div class="bit-options" data-bit-options></div>
+                                <p class="bit-feedback" data-bit-feedback>Choose an answer to see the explanation.</p>
+                                <button class="bit-next" type="button" data-bit-next>next question</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="band band-closing" id="contact">
+            <div class="shell closing">
+                <div>
+                    <p class="label">the through-line</p>
+                    <h2>&ldquo;Life is like riding a bicycle. To keep your balance, you must keep moving.&rdquo;</h2>
+                    <cite>Albert Einstein</cite>
+                </div>
+                <div class="closing-copy">
+                    <p>The tools are moving quickly. I&rsquo;d rather stay close to them, use them properly, and learn by building with them.</p>
+                    <p>That is what this site is: a place for the things I&rsquo;m testing, making, and slowly improving.</p>
+                    <p>If any of this is useful, interesting, or adjacent to something you are working on, I&rsquo;m easy to reach.</p>
+                    <div class="contact-card">
+                        <img src="assets/nigel-hero-crop.png" alt="Portrait of Nigel Lin" width="86" height="104" loading="lazy" decoding="async">
+                        <div>
+                            <strong>Nigel Lin</strong>
+                            <span>Singapore</span>
+                            <span class="contact-links"><a class="text-link" href="mailto:nigeleatworld@gmail.com">Email me</a> <a class="text-link" href="assets/nigel-lin-cv.pdf">CV</a> <a class="text-link" href="https://www.linkedin.com/in/nigellin/">LinkedIn</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="shell footer-inner">
+            <span class="footer-links">
+                <a href="#main">Top</a>
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        const bitQuestions = [
+            {
+                tag: "print",
+                question: "What does this code display?",
+                code: 'print("hello")',
+                options: [
+                    "Saves the word hello",
+                    "Displays: hello",
+                    "Creates a variable called hello",
+                ],
+                answer: 1,
+                feedback: "print sends text to the output. Here it displays hello.",
+            },
+            {
+                tag: "variables",
+                question: "What is the value of score?",
+                code: "score = 4\nscore = score + 3",
+                options: [
+                    "3",
+                    "4",
+                    "7",
+                ],
+                answer: 2,
+                feedback: "The second line takes the old value, adds 3, and stores 7 back into score.",
+            },
+            {
+                tag: "lists",
+                question: "Which item does this print?",
+                code: 'items = ["tea", "rice", "milo"]\nprint(items[1])',
+                options: [
+                    "tea",
+                    "rice",
+                    "milo",
+                ],
+                answer: 1,
+                feedback: "Python lists start at index 0, so items[1] is the second item: rice.",
+            },
+        ];
+
+        const bitState = { index: 0, answered: false };
+        const bitEls = {
+            progress: document.querySelector("[data-bit-progress]"),
+            tag: document.querySelector("[data-bit-tag]"),
+            question: document.querySelector("[data-bit-question]"),
+            code: document.querySelector("[data-bit-code]"),
+            options: document.querySelector("[data-bit-options]"),
+            feedback: document.querySelector("[data-bit-feedback]"),
+            next: document.querySelector("[data-bit-next]"),
+        };
+
+        function renderBitQuestion() {
+            const item = bitQuestions[bitState.index];
+            bitState.answered = false;
+            bitEls.progress.textContent = `${bitState.index + 1} / ${bitQuestions.length}`;
+            bitEls.tag.textContent = item.tag;
+            bitEls.question.textContent = item.question;
+            bitEls.code.textContent = item.code;
+            bitEls.feedback.textContent = "Choose an answer to see the explanation.";
+            bitEls.options.innerHTML = "";
+
+            item.options.forEach((option, optionIndex) => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "bit-option";
+                button.textContent = option;
+                button.addEventListener("click", () => answerBitQuestion(optionIndex));
+                bitEls.options.appendChild(button);
+            });
+        }
+
+        function answerBitQuestion(optionIndex) {
+            if (bitState.answered) return;
+            const item = bitQuestions[bitState.index];
+            bitState.answered = true;
+            [...bitEls.options.children].forEach((button, buttonIndex) => {
+                if (buttonIndex === item.answer) button.classList.add("correct");
+                if (buttonIndex === optionIndex && optionIndex !== item.answer) button.classList.add("wrong");
+            });
+            bitEls.feedback.textContent = optionIndex === item.answer ? item.feedback : `Not quite. ${item.feedback}`;
+        }
+
+        bitEls.next.addEventListener("click", () => {
+            bitState.index = (bitState.index + 1) % bitQuestions.length;
+            renderBitQuestion();
+        });
+
+        renderBitQuestion();
+    </script>
 </body>
 </html>
