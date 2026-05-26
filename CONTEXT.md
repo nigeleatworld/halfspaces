@@ -1,6 +1,6 @@
 # halfspaces — context
 
-`halfspaces.co` — personal proof-of-work site. Live on Cloudflare Pages, GitHub repo `nigeleatworld/halfspaces`. Single `index.html`, personal-palette design system per `~/Desktop/claude-code-playground/CLAUDE.md`.
+`halfspaces.co` — personal proof-of-work site. Live on Cloudflare Pages, GitHub repo `nigeleatworld/halfspaces`. Single `index.html`, personal-palette design system per `~/CLAUDE.md`.
 
 ## Site at a glance
 
