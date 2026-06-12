@@ -59,6 +59,10 @@
   .figure{margin:30px 0; padding:22px 18px 12px; border:1px solid var(--line); border-radius:5px;
     background:color-mix(in srgb, var(--parchment) 22%, var(--warm-white))}
   .figure.plain{background:var(--warm-white)}
+  .figure.hero{padding:36px 30px 22px; margin:16px 0 10px; border-color:var(--line-strong);
+    background:color-mix(in srgb, var(--sage-wash) 15%, var(--warm-white));
+    box-shadow:0 1px 0 var(--line)}
+  .figure.hero .figcaption{font-size:13px; color:var(--slate); margin-top:16px}
   .figure svg{width:100%; height:auto; display:block}
   .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em;
     margin-top:12px; text-align:center}
@@ -89,15 +93,15 @@
     <p class="kicker">Build journal</p>
     <h1>Building chatpulse</h1>
     <p class="standfirst">Five weeks building a system that reads everything I pay to read, and tells me what's worth my attention.</p>
-    <p class="runmeta">7 May – 12 June 2026 · built with Claude · ~16 working sessions · runs on a Mac&nbsp;Mini under my desk</p>
+    <p class="runmeta">7 May – 12 June 2026 · built with Claude · ~16 working sessions · runs on a Mac&nbsp;Mini lodged at a quiet corner of my desk</p>
   </header>
 
   <article>
-    <p>I pay for more investing research than I can read. A handful of independent writers I trust, each with a daily member chat that never stops, articles that arrive without warning, and one Asian-equities publication with its own busy group. The value was real and I was wasting it; the edge I was paying for went on the chore of keeping up, and the one line that mattered always seemed to get said at 2am in a thread I'd already scrolled past.</p>
+    <p>I pay for more investing research than I can read, and than I should. A handful of independent writers I trust, each with a daily member chat that never stops, articles that arrive without warning, and one Asian-equities publication with its own busy group. The value was real and I was wasting it; the edge I was paying for went on the chore of keeping up, and the one line that mattered always seemed to get said at 2am in a thread I'd already scrolled past.</p>
 
     <p>So the objective was narrow and a little greedy: distilled, trustworthy investment signal from a select set of sources I already trust, with the noise removed and the conviction kept. Not stock tips, not a recommendation engine; a daily read of what these specific voices are converging on, how strongly they mean it, and who's quietly accumulating what. Replace the unwinnable habit of reading everything with a system that reads everything and hands me the shortlist.</p>
 
-    <p>I'm not a developer. I'm a market researcher; thirteen years of turning messy human signal into something a business can act on, which turns out to be most of what this is. I built it across about five weeks of mornings and late nights, with Claude doing the typing and me doing the deciding. This is the real record of that, dates and dead-ends included, because the deciding was the actual work and I think it's worth showing.</p>
+    <p>I'm not a developer. I'm a market researcher by trade; turning messy human signal into something a business can act on is most of what this is. It got built across about five weeks of mornings and late nights, with Claude doing the building and me doing the deciding; I prompted, judged, caught what was off, and waited, and Claude did the typing and most of the figuring-out. This is the real record of that, dates and dead-ends included, because the deciding was the actual work and I think it's worth showing.</p>
 
     <div class="aside">
       <span class="tag">How to read this</span>
@@ -107,53 +111,66 @@
     <h2 style="margin-top:8px">The shape, before the story</h2>
     <p>One picture first, so the dates have something to hang on. Data comes in, gets understood, goes out; the whole system is that sentence, and every hard decision lives in the word "understood."</p>
 
-    <div class="figure plain">
-      <svg viewBox="0 0 940 300" role="img" aria-label="Pipeline: paid sources to ingest to one local store to a model that reads each item to tagged signals, fanning out to a morning brief, live nudges, and an ask-it-anything query, all delivered to a phone.">
-        <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8C917F"/></marker></defs>
-        <rect x="8" y="84" width="150" height="120" rx="6" fill="#E8D1C5" stroke="#A9553F" stroke-opacity=".4"/>
-        <text class="svglabel" x="83" y="116" text-anchor="middle" font-weight="600">paid sources</text>
-        <text class="svgsub" x="83" y="140" text-anchor="middle">a few newsletters</text>
-        <text class="svgsub" x="83" y="156" text-anchor="middle">+ their member chats</text>
-        <text class="svgsub" x="83" y="172" text-anchor="middle">+ one Asian-equity</text>
-        <text class="svgsub" x="83" y="188" text-anchor="middle">publication & group</text>
-        <line x1="158" y1="144" x2="202" y2="144" stroke="#8C917F" marker-end="url(#ar)"/>
-        <rect x="202" y="104" width="104" height="80" rx="6" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".4"/>
-        <text class="svglabel" x="254" y="138" text-anchor="middle" font-weight="600">ingest</text>
-        <text class="svgsub" x="254" y="156" text-anchor="middle">every message,</text>
-        <text class="svgsub" x="254" y="170" text-anchor="middle">every article</text>
-        <line x1="306" y1="144" x2="350" y2="144" stroke="#8C917F" marker-end="url(#ar)"/>
-        <rect x="350" y="109" width="86" height="70" rx="6" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".25"/>
-        <text class="svglabel" x="393" y="139" text-anchor="middle" font-weight="600">one local</text>
-        <text class="svglabel" x="393" y="155" text-anchor="middle" font-weight="600">store</text>
-        <line x1="436" y1="144" x2="480" y2="144" stroke="#8C917F" marker-end="url(#ar)"/>
-        <rect x="480" y="104" width="110" height="80" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
-        <text class="svglabel" x="535" y="132" text-anchor="middle" font-weight="600">a model reads</text>
-        <text class="svgsub" x="535" y="150" text-anchor="middle">each one: who?</text>
-        <text class="svgsub" x="535" y="164" text-anchor="middle">what? how</text>
-        <text class="svgsub" x="535" y="178" text-anchor="middle">strongly?</text>
-        <line x1="590" y1="144" x2="634" y2="144" stroke="#8C917F" marker-end="url(#ar)"/>
-        <rect x="634" y="109" width="104" height="70" rx="6" fill="#F0D77A" fill-opacity=".5" stroke="#B88D33" stroke-opacity=".55"/>
-        <text class="svglabel" x="686" y="139" text-anchor="middle" font-weight="600">signals</text>
-        <text class="svgsub" x="686" y="156" text-anchor="middle">tagged, ranked</text>
-        <line x1="686" y1="179" x2="686" y2="214" stroke="#8C917F"/>
-        <line x1="250" y1="240" x2="820" y2="240" stroke="#8C917F" stroke-opacity=".5"/>
-        <line x1="686" y1="214" x2="686" y2="240" stroke="#8C917F"/>
-        <g><line x1="320" y1="240" x2="320" y2="256" stroke="#8C917F" marker-end="url(#ar)"/>
-          <text class="svglabel" x="320" y="282" text-anchor="middle">morning brief</text>
-          <text class="svgsub" x="320" y="296" text-anchor="middle">the wake-up read</text></g>
-        <g><line x1="540" y1="240" x2="540" y2="256" stroke="#8C917F" marker-end="url(#ar)"/>
-          <text class="svglabel" x="540" y="282" text-anchor="middle">live nudges</text>
-          <text class="svgsub" x="540" y="296" text-anchor="middle">when something moves</text></g>
-        <g><line x1="760" y1="240" x2="760" y2="256" stroke="#8C917F" marker-end="url(#ar)"/>
-          <text class="svglabel" x="760" y="282" text-anchor="middle">ask it anything</text>
-          <text class="svgsub" x="760" y="296" text-anchor="middle">"why this name?"</text></g>
-        <text class="svgnote" x="250" y="233" text-anchor="start">all three land in one chat on my phone</text>
-        <rect x="820" y="216" width="112" height="48" rx="6" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".2"/>
-        <text class="svglabel" x="876" y="244" text-anchor="middle" font-weight="600">my phone</text>
-      </svg>
-      <div class="figcaption">in → understood → out. the whole thing in one line; the rest is detail.</div>
-    </div>
   </article>
+</div>
+
+<div class="wide">
+  <div class="figure plain hero">
+    <svg viewBox="0 0 1000 320" role="img" aria-label="The pipeline: paid sources are read in, kept in one local store, understood by a model that tags each item, and turned into ranked signals — which fan out to a morning brief, live nudges, and an ask-anything query, all arriving in one chat on my phone.">
+      <defs><marker id="ar" markerWidth="10" markerHeight="10" refX="7.5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8C917F"/></marker></defs>
+      <!-- top row: five stages -->
+      <!-- c1 sources -->
+      <rect x="26" y="58" width="156" height="98" rx="11" fill="#E8D1C5" stroke="#A9553F" stroke-opacity=".45"/>
+      <text x="104" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">the sources</text>
+      <text x="104" y="124" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">what I pay</text>
+      <text x="104" y="139" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">to read</text>
+      <line x1="182" y1="107" x2="224" y2="107" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- c2 read in -->
+      <rect x="224" y="58" width="156" height="98" rx="11" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".45"/>
+      <text x="302" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">read in</text>
+      <text x="302" y="124" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">every message</text>
+      <text x="302" y="139" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">&amp; every article</text>
+      <line x1="380" y1="107" x2="422" y2="107" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- c3 kept -->
+      <rect x="422" y="58" width="156" height="98" rx="11" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".28"/>
+      <text x="500" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">kept</text>
+      <text x="500" y="124" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">one local</text>
+      <text x="500" y="139" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">store</text>
+      <line x1="578" y1="107" x2="620" y2="107" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- c4 understood (emphasis) -->
+      <rect x="620" y="50" width="156" height="114" rx="11" fill="#D7E1CE" stroke="#5E8061" stroke-width="1.8" stroke-opacity=".75"/>
+      <rect x="648" y="34" width="100" height="20" rx="10" fill="#A9553F"/>
+      <text x="698" y="48" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#FCFAF2" letter-spacing=".04em">THE HARD PART</text>
+      <text x="698" y="92" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">understood</text>
+      <text x="698" y="116" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">a model tags each:</text>
+      <text x="698" y="132" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">who said it? what?</text>
+      <text x="698" y="148" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">how sure?</text>
+      <line x1="776" y1="107" x2="818" y2="107" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- c5 signals -->
+      <rect x="818" y="58" width="156" height="98" rx="11" fill="#F0D77A" fill-opacity=".55" stroke="#B88D33" stroke-opacity=".6"/>
+      <text x="896" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">signals</text>
+      <text x="896" y="124" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">ranked by</text>
+      <text x="896" y="139" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">who agrees</text>
+      <!-- fan-out rail -->
+      <line x1="896" y1="156" x2="896" y2="192" stroke="#8C917F" stroke-width="1.5"/>
+      <line x1="200" y1="192" x2="896" y2="192" stroke="#8C917F" stroke-width="1.5"/>
+      <line x1="200" y1="192" x2="200" y2="216" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="500" y1="192" x2="500" y2="216" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="800" y1="192" x2="800" y2="216" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- outputs -->
+      <rect x="95" y="220" width="210" height="62" rx="9" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".22"/>
+      <text x="200" y="248" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="700" fill="#111B2E">morning brief</text>
+      <text x="200" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#53657D">the wake-up read</text>
+      <rect x="395" y="220" width="210" height="62" rx="9" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".22"/>
+      <text x="500" y="248" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="700" fill="#111B2E">live nudges</text>
+      <text x="500" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#53657D">when something moves</text>
+      <rect x="695" y="220" width="210" height="62" rx="9" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".22"/>
+      <text x="800" y="248" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="700" fill="#111B2E">ask anything</text>
+      <text x="800" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#53657D">"why this name?"</text>
+      <text x="500" y="306" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12.5" fill="#53657D">all three arrive in one chat on my phone</text>
+    </svg>
+    <div class="figcaption">in → understood → out · the whole system in one line; everything after this is detail</div>
+  </div>
 </div>
 
 <!-- ============ THE JOURNAL ============ -->
@@ -259,7 +276,7 @@
     <div class="datechip"><span class="d">20 May</span><span class="wk">Wednesday · the long day</span></div>
     <h2>The day everything came back half-written</h2>
     <p>This is my favourite entry, because it's the most honest about how building actually goes. The brief kept feeling thin on exactly the long, meaty articles that should have mattered most. The signals were there for short posts and missing for the big pieces, which made no sense until I looked at what was actually landing in the database: the long paid articles were arriving <em>truncated</em>, cut off right where the paywall sits, even though I was sending a valid paid login.</p>
-    <p>What followed was a couple of hours of pure detective work; Claude and I throwing probe after probe at it. Was the login being ignored? No. Was it a redirect? No. At one point the culprit looked like a compression setting quietly mangling the response, which was a real red herring I chased for a while. The actual answer was that one endpoint serves a polite truncated preview to everyone, and a different, less obvious endpoint serves the full body to a paid session. Switch endpoints, re-pull everything, problem gone.</p>
+    <p>What followed was a couple of hours of detective work, almost all of it in Claude's hands; probe after probe, while I watched and guessed out loud. Was the login being ignored? No. A redirect? No. At one point the culprit looked like a compression setting quietly mangling the response, a real red herring Claude chased for a while. The actual answer was that one endpoint serves a polite truncated preview to everyone, and a different, less obvious endpoint serves the full body to a paid session. Switch endpoints, re-pull everything, problem gone.</p>
 
     <div class="figure plain">
       <svg viewBox="0 0 720 180" role="img" aria-label="The obvious endpoint returned a truncated article cut at the paywall; a different by-id endpoint returned the full paid body.">
@@ -284,7 +301,7 @@
   <div class="entry">
     <div class="datechip"><span class="d">23 May</span><span class="wk">Saturday</span></div>
     <h2>A wall I'd built for myself</h2>
-    <p>I'd written a neat way for my own separate agent to query all of this directly. Then I remembered the agent doesn't live on the same machine as the data; it runs on its own isolated box. You can't reach a database on one computer by pointing at a file path on another. The clever thing I'd built simply couldn't work, and the honest move was to write that down, mark it not-deployable, and sketch the real fix for later rather than pretend. It sat unsolved for almost two weeks.</p>
+    <p>Claude had built a neat way for my own separate agent to query all of this directly. Then I remembered the agent doesn't live on the same machine as the data; it runs on its own isolated box. You can't reach a database on one computer by pointing at a file path on another. The clever thing I'd built simply couldn't work, and the honest move was to write that down, mark it not-deployable, and sketch the real fix for later rather than pretend. It sat unsolved for almost two weeks.</p>
   </div>
 
   <div class="entry">
@@ -323,11 +340,11 @@
   <div class="entry">
     <div class="datechip"><span class="d">9 June</span><span class="wk">Monday · a detour that was my fault</span></div>
     <h2>Confidently wrong about my own desk</h2>
-    <p>Connecting that agent to the query service should have been quick. It turned into an evening, and the cause was me. I'd got it into my head that the agent's machine was somehow a separate, untrusted thing, so Claude and I went down a careful, fiddly path of sharing one machine across two private networks, with access-control rules and the works. It half-worked in a way that's worse than not working; the connection would say it was reachable, then quietly refuse on the one port that mattered, because that setup needs permission on <em>both</em> networks and I'd only granted it on one.</p>
+    <p>Connecting that agent to the query service should have been quick. It turned into an evening, and the wrong idea was mine. I'd taken my own second machine for some separate, untrusted thing, and Claude, taking my word for it, built out a careful, fiddly path of sharing one machine across two private networks, with access-control rules and the works. It half-worked in a way that's worse than not working; the connection would say it was reachable, then quietly refuse on the one port that mattered, because that setup needs permission on <em>both</em> networks and I'd only granted it on one.</p>
     <p>The thing is, both machines are mine. They sit on the same desk. The moment I said that out loud, the whole elaborate solution evaporated; just put the second machine on my own network like the others, done. There was a smaller comedy inside it too, where the login kept silently signing in as the wrong account until we forced a fresh browser window. The two of us, Claude and me, both capable of real work, spending an hour solving a problem I'd invented by misremembering where my own computers live.</p>
     <div class="aside warn">
       <span class="tag">The pattern</span>
-      Almost none of my errors were the code being hard. They were me being confidently slightly wrong about something I should have known, and then both of us building cleverly on top of the wrong premise. The fix was usually to say the obvious thing out loud.
+      Almost none of the errors were the code being hard. They were one of us being confidently slightly wrong about something we should have known, and the other building cleverly on top of the wrong premise before either noticed. The fix was usually for someone to say the obvious thing out loud.
     </div>
   </div>
 
@@ -335,7 +352,7 @@
     <div class="datechip"><span class="d">11–12 June</span><span class="wk">week 5</span></div>
     <h2>The last source, and a flag I forgot</h2>
     <p>The final piece was folding in the Asian-equities publication, which was awkward because it lives on a different platform <em>and</em> has its member chat on a different one again; articles fetched one way, chat read another, both needing to land as a single voice so they'd converge together. That part went smoothly. The part that didn't, again, was me.</p>
-    <p>I spent a chunk of the night convinced of a deep data-loss bug; a backfill kept reporting it had processed two hundred items while saving exactly none. I read the code three times and even checked whether two processes were fighting over the database. The cause was a single flag I'd left off my own command, the one that says "actually write this down." It had been doing precisely what I asked, which was a dry run. Twice. The genre of mistake is consistent.</p>
+    <p>We lost a chunk of the night to what looked like a deep data-loss bug; a backfill kept reporting it had processed two hundred items while saving exactly none. Claude read the code three times and even checked whether two processes were fighting over the database. The cause was a single flag Claude had left off the command, the one that says "actually write this down." It had been doing precisely what it was told, which was a dry run. Twice. My job that night was the unglamorous half of the partnership: keep asking "are you sure that's it?" until the embarrassingly simple answer surfaced.</p>
     <p>The same stretch trimmed the cost where it had crept; the daily article summaries had been quietly using the expensive model, so I moved them to a cheaper one that does the job just as well and roughly halved the monthly spend. Boring, satisfying, the kind of thing that only matters because nobody's watching it.</p>
   </div>
 
@@ -350,8 +367,8 @@
   <div class="entry" style="border-top:0">
     <h2>What the five weeks actually taught me</h2>
     <p>Claude wrote almost all of the code, which is the least interesting thing about the whole project. What Claude could not do was decide what counted. It had no opinion on whether a wry one-liner was a real short or a joke, on how much to trust the crowd against the writer, on when "this aged well" is a position and when it's a postcard. It would happily extract a signal from a shrug if I let it. Every threshold in the thing is a judgement I had to make and then defend against the system's own eagerness to find meaning everywhere.</p>
-    <p>So the division of labour was clean and a little surprising: AI made iteration almost free, and taste still had to come from somewhere. The taste came out of a lot of imperfect reactions; this is noise, that's real, you're over-reading, you're attributing the wrong person, miss it rather than fake it. That loop was the work. The fumbles in this journal are not incidental to it; they <em>are</em> it. The good version of building with AI isn't fewer mistakes, it's cheaper ones, made faster, with Claude to say the obvious thing back to you when you've talked yourself somewhere silly.</p>
-    <p>It replaced a habit I was never going to win; reading several chats and several article streams every day and trusting myself, at midnight, with eleven tabs open, to notice the one line that mattered. A quieter version of that attention now runs without me and hands me the shortlist. It isn't always right. It's reliably less wrong than me at midnight, and on the mornings it surfaces something I'd have walked straight past, it pays for the whole month of subscriptions in a single message.</p>
+    <p>So the division of labour was clean and a little surprising: AI made iteration almost free, and taste still had to come from somewhere. The taste came out of a lot of imperfect reactions; this is noise, that's real, you're over-reading, you're attributing the wrong person, miss it rather than fake it. That loop was the work. The fumbles in this journal are not incidental to it; they <em>are</em> it. The good version of building with AI isn't fewer mistakes, it's cheaper ones, made faster, with Claude to say the obvious thing back to you, and you to Claude, when one of you has talked the pair of you somewhere silly.</p>
+    <p>It replaced a fight I was never going to win: reading several chats and several article streams every day and trusting myself, at midnight, with eleven tabs open, to notice the one line that mattered. A quieter version of that attention now runs without me and hands me the shortlist. It isn't always right. It's reliably less wrong than me at midnight, and on the mornings it surfaces something I'd have walked straight past, it pays for the whole month of subscriptions in a single message.</p>
   </div>
 
   <p class="footer-note">A note on sources. This reads publications I personally pay for, for my own use, and I've deliberately kept every name out of it; the publications, the writers, the tickers, all of it. The system is the point, not the people I read. This journal is the first of a few; I'm planning to document the other things I've built the same way, dates and dead-ends included.</p>
