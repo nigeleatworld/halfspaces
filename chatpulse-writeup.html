@@ -71,6 +71,36 @@
   .svgsub{font-family:"JetBrains Mono",monospace; font-size:10.5px; fill:#53657D}
   .svgnote{font-family:"DM Sans",sans-serif; font-size:12px; fill:#53657D}
   .svgbig{font-family:"DM Sans",sans-serif; font-size:15px; font-weight:700; fill:#111B2E}
+  /* responsive HTML pipeline diagram — reflows row->stack, real text, fluid sizes */
+  .diagram{margin:2px 0}
+  .pipe{display:flex; flex-direction:column; gap:9px; align-items:stretch}
+  .stage{flex:1 1 0; min-width:0; border:1px solid var(--line-strong); border-radius:11px;
+    padding:14px 12px; text-align:center; background:var(--warm-white)}
+  .stage .t{margin:0 0 5px; font-weight:700; font-size:clamp(15px,1.5vw,17px); line-height:1.15}
+  .stage .s{margin:0; font-family:var(--mono); color:var(--slate);
+    font-size:clamp(11.5px,1.15vw,12.5px); line-height:1.45}
+  .stage.src{background:#E8D1C5}
+  .stage.read{background:#DCE7EA}
+  .stage.kept{background:#FCFAF2}
+  .stage.understood{background:#D7E1CE; border:2px solid var(--forest); position:relative}
+  .stage.signals{background:color-mix(in srgb,var(--yellow-wash) 55%,var(--warm-white))}
+  .hardpart{position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+    background:var(--terracotta); color:var(--warm-white); font-family:var(--mono);
+    font-size:10px; letter-spacing:.04em; padding:2px 9px; border-radius:9px; white-space:nowrap}
+  .arrow{flex:0 0 auto; display:flex; align-items:center; justify-content:center;
+    color:var(--ash); font-size:20px; line-height:1; min-height:16px}
+  .arrow::before{content:"\2193"}
+  .flowrail{text-align:center; font-family:var(--mono); font-size:12px; color:var(--ash); margin:13px 0 3px}
+  .outs{display:flex; flex-direction:column; gap:9px}
+  .out{flex:1 1 0; border:1px solid var(--line); border-radius:11px; padding:12px;
+    text-align:center; background:var(--warm-white)}
+  .out .t{margin:0 0 4px; font-weight:700; font-size:clamp(14px,1.4vw,16px)}
+  .out .s{margin:0; font-family:var(--mono); color:var(--slate); font-size:clamp(11px,1.1vw,12px)}
+  @media (min-width:760px){
+    .pipe{flex-direction:row; align-items:stretch}
+    .outs{flex-direction:row}
+    .arrow::before{content:"\2192"}
+  }
 
   /* aside / callout */
   .aside{background:var(--blue-wash); border-radius:5px; padding:16px 18px; margin:24px 0;
@@ -123,59 +153,26 @@
 
 <div class="wide">
   <div class="figure plain hero">
-    <svg viewBox="0 0 1000 320" role="img" aria-label="The pipeline: paid sources are read in, kept in one local store, understood by a model that tags each item, and turned into ranked signals — which fan out to a morning brief, live nudges, and an ask-anything query, all arriving in one chat on my phone.">
-      <defs><marker id="ar" markerWidth="10" markerHeight="10" refX="7.5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8C917F"/></marker></defs>
-      <!-- top row: five stages -->
-      <!-- c1 sources -->
-      <rect x="26" y="58" width="156" height="98" rx="11" fill="#E8D1C5" stroke="#A9553F" stroke-opacity=".45"/>
-      <text x="104" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">the sources</text>
-      <text x="104" y="124" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">what I pay</text>
-      <text x="104" y="139" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">to read</text>
-      <line x1="182" y1="107" x2="224" y2="107" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
-      <!-- c2 read in -->
-      <rect x="224" y="58" width="156" height="98" rx="11" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".45"/>
-      <text x="302" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">read in</text>
-      <text x="302" y="124" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">every message</text>
-      <text x="302" y="139" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">&amp; every article</text>
-      <line x1="380" y1="107" x2="422" y2="107" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
-      <!-- c3 kept -->
-      <rect x="422" y="58" width="156" height="98" rx="11" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".28"/>
-      <text x="500" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">kept</text>
-      <text x="500" y="124" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">one local</text>
-      <text x="500" y="139" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">store</text>
-      <line x1="578" y1="107" x2="620" y2="107" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
-      <!-- c4 understood (emphasis) -->
-      <rect x="620" y="50" width="156" height="114" rx="11" fill="#D7E1CE" stroke="#5E8061" stroke-width="1.8" stroke-opacity=".75"/>
-      <rect x="648" y="34" width="100" height="20" rx="10" fill="#A9553F"/>
-      <text x="698" y="48" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#FCFAF2" letter-spacing=".04em">THE HARD PART</text>
-      <text x="698" y="92" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">understood</text>
-      <text x="698" y="116" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">a model tags each:</text>
-      <text x="698" y="132" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">who said it? what?</text>
-      <text x="698" y="148" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">how sure?</text>
-      <line x1="776" y1="107" x2="818" y2="107" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
-      <!-- c5 signals -->
-      <rect x="818" y="58" width="156" height="98" rx="11" fill="#F0D77A" fill-opacity=".55" stroke="#B88D33" stroke-opacity=".6"/>
-      <text x="896" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="17" font-weight="700" fill="#111B2E">signals</text>
-      <text x="896" y="124" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">ranked by</text>
-      <text x="896" y="139" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11.5" fill="#53657D">who agrees</text>
-      <!-- fan-out rail -->
-      <line x1="896" y1="156" x2="896" y2="192" stroke="#8C917F" stroke-width="1.5"/>
-      <line x1="200" y1="192" x2="896" y2="192" stroke="#8C917F" stroke-width="1.5"/>
-      <line x1="200" y1="192" x2="200" y2="216" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
-      <line x1="500" y1="192" x2="500" y2="216" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
-      <line x1="800" y1="192" x2="800" y2="216" stroke="#8C917F" stroke-width="1.5" marker-end="url(#ar)"/>
-      <!-- outputs -->
-      <rect x="95" y="220" width="210" height="62" rx="9" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".22"/>
-      <text x="200" y="248" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="700" fill="#111B2E">morning brief</text>
-      <text x="200" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#53657D">the wake-up read</text>
-      <rect x="395" y="220" width="210" height="62" rx="9" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".22"/>
-      <text x="500" y="248" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="700" fill="#111B2E">live nudges</text>
-      <text x="500" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#53657D">when something moves</text>
-      <rect x="695" y="220" width="210" height="62" rx="9" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".22"/>
-      <text x="800" y="248" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="700" fill="#111B2E">ask anything</text>
-      <text x="800" y="268" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#53657D">"why this name?"</text>
-      <text x="500" y="306" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12.5" fill="#53657D">all three arrive in one chat on my phone</text>
-    </svg>
+    <div class="diagram" role="img" aria-label="The pipeline: paid sources are read in, kept in one local store, understood by a model that tags each item, and turned into ranked signals, which fan out to a morning brief, live nudges, and an ask-anything query, all arriving in one chat on my phone.">
+      <div class="pipe">
+        <div class="stage src"><p class="t">the sources</p><p class="s">what I pay to read</p></div>
+        <div class="arrow"></div>
+        <div class="stage read"><p class="t">read in</p><p class="s">every message<br>&amp; every article</p></div>
+        <div class="arrow"></div>
+        <div class="stage kept"><p class="t">kept</p><p class="s">one local store</p></div>
+        <div class="arrow"></div>
+        <div class="stage understood"><span class="hardpart">THE HARD PART</span><p class="t">understood</p><p class="s">a model tags each:<br>who? what? how sure?</p></div>
+        <div class="arrow"></div>
+        <div class="stage signals"><p class="t">signals</p><p class="s">ranked by who agrees</p></div>
+      </div>
+      <p class="flowrail">then they fan out to</p>
+      <div class="outs">
+        <div class="out"><p class="t">morning brief</p><p class="s">the wake-up read</p></div>
+        <div class="out"><p class="t">live nudges</p><p class="s">when something moves</p></div>
+        <div class="out"><p class="t">ask anything</p><p class="s">&ldquo;why this name?&rdquo;</p></div>
+      </div>
+      <p class="flowrail" style="margin-top:12px">all three arrive in one chat on my phone</p>
+    </div>
     <div class="figcaption">in → understood → out · the whole system in one line; everything after this is detail</div>
   </div>
 </div>
