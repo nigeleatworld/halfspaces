@@ -57,7 +57,8 @@
 
   /* figures */
   .figure{margin:30px 0; padding:22px 18px 12px; border:1px solid var(--line); border-radius:5px;
-    background:color-mix(in srgb, var(--parchment) 22%, var(--warm-white))}
+    background:color-mix(in srgb, var(--parchment) 22%, var(--warm-white));
+    overflow-x:auto; -webkit-overflow-scrolling:touch}
   .figure.plain{background:var(--warm-white)}
   .figure.hero{padding:36px 30px 22px; margin:16px 0 10px; border-color:var(--line-strong);
     background:color-mix(in srgb, var(--sage-wash) 15%, var(--warm-white));
@@ -82,7 +83,13 @@
   .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
     border-top:1px solid var(--line); padding:24px 0 80px; margin-top:34px}
 
-  @media (max-width:640px){ body{font-size:17px} .figure{padding:14px 8px 8px} }
+  @media (max-width:640px){
+    body{font-size:17px}
+    .figure{padding:14px 10px 8px}
+    /* wide diagrams scale down too far on a phone, shrinking their labels below
+       body text; hold them at a legible width and let the figure scroll sideways. */
+    .figure svg{min-width:680px}
+  }
 </style>
 </head>
 <body>
@@ -234,12 +241,12 @@
       <svg viewBox="0 0 720 150" role="img" aria-label="A cheap model does the millions of small reads; an expensive model is reserved for the one daily synthesis a human reads.">
         <rect x="10" y="40" width="330" height="74" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".45"/>
         <text class="svgbig" x="28" y="70" text-anchor="start">the cheap model</text>
-        <text class="svgsub" x="28" y="92" text-anchor="start">reads every message &amp; article · millions of small reads</text>
-        <text class="svgsub" x="28" y="106" text-anchor="start">a few cents a day</text>
+        <text class="svgsub" x="28" y="92" text-anchor="start">reads every message &amp; article</text>
+        <text class="svgsub" x="28" y="106" text-anchor="start">millions of reads; a few cents a day</text>
         <rect x="380" y="40" width="330" height="74" rx="6" fill="#F0D77A" fill-opacity=".4" stroke="#B88D33" stroke-opacity=".5"/>
         <text class="svgbig" x="398" y="70" text-anchor="start">the expensive model</text>
-        <text class="svgsub" x="398" y="92" text-anchor="start">writes the one daily brief a human actually reads</text>
-        <text class="svgsub" x="398" y="106" text-anchor="start">used once a day, on purpose</text>
+        <text class="svgsub" x="398" y="92" text-anchor="start">writes the one daily brief</text>
+        <text class="svgsub" x="398" y="106" text-anchor="start">a human reads, once a day</text>
       </svg>
       <div class="figcaption">spend the money where a person is looking; nowhere else</div>
     </div>
