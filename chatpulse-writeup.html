@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Building chatpulse — halfspaces</title>
-<meta name="description" content="How I built a small system that reads everything I pay to read, and tells me what's worth my attention.">
+<title>Building chatpulse — a build journal — halfspaces</title>
+<meta name="description" content="Five weeks building a system that reads everything I pay to read and tells me what's worth my attention. The real timeline, fumbles included.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,207 +14,348 @@
     --sage-wash:#D7E1CE; --blue-wash:#DCE7EA; --clay-wash:#E8D1C5; --yellow-wash:#F0D77A;
     --charcoal:#111B2E; --slate:#53657D; --ash:#8C917F;
     --forest:#5E8061; --terracotta:#A9553F; --ochre:#B88D33; --slate-blue:#496D7D;
-    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.3);
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
     --sans:"DM Sans",system-ui,-apple-system,sans-serif;
     --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
-    --max:760px;
+    --measure:720px;
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0; font-family:var(--sans); color:var(--charcoal);
-    background:var(--warm-white); line-height:1.62; font-size:18px;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
-  .preview-flag{
-    background:var(--charcoal); color:var(--warm-white); font-family:var(--mono);
-    font-size:12px; letter-spacing:.04em; text-align:center; padding:7px 14px;
-  }
-  header.masthead{padding:64px 0 26px}
-  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--terracotta); margin:0 0 14px}
-  h1{font-size:clamp(34px,6vw,52px); line-height:1.05; margin:0 0 18px; font-weight:700;
-    letter-spacing:-.01em}
-  .standfirst{font-size:20px; color:var(--slate); margin:0; max-width:34em}
-  article{padding:6px 0 40px}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  .wide{max-width:980px; margin:0 auto; padding:0 22px}
+  .preview-flag{background:var(--charcoal); color:var(--warm-white); font-family:var(--mono);
+    font-size:12px; letter-spacing:.03em; text-align:center; padding:7px 14px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  /* masthead */
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:31em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
   article p{margin:0 0 20px}
-  h2{font-size:25px; line-height:1.18; margin:46px 0 14px; font-weight:700;
-    letter-spacing:-.01em}
-  a{color:var(--slate-blue); text-decoration-thickness:1px; text-underline-offset:2px}
-  .lead-cap::first-letter{font-size:0; line-height:0}
-  blockquote{margin:26px 0; padding:4px 0 4px 20px; border-left:3px solid var(--terracotta);
+  h2{font-size:25px; line-height:1.18; margin:8px 0 14px; font-weight:700; letter-spacing:-.01em}
+  h3{font-size:18px; margin:30px 0 8px; font-weight:700; color:var(--charcoal)}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
     color:var(--charcoal); font-size:19px}
-  code{font-family:var(--mono); font-size:.86em; background:var(--linen);
-    padding:1px 6px; border-radius:3px}
-  hr{border:0; border-top:1px solid var(--line); margin:42px 0}
-  .figure{margin:34px 0; padding:24px 20px 14px; border:1px solid var(--line);
-    border-radius:4px; background:color-mix(in srgb, var(--parchment) 26%, var(--warm-white))}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+  hr{border:0; border-top:1px solid var(--line); margin:8px 0 0}
+
+  /* dated entry */
+  .entry{padding:30px 0 6px; border-top:1px solid var(--line)}
+  .entry:first-of-type{border-top:0}
+  .datechip{display:inline-flex; align-items:baseline; gap:10px; font-family:var(--mono);
+    font-size:12.5px; letter-spacing:.04em; color:var(--slate); margin-bottom:6px}
+  .datechip .d{background:var(--charcoal); color:var(--warm-white); padding:3px 9px; border-radius:3px;
+    font-weight:600; letter-spacing:.03em}
+  .datechip .wk{color:var(--ash)}
+  .entry h2{margin-top:6px}
+
+  /* figures */
+  .figure{margin:30px 0; padding:22px 18px 12px; border:1px solid var(--line); border-radius:5px;
+    background:color-mix(in srgb, var(--parchment) 22%, var(--warm-white))}
+  .figure.plain{background:var(--warm-white)}
   .figure svg{width:100%; height:auto; display:block}
-  .figcaption{font-family:var(--mono); font-size:12.5px; color:var(--ash);
-    letter-spacing:.02em; margin-top:12px; text-align:center}
-  .svglabel{font-family:"JetBrains Mono",monospace; font-size:12px; fill:var(--charcoal)}
-  .svgsub{font-family:"JetBrains Mono",monospace; font-size:10.5px; fill:var(--slate)}
-  .svgnote{font-family:"DM Sans",sans-serif; font-size:12px; fill:var(--slate)}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em;
+    margin-top:12px; text-align:center}
+  .svglabel{font-family:"JetBrains Mono",monospace; font-size:12px; fill:#111B2E}
+  .svgsub{font-family:"JetBrains Mono",monospace; font-size:10.5px; fill:#53657D}
+  .svgnote{font-family:"DM Sans",sans-serif; font-size:12px; fill:#53657D}
+  .svgbig{font-family:"DM Sans",sans-serif; font-size:15px; font-weight:700; fill:#111B2E}
+
+  /* aside / callout */
+  .aside{background:var(--blue-wash); border-radius:5px; padding:16px 18px; margin:24px 0;
+    font-size:16px; color:var(--charcoal)}
+  .aside .tag{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--slate-blue); display:block; margin-bottom:6px}
+  .aside.warn{background:var(--clay-wash)}
+  .aside.warn .tag{color:var(--terracotta)}
+
   .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
-    border-top:1px solid var(--line); padding:24px 0 70px}
-  @media (max-width:640px){ body{font-size:17px} .figure{padding:16px 10px 10px} }
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:34px}
+
+  @media (max-width:640px){ body{font-size:17px} .figure{padding:14px 8px 8px} }
 </style>
 </head>
 <body>
-<div class="preview-flag">PREVIEW — not yet published. Draft for Nigel's review (voice · anonymisation · placement).</div>
+<div class="preview-flag">PREVIEW · build journal, first full draft · for Nigel's review (voice · visuals render · anonymisation · placement)</div>
 
 <div class="wrap">
   <header class="masthead">
-    <p class="kicker">Building / proof-of-work</p>
+    <p class="kicker">Build journal</p>
     <h1>Building chatpulse</h1>
-    <p class="standfirst">A small system that reads everything I pay to read, and tells me what's worth my attention.</p>
+    <p class="standfirst">Five weeks building a system that reads everything I pay to read, and tells me what's worth my attention.</p>
+    <p class="runmeta">7 May – 12 June 2026 · built with Claude · ~16 working sessions · runs on a Mac&nbsp;Mini under my desk</p>
   </header>
 
   <article>
-    <p class="lead-cap">I subscribe to more investing newsletters than I can actually read. Each one is good; that's the problem. They come with member chats that run all day, articles that land without warning, and the quiet anxiety that the one thing worth knowing got said at 2am in a thread I scrolled past. I was paying for an edge and spending it on keeping up.</p>
+    <p>I pay for more investing research than I can read. A handful of independent writers I trust, each with a daily member chat that never stops, articles that arrive without warning, and one Asian-equities publication with its own busy group. The value was real and I was wasting it; the edge I was paying for went on the chore of keeping up, and the one line that mattered always seemed to get said at 2am in a thread I'd already scrolled past.</p>
 
-    <p>So I built a thing that keeps up for me. It reads every message and every article across the handful of paid sources I follow, works out who is actually saying something about which company and how strongly they mean it, and surfaces the parts where independent voices start agreeing. It runs on a Mac Mini under my desk; it costs a few cents a day; and it has quietly become the first thing I check.</p>
+    <p>So the objective was narrow and a little greedy: distilled, trustworthy investment signal from a select set of sources I already trust, with the noise removed and the conviction kept. Not stock tips, not a recommendation engine; a daily read of what these specific voices are converging on, how strongly they mean it, and who's quietly accumulating what. Replace the unwinnable habit of reading everything with a system that reads everything and hands me the shortlist.</p>
 
-    <p>I'm not a developer. I'm a market researcher who spent years turning messy human signal into something a business could act on, which, it turns out, is most of what this is. The hard part was never the code. It was deciding what counts as signal.</p>
+    <p>I'm not a developer. I'm a market researcher; thirteen years of turning messy human signal into something a business can act on, which turns out to be most of what this is. I built it across about five weeks of mornings and late nights, with Claude doing the typing and me doing the deciding. This is the real record of that, dates and dead-ends included, because the deciding was the actual work and I think it's worth showing.</p>
 
-    <h2>What it actually does</h2>
-    <p>The shape is boring on purpose; data comes in, gets understood, goes out. The interesting decisions live in the middle. Here is the whole thing on one page:</p>
-
-    <div class="figure">
-      <svg viewBox="0 0 720 300" role="img" aria-label="Data flow: paid sources flow through ingest, a local store, an LLM reader, and tagged signals into three outputs delivered to a phone.">
-        <!-- lanes -->
-        <defs>
-          <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
-            <path d="M0,0 L9,4.5 L0,9 z" fill="#8C917F"/>
-          </marker>
-        </defs>
-        <!-- 1 sources -->
-        <rect x="8" y="78" width="120" height="120" rx="5" fill="#E8D1C5" stroke="#A9553F" stroke-opacity=".4"/>
-        <text class="svglabel" x="68" y="112" text-anchor="middle" font-weight="600">paid sources</text>
-        <text class="svgsub" x="68" y="134" text-anchor="middle">newsletters</text>
-        <text class="svgsub" x="68" y="150" text-anchor="middle">member chats</text>
-        <text class="svgsub" x="68" y="166" text-anchor="middle">one Asian-equity</text>
-        <text class="svgsub" x="68" y="180" text-anchor="middle">publication</text>
-        <!-- 2 ingest -->
-        <line x1="128" y1="138" x2="172" y2="138" stroke="#8C917F" marker-end="url(#ar)"/>
-        <rect x="172" y="98" width="92" height="80" rx="5" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".4"/>
-        <text class="svglabel" x="218" y="132" text-anchor="middle" font-weight="600">ingest</text>
-        <text class="svgsub" x="218" y="150" text-anchor="middle">every msg,</text>
-        <text class="svgsub" x="218" y="164" text-anchor="middle">every article</text>
-        <!-- 3 store -->
-        <line x1="264" y1="138" x2="308" y2="138" stroke="#8C917F" marker-end="url(#ar)"/>
-        <rect x="308" y="103" width="78" height="70" rx="5" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".25"/>
-        <text class="svglabel" x="347" y="133" text-anchor="middle" font-weight="600">one local</text>
-        <text class="svglabel" x="347" y="149" text-anchor="middle" font-weight="600">store</text>
-        <!-- 4 LLM -->
-        <line x1="386" y1="138" x2="430" y2="138" stroke="#8C917F" marker-end="url(#ar)"/>
-        <rect x="430" y="98" width="96" height="80" rx="5" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
-        <text class="svglabel" x="478" y="128" text-anchor="middle" font-weight="600">a model</text>
-        <text class="svgsub" x="478" y="146" text-anchor="middle">reads each one:</text>
-        <text class="svgsub" x="478" y="160" text-anchor="middle">who? what? how</text>
-        <text class="svgsub" x="478" y="174" text-anchor="middle">strongly?</text>
-        <!-- 5 signals -->
-        <line x1="526" y1="138" x2="570" y2="138" stroke="#8C917F" marker-end="url(#ar)"/>
-        <rect x="570" y="103" width="90" height="70" rx="5" fill="#F0D77A" fill-opacity=".5" stroke="#B88D33" stroke-opacity=".55"/>
-        <text class="svglabel" x="615" y="132" text-anchor="middle" font-weight="600">signals</text>
-        <text class="svgsub" x="615" y="150" text-anchor="middle">tagged, ranked</text>
-        <!-- fan out to three outputs -->
-        <line x1="615" y1="173" x2="615" y2="206" stroke="#8C917F"/>
-        <line x1="160" y1="232" x2="660" y2="232" stroke="#8C917F" stroke-opacity=".5"/>
-        <line x1="615" y1="206" x2="615" y2="232" stroke="#8C917F"/>
-        <g>
-          <line x1="230" y1="232" x2="230" y2="250" stroke="#8C917F" marker-end="url(#ar)"/>
-          <text class="svglabel" x="230" y="276" text-anchor="middle">morning brief</text>
-          <text class="svgsub" x="230" y="291" text-anchor="middle">the wake-up read</text>
-        </g>
-        <g>
-          <line x1="430" y1="232" x2="430" y2="250" stroke="#8C917F" marker-end="url(#ar)"/>
-          <text class="svglabel" x="430" y="276" text-anchor="middle">live nudges</text>
-          <text class="svgsub" x="430" y="291" text-anchor="middle">when something moves</text>
-        </g>
-        <g>
-          <line x1="615" y1="232" x2="615" y2="250" stroke="#8C917F" marker-end="url(#ar)"/>
-          <text class="svglabel" x="615" y="276" text-anchor="middle">ask it anything</text>
-          <text class="svgsub" x="615" y="291" text-anchor="middle">"why this name?"</text>
-        </g>
-        <text class="svgnote" x="160" y="225" text-anchor="start">all three land in one chat on my phone</text>
-      </svg>
-      <div class="figcaption">the whole system, left to right: in → understood → out</div>
+    <div class="aside">
+      <span class="tag">How to read this</span>
+      It's a journal, not a tidy after-the-fact story. The architecture diagrams are here, but so are the days I was confidently wrong. The interesting parts were almost never the code.
     </div>
 
-    <h2>From a message to a signal</h2>
-    <p>A chat is mostly noise; jokes, "gm", screenshots, someone asking what everyone thinks of a name. The job is to find the few lines where a person is actually taking a position, and to be honest about how much they meant it. A model reads each message and each article and returns the same boring shape every time: which company, is this buy or sell or just watching, how convinced, and the exact words that justify it. If there's no real view, it says so and moves on. Silence is a valid answer; a system that invents signal is worse than one that stays quiet.</p>
+    <h2 style="margin-top:8px">The shape, before the story</h2>
+    <p>One picture first, so the dates have something to hang on. Data comes in, gets understood, goes out; the whole system is that sentence, and every hard decision lives in the word "understood."</p>
 
-    <div class="figure">
-      <svg viewBox="0 0 720 210" role="img" aria-label="One chat message is read by the model and becomes a structured signal with company, stance, conviction and the quoted evidence.">
-        <defs>
-          <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
-            <path d="M0,0 L9,4.5 L0,9 z" fill="#8C917F"/>
-          </marker>
-        </defs>
-        <!-- message bubble -->
-        <rect x="10" y="58" width="250" height="92" rx="10" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".18"/>
-        <text class="svgsub" x="26" y="50" text-anchor="start">a real chat message</text>
-        <text class="svglabel" x="26" y="88" text-anchor="start">"new position: long the</text>
-        <text class="svglabel" x="26" y="106" text-anchor="start">name, sized small, this</text>
-        <text class="svglabel" x="26" y="124" text-anchor="start">can re-rate hard"</text>
-        <!-- arrow through model -->
-        <line x1="260" y1="104" x2="312" y2="104" stroke="#8C917F" marker-end="url(#ar2)"/>
-        <rect x="312" y="80" width="92" height="48" rx="5" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
-        <text class="svglabel" x="358" y="108" text-anchor="middle" font-weight="600">the model</text>
-        <line x1="404" y1="104" x2="456" y2="104" stroke="#8C917F" marker-end="url(#ar2)"/>
-        <!-- structured signal -->
-        <rect x="456" y="40" width="256" height="128" rx="6" fill="#F0D77A" fill-opacity=".34" stroke="#B88D33" stroke-opacity=".5"/>
-        <text class="svgsub" x="472" y="32" text-anchor="start">a structured signal</text>
-        <text class="svglabel" x="472" y="68" text-anchor="start">company &#8230;&#8230;&#8230; the name</text>
-        <text class="svglabel" x="472" y="90" text-anchor="start">stance &#8230;&#8230;&#8230;&#8230; buy</text>
-        <text class="svglabel" x="472" y="112" text-anchor="start">action &#8230;&#8230;&#8230;&#8230; just opened</text>
-        <text class="svglabel" x="472" y="134" text-anchor="start">conviction &#8230; high</text>
-        <text class="svgsub" x="472" y="156" text-anchor="start">+ the exact words, kept verbatim</text>
+    <div class="figure plain">
+      <svg viewBox="0 0 940 300" role="img" aria-label="Pipeline: paid sources to ingest to one local store to a model that reads each item to tagged signals, fanning out to a morning brief, live nudges, and an ask-anything assistant, all delivered to a phone.">
+        <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8C917F"/></marker></defs>
+        <rect x="8" y="84" width="150" height="120" rx="6" fill="#E8D1C5" stroke="#A9553F" stroke-opacity=".4"/>
+        <text class="svglabel" x="83" y="116" text-anchor="middle" font-weight="600">paid sources</text>
+        <text class="svgsub" x="83" y="140" text-anchor="middle">a few newsletters</text>
+        <text class="svgsub" x="83" y="156" text-anchor="middle">+ their member chats</text>
+        <text class="svgsub" x="83" y="172" text-anchor="middle">+ one Asian-equity</text>
+        <text class="svgsub" x="83" y="188" text-anchor="middle">publication & group</text>
+        <line x1="158" y1="144" x2="202" y2="144" stroke="#8C917F" marker-end="url(#ar)"/>
+        <rect x="202" y="104" width="104" height="80" rx="6" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".4"/>
+        <text class="svglabel" x="254" y="138" text-anchor="middle" font-weight="600">ingest</text>
+        <text class="svgsub" x="254" y="156" text-anchor="middle">every message,</text>
+        <text class="svgsub" x="254" y="170" text-anchor="middle">every article</text>
+        <line x1="306" y1="144" x2="350" y2="144" stroke="#8C917F" marker-end="url(#ar)"/>
+        <rect x="350" y="109" width="86" height="70" rx="6" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".25"/>
+        <text class="svglabel" x="393" y="139" text-anchor="middle" font-weight="600">one local</text>
+        <text class="svglabel" x="393" y="155" text-anchor="middle" font-weight="600">store</text>
+        <line x1="436" y1="144" x2="480" y2="144" stroke="#8C917F" marker-end="url(#ar)"/>
+        <rect x="480" y="104" width="110" height="80" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
+        <text class="svglabel" x="535" y="132" text-anchor="middle" font-weight="600">a model reads</text>
+        <text class="svgsub" x="535" y="150" text-anchor="middle">each one: who?</text>
+        <text class="svgsub" x="535" y="164" text-anchor="middle">what? how</text>
+        <text class="svgsub" x="535" y="178" text-anchor="middle">strongly?</text>
+        <line x1="590" y1="144" x2="634" y2="144" stroke="#8C917F" marker-end="url(#ar)"/>
+        <rect x="634" y="109" width="104" height="70" rx="6" fill="#F0D77A" fill-opacity=".5" stroke="#B88D33" stroke-opacity=".55"/>
+        <text class="svglabel" x="686" y="139" text-anchor="middle" font-weight="600">signals</text>
+        <text class="svgsub" x="686" y="156" text-anchor="middle">tagged, ranked</text>
+        <line x1="686" y1="179" x2="686" y2="214" stroke="#8C917F"/>
+        <line x1="250" y1="240" x2="820" y2="240" stroke="#8C917F" stroke-opacity=".5"/>
+        <line x1="686" y1="214" x2="686" y2="240" stroke="#8C917F"/>
+        <g><line x1="320" y1="240" x2="320" y2="256" stroke="#8C917F" marker-end="url(#ar)"/>
+          <text class="svglabel" x="320" y="282" text-anchor="middle">morning brief</text>
+          <text class="svgsub" x="320" y="296" text-anchor="middle">the wake-up read</text></g>
+        <g><line x1="540" y1="240" x2="540" y2="256" stroke="#8C917F" marker-end="url(#ar)"/>
+          <text class="svglabel" x="540" y="282" text-anchor="middle">live nudges</text>
+          <text class="svgsub" x="540" y="296" text-anchor="middle">when something moves</text></g>
+        <g><line x1="760" y1="240" x2="760" y2="256" stroke="#8C917F" marker-end="url(#ar)"/>
+          <text class="svglabel" x="760" y="282" text-anchor="middle">ask it anything</text>
+          <text class="svgsub" x="760" y="296" text-anchor="middle">"why this name?"</text></g>
+        <text class="svgnote" x="250" y="233" text-anchor="start">all three land in one chat on my phone</text>
+        <rect x="820" y="216" width="112" height="48" rx="6" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".2"/>
+        <text class="svglabel" x="876" y="244" text-anchor="middle" font-weight="600">my phone</text>
       </svg>
-      <div class="figcaption">every message gets read the same way, and reduced to the same handful of fields</div>
+      <div class="figcaption">in → understood → out. the whole thing in one line; the rest is detail.</div>
     </div>
+  </article>
+</div>
 
-    <p>Two details took the longest to get right, and both are judgement, not engineering. The first is telling apart "I just bought this" from "I bought this months ago and it worked out"; the second sounds like conviction and is really a memory. The second is telling apart a stance from a reaction; "thoughts on this name?" mentions a company without holding any view of it. Most of my time went into teaching the system to under-react: to leave things out rather than dress up a shrug as a signal.</p>
+<!-- ============ THE JOURNAL ============ -->
+<div class="wrap">
+  <article>
 
-    <h2>Convergence, not volume</h2>
-    <p>The mistake would be to rank by how often a name gets mentioned; that just surfaces whatever's loud. What I care about is the opposite; the moment several people who don't talk to each other start landing on the same name, in the same direction, around the same time. Quiet agreement across independent voices is the thing a pile of subscriptions is supposed to buy you, and it's exactly the thing you miss when you're reading them one tab at a time.</p>
+  <div class="entry">
+    <div class="datechip"><span class="d">7 May</span><span class="wk">Thursday · week 1 · day 1</span></div>
+    <h2>Reading the firehose</h2>
+    <p>The first thing to solve isn't intelligence, it's plumbing; you can't analyse what you can't reach. Day one was a scraper that pulls posts and comments out of a paid chat into a local database. Boring, and the right place to start, because everything downstream is only as good as what lands here.</p>
+    <p>The first lesson arrived almost immediately and it was a human one, not a technical one: about half the people in a chat have no public profile, so you can know <em>what</em> was said and never <em>who</em> said it. I burned a while trying to resolve identities before accepting that the gap was structural, not a bug. A recurring theme started here; a lot of the work is learning what the data refuses to give you, and designing around the refusal.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">11 May</span><span class="wk">Monday · week 1</span></div>
+    <h2>From one source to many, and getting told off by a server</h2>
+    <p>By the second week it had to read everyone, not one chat; same database, several publications, both their chats and their article archives. The backfill pulled in thousands of posts and a hundred-odd thousand comments, which is when the politeness problem showed up.</p>
+    <p>Their servers rate-limit you, and not the way you'd guess; bursting into a fresh source right after a long run on a shared endpoint trips a "too many requests" wall even when you've been deliberately slow. Several runs failed before I taught it to back off, honour the server's "wait this long" header, and treat a payment-required response as a polite skip rather than a crash. The instinct to go faster is exactly wrong here; the only run that matters long-term is the small daily one, and slow-and-unbothered beats fast-and-blocked.</p>
+    <div class="aside warn">
+      <span class="tag">Lesson</span>
+      Don't parallelise the scraper to feel clever. The data's owners can see you, and the whole thing only works if it looks like a person quietly reading what they pay for.
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">12–13 May</span><span class="wk">Tue–Wed · week 1</span></div>
+    <h2>The actual hard part: deciding what counts as a signal</h2>
+    <p>This is where it stopped being plumbing. A chat is mostly noise; "gm", jokes, screenshots, and people asking what everyone thinks of a name. Out of that, I wanted only the lines where a person is genuinely taking a position, tagged with how much they meant it. Getting a model to do that reliably is less about prompting and more about defining, precisely, the thing you're looking for.</p>
+    <p>The rules that took the longest to pin down were all about <em>restraint</em>. A reader asking "thoughts on this one?" mentions a company while holding no view of it; that's not a signal. "There'll always be a buyer for these" is an observation, not a stance. A pasted news headline is the news's opinion, not the author's, unless they say otherwise. Each of these is obvious to a human and slippery to a model, and each one is a rule I had to write and then defend against the system's eagerness to find meaning in everything.</p>
 
     <div class="figure">
-      <svg viewBox="0 0 720 196" role="img" aria-label="The writers' own views are counted for conviction; the wider chat is kept as colour. Convergence is when independent writers line up on the same name.">
-        <rect x="10" y="30" width="320" height="64" rx="5" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".4"/>
-        <text class="svglabel" x="26" y="56" text-anchor="start" font-weight="600">the people who write the newsletters</text>
-        <text class="svgsub" x="26" y="78" text-anchor="start">their own calls — this is what counts toward conviction</text>
+      <svg viewBox="0 0 720 220" role="img" aria-label="A chat message is read by the model and reduced to a structured signal: company, stance, action, conviction, plus the exact words kept verbatim.">
+        <defs><marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8C917F"/></marker></defs>
+        <rect x="10" y="62" width="252" height="96" rx="10" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".18"/>
+        <text class="svgsub" x="26" y="52" text-anchor="start">a real chat message</text>
+        <text class="svglabel" x="26" y="92" text-anchor="start">"new position here, sized</text>
+        <text class="svglabel" x="26" y="110" text-anchor="start">small, think it can</text>
+        <text class="svglabel" x="26" y="128" text-anchor="start">re-rate hard from here"</text>
+        <line x1="262" y1="110" x2="314" y2="110" stroke="#8C917F" marker-end="url(#ar2)"/>
+        <rect x="314" y="86" width="86" height="48" rx="5" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
+        <text class="svglabel" x="357" y="114" text-anchor="middle" font-weight="600">the model</text>
+        <line x1="400" y1="110" x2="452" y2="110" stroke="#8C917F" marker-end="url(#ar2)"/>
+        <rect x="452" y="44" width="258" height="132" rx="6" fill="#F0D77A" fill-opacity=".32" stroke="#B88D33" stroke-opacity=".5"/>
+        <text class="svgsub" x="468" y="36" text-anchor="start">a structured signal</text>
+        <text class="svglabel" x="468" y="72" text-anchor="start">company &#8230;&#8230; the name</text>
+        <text class="svglabel" x="468" y="94" text-anchor="start">stance &#8230;&#8230;&#8230; buy</text>
+        <text class="svglabel" x="468" y="116" text-anchor="start">action &#8230;&#8230;&#8230; just opened</text>
+        <text class="svglabel" x="468" y="138" text-anchor="start">conviction &#8230; high</text>
+        <text class="svgsub" x="468" y="160" text-anchor="start">+ the exact words, kept verbatim</text>
+      </svg>
+      <div class="figcaption">every item, read the same way, reduced to the same handful of fields — or to nothing</div>
+    </div>
+    <p>The design partner for this stretch was a second model I used purely as a reviewer, red-lining my example set until the edge cases were covered. The output is deliberately strict and boring: a fixed set of fields, an exact quote for every claim, and an empty answer when there's nothing real. Silence had to be a first-class result. A system that stays quiet is useful; one that invents conviction to fill space is worse than nothing.</p>
+  </div>
 
-        <rect x="10" y="104" width="320" height="64" rx="5" fill="#E8D1C5" fill-opacity=".6" stroke="#A9553F" stroke-opacity=".35"/>
-        <text class="svglabel" x="26" y="130" text-anchor="start" font-weight="600">everyone else in the chat</text>
-        <text class="svgsub" x="26" y="152" text-anchor="start">kept as colour and early warning, never mistaken for the author</text>
+  <div class="entry">
+    <div class="datechip"><span class="d">14–17 May</span><span class="wk">week 2</span></div>
+    <h2>Choosing the cheap brain on purpose</h2>
+    <p>Reading every message with a frontier model would be lovely and would also quietly bleed money. So I ran a bake-off; the same few-shot examples against a flagship model and a much cheaper one, graded by hand. The cheap one agreed with the expensive one about ninety-odd percent of the time, at a small fraction of the cost, and its failures leaned the safe way; it under-read rather than hallucinated. Easy call. The expensive model gets saved for the single thing a human actually reads each day; the morning synthesis. Everything else, the millions of tiny reads, runs cheap.</p>
+    <div class="figure plain">
+      <svg viewBox="0 0 720 150" role="img" aria-label="A cheap model does the millions of small reads; an expensive model is reserved for the one daily synthesis a human reads.">
+        <rect x="10" y="40" width="330" height="74" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".45"/>
+        <text class="svgbig" x="28" y="70" text-anchor="start">the cheap model</text>
+        <text class="svgsub" x="28" y="92" text-anchor="start">reads every message &amp; article · millions of small reads</text>
+        <text class="svgsub" x="28" y="106" text-anchor="start">a few cents a day</text>
+        <rect x="380" y="40" width="330" height="74" rx="6" fill="#F0D77A" fill-opacity=".4" stroke="#B88D33" stroke-opacity=".5"/>
+        <text class="svgbig" x="398" y="70" text-anchor="start">the expensive model</text>
+        <text class="svgsub" x="398" y="92" text-anchor="start">writes the one daily brief a human actually reads</text>
+        <text class="svgsub" x="398" y="106" text-anchor="start">used once a day, on purpose</text>
+      </svg>
+      <div class="figcaption">spend the money where a person is looking; nowhere else</div>
+    </div>
+  </div>
 
-        <line x1="330" y1="99" x2="392" y2="99" stroke="#8C917F"/>
-        <rect x="392" y="62" width="318" height="74" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
-        <text class="svglabel" x="551" y="92" text-anchor="middle" font-weight="600">convergence</text>
-        <text class="svgsub" x="551" y="112" text-anchor="middle">≥ 2 independent writers, same name, same way</text>
-        <text class="svgsub" x="551" y="127" text-anchor="middle">that's the part worth a notification</text>
+  <div class="entry">
+    <div class="datechip"><span class="d">17–19 May</span><span class="wk">week 2</span></div>
+    <h2>Turning signals into something I'd actually open</h2>
+    <p>Now there were signals in a database; useless until shaped into a read. The brief got a fixed structure: what's new, what's converging across sources, the blunt action calls, the early first-mentions, the risks. And one rule that does most of the work; rank by <em>agreement</em>, not by volume. Counting mentions just surfaces whatever's loudest. What I care about is the quieter event of several independent writers landing on the same name, the same way, around the same time.</p>
+    <p>That forced a distinction I now think is the heart of the whole thing: whose voice is it. The people who write the publications are one tier; their own calls are what count toward conviction. Everyone else in the chat is a second tier, kept as colour and early warning, never quietly promoted into "the author said so." Conflating those two is the single easiest way to make a signal feed lie to you.</p>
+
+    <div class="figure">
+      <svg viewBox="0 0 720 230" role="img" aria-label="Two tiers: the writers' own calls count toward conviction; the wider chat is kept as colour. Convergence is two or more independent writers on the same name the same way.">
+        <rect x="10" y="20" width="330" height="66" rx="5" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".4"/>
+        <text class="svgbig" x="26" y="48" text-anchor="start">the writers themselves</text>
+        <text class="svgsub" x="26" y="70" text-anchor="start">their own calls → this is what counts</text>
+        <rect x="10" y="96" width="330" height="66" rx="5" fill="#E8D1C5" fill-opacity=".6" stroke="#A9553F" stroke-opacity=".35"/>
+        <text class="svgbig" x="26" y="124" text-anchor="start">everyone else in the chat</text>
+        <text class="svgsub" x="26" y="146" text-anchor="start">colour &amp; early warning, never the author's voice</text>
+        <line x1="340" y1="93" x2="404" y2="93" stroke="#8C917F"/>
+        <rect x="404" y="50" width="306" height="86" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
+        <text class="svgbig" x="557" y="84" text-anchor="middle">convergence</text>
+        <text class="svgsub" x="557" y="106" text-anchor="middle">≥ 2 independent writers · same name · same way</text>
+        <text class="svgsub" x="557" y="121" text-anchor="middle">that's the part worth a notification</text>
+        <text class="svgnote" x="10" y="196" text-anchor="start">Ranking by agreement, not volume, is the one rule that does most of the work.</text>
+        <text class="svgnote" x="10" y="214" text-anchor="start">Loud isn't signal. Quiet, independent agreement is.</text>
       </svg>
       <div class="figcaption">whose voice it is matters as much as what they said</div>
     </div>
+    <p>By the end of week two it was delivering a real brief to a chat on my phone each morning. It looked finished. It wasn't.</p>
+  </div>
 
-    <h2>Push, and pull</h2>
-    <p>For a while it only pushed; one synthesised message each morning, and short live nudges during the day when a writer opened a position or a quiet name suddenly heated up. That covered the "tell me what I missed" half. The half I underrated was being able to ask back. So it grew a second mouth: a small assistant I can message and interrogate. "Why is this name showing up?" returns who said what, with their actual words, even for names too thinly covered to ever make the morning brief. Push tells me what it decided was important; pull lets me check everything it didn't.</p>
+  <div class="entry">
+    <div class="datechip"><span class="d">20 May</span><span class="wk">Wednesday · the long day</span></div>
+    <h2>The day everything came back half-written</h2>
+    <p>This is my favourite entry, because it's the most honest about how building actually goes. The brief kept feeling thin on exactly the long, meaty articles that should have mattered most. The signals were there for short posts and missing for the big pieces, which made no sense until I looked at what was actually landing in the database: the long paid articles were arriving <em>truncated</em>, cut off right where the paywall sits, even though I was sending a valid paid login.</p>
+    <p>What followed was a couple of hours of pure detective work; Claude and I throwing probe after probe at it. Was the login being ignored? No. Was it a redirect? No. At one point the culprit looked like a compression setting quietly mangling the response, which was a real red herring I chased for a while. The actual answer was that one endpoint serves a polite truncated preview to everyone, and a different, less obvious endpoint serves the full body to a paid session. Switch endpoints, re-pull everything, problem gone.</p>
 
-    <h2>The mess</h2>
-    <p>None of this arrived clean. I spent the better part of an evening convinced I'd found a deep bug; the system kept reporting that it had processed hundreds of items while saving none of them. I read the code three times. The cause was a flag I'd left off my own command; it had been doing exactly what I told it, which was nothing. Another night went to a networking detour I talked myself into because I'd misremembered which machine was whose; the fix, once I stopped being clever, was a thirty-second login. The actual engineering was mostly fine. The errors were all me being confidently slightly wrong, which is the genre of mistake I make most.</p>
+    <div class="figure plain">
+      <svg viewBox="0 0 720 180" role="img" aria-label="The obvious endpoint returned a truncated article cut at the paywall; a different by-id endpoint returned the full paid body.">
+        <defs><marker id="ar3" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8C917F"/></marker></defs>
+        <text class="svgsub" x="16" y="24" text-anchor="start">the obvious way</text>
+        <rect x="16" y="34" width="300" height="58" rx="5" fill="#E8D1C5" fill-opacity=".5" stroke="#A9553F" stroke-opacity=".4"/>
+        <text class="svglabel" x="32" y="58" text-anchor="start">article → cut off at the paywall ✕</text>
+        <text class="svgsub" x="32" y="78" text-anchor="start">looks fine, quietly missing half the body</text>
+        <text class="svgsub" x="16" y="126" text-anchor="start">the less obvious way</text>
+        <rect x="16" y="136" width="300" height="34" rx="5" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
+        <text class="svglabel" x="32" y="158" text-anchor="start">same article, by its id → full paid body ✓</text>
+        <line x1="330" y1="92" x2="372" y2="92" stroke="#8C917F" marker-end="url(#ar3)"/>
+        <rect x="372" y="60" width="332" height="64" rx="6" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".2"/>
+        <text class="svgnote" x="388" y="86" text-anchor="start">Two hours of probes. The fix was one</text>
+        <text class="svgnote" x="388" y="104" text-anchor="start">endpoint. Most "bugs" are like this.</text>
+      </svg>
+      <div class="figcaption">the system wasn't broken; I was reading the wrong door</div>
+    </div>
+    <p>The same day I also tightened the extraction rules twice more, the second time to forbid a specific failure I'd caught: the model inventing a plausible ticker for a thesis when the author never named one. Its training data is full of plausible guesses; left unchecked it will confidently supply one. Better to miss a real signal than to manufacture a fake.</p>
+  </div>
 
-    <p>There's a cost discipline running underneath it too. Reading every message with a top-tier model would be lovely and would also quietly bleed money, so the cheap, boring model does the millions of small reads and the expensive one is saved for the one thing a human actually consumes; the morning synthesis. Watching the daily spend sit at a few cents is its own small satisfaction.</p>
+  <div class="entry">
+    <div class="datechip"><span class="d">23 May</span><span class="wk">Saturday</span></div>
+    <h2>A wall I'd built for myself</h2>
+    <p>I'd written a neat way for my personal assistant agent to query all of this directly. Then I remembered the agent doesn't live on the same machine as the data; it runs on its own isolated box. You can't reach a database on one computer by pointing at a file path on another. The clever thing I'd built simply couldn't work, and the honest move was to write that down, mark it not-deployable, and sketch the real fix for later rather than pretend. It sat unsolved for almost two weeks.</p>
+  </div>
 
-    <h2>What AI did, and didn't</h2>
-    <p>AI wrote most of the code, which is the least interesting thing about it. What it could not do was decide what counted. It had no opinion on whether a wry one-liner was a real short or just a joke, on how much to trust the crowd versus the author, on when "this aged well" is a position and when it's a postcard. It would happily extract a signal from a shrug if I let it. Every threshold in the thing is a judgement I had to make and then defend against my own system's eagerness to find meaning. The model made the work cheap; the taste, again, had to come from somewhere.</p>
+  <div class="entry">
+    <div class="datechip"><span class="d">4 June</span><span class="wk">Thursday · week 4, after living with it</span></div>
+    <h2>Grading my own homework</h2>
+    <p>After a fortnight of actually receiving the daily brief, I stopped and audited it properly; ten briefs read against what the system could have known. The test I trust most was a ground-truth one: I browsed the sources myself, wrote down three things I'd have wanted flagged, then traced each through the pipeline to see where it was won or lost. All three were sitting in the database. None had surfaced cleanly.</p>
+    <p>The verdict was clarifying and a little humbling: the reading and understanding were fine; the <em>last</em> step, deciding what to show, was the weak link. The worst offender was the risk section quietly attributing a community member's offhand quip to a named author. Good thing to catch, since misattribution in a trust-based feed is close to the worst failure it can have. I fixed it, then built the thing the audit told me I actually needed; a live layer.</p>
+  </div>
 
-    <p>It replaced an unwinnable daily habit; reading several chats and several article streams and trusting myself to notice the one line that mattered. Now a quieter version of that attention runs without me, and hands me the shortlist. It is not always right. It is reliably less wrong than me at midnight with eleven open tabs, and on the days it surfaces something I'd have walked past, it pays for the whole month of subscriptions in a single notification.</p>
+  <div class="entry">
+    <div class="datechip"><span class="d">4–6 June</span><span class="wk">week 4</span></div>
+    <h2>From a morning newspaper to a wire</h2>
+    <p>The single daily brief was good for "what did I miss overnight" and bad for "something is happening now." So it grew an intraday layer that stays silent unless an event actually fires; a writer opens a position, a quiet name suddenly heats up across several voices, a new article lands. The morning brief stayed as the orienting read; the live nudges sit on top for urgency. The rule I held to was that a pure schedule ("nothing new, here's your 3pm ping") trains you to ignore the feed, so it only ever speaks when there's a reason.</p>
+    <p>I also spent a session teaching it two things it kept getting subtly wrong; that "new position" means someone just bought, the single most newsworthy fact in a chat, and that "that short worked out nicely" is a closed trade being remembered fondly, not a live bearish call. Both are the difference between a stance and a memory, and both are exactly the kind of judgement the model won't make unless you make it explicit.</p>
+  </div>
 
-    <hr>
-    <p class="footer-note">A note on sources: this reads publications I pay for, for my own use. I've kept every name out of this on purpose; the system is the point, not the people I read.</p>
+  <div class="entry">
+    <div class="datechip"><span class="d">7 June</span><span class="wk">Saturday</span></div>
+    <h2>Giving it a second mouth</h2>
+    <p>Two weeks after admitting the cross-machine wall, I built the real fix: a small, locked-down query service on the machine that holds the data, reachable only over my private network, that the assistant calls instead of touching files. Now I can ask back. "Why is this name showing up?" returns who said what, in their own words, even for names too thinly covered to ever make the morning brief. The brief pushes what it decided mattered; this lets me pull everything it didn't. That push-and-pull pairing is, I think, when it stopped being a report and started being a tool.</p>
+    <div class="figure plain">
+      <svg viewBox="0 0 720 132" role="img" aria-label="Push: the brief and live nudges decide what I see. Pull: I can ask the assistant about anything, including names that never made the brief.">
+        <rect x="10" y="28" width="330" height="76" rx="6" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".4"/>
+        <text class="svgbig" x="28" y="56" text-anchor="start">push</text>
+        <text class="svgsub" x="28" y="78" text-anchor="start">brief + live nudges decide what reaches me</text>
+        <text class="svgsub" x="28" y="93" text-anchor="start">"here's what mattered"</text>
+        <rect x="380" y="28" width="330" height="76" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
+        <text class="svgbig" x="398" y="56" text-anchor="start">pull</text>
+        <text class="svgsub" x="398" y="78" text-anchor="start">I ask, it answers from the live data</text>
+        <text class="svgsub" x="398" y="93" text-anchor="start">"why this name?" — even the thin ones</text>
+      </svg>
+      <div class="figcaption">the report became a tool the day I could interrogate it</div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">9 June</span><span class="wk">Monday · a detour that was my fault</span></div>
+    <h2>Confidently wrong about my own desk</h2>
+    <p>Connecting the assistant to the query service should have been quick. It turned into an evening, and the cause was me. I'd got it into my head that the assistant's machine was somehow a separate, untrusted thing, so Claude and I went down a careful, fiddly path of sharing one machine across two private networks, with access-control rules and the works. It half-worked in a way that's worse than not working; the connection would say it was reachable, then quietly refuse on the one port that mattered, because that setup needs permission on <em>both</em> networks and I'd only granted it on one.</p>
+    <p>The thing is, both machines are mine. They sit on the same desk. The moment I said that out loud, the whole elaborate solution evaporated; just put the second machine on my own network like the others, done. There was a smaller comedy inside it too, where the login kept silently signing in as the wrong account until we forced a fresh browser window. Two people, one of them an AI, both capable of real work, spending an hour solving a problem I had invented by misremembering where my own computers live.</p>
+    <div class="aside warn">
+      <span class="tag">The pattern</span>
+      Almost none of my errors were the code being hard. They were me being confidently slightly wrong about something I should have known, and then both of us building cleverly on top of the wrong premise. The fix was usually to say the obvious thing out loud.
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">11–12 June</span><span class="wk">week 5</span></div>
+    <h2>The last source, and a flag I forgot</h2>
+    <p>The final piece was folding in the Asian-equities publication, which was awkward because it lives on a different platform <em>and</em> has its member chat on a different one again; articles fetched one way, chat read another, both needing to land as a single voice so they'd converge together. That part went smoothly. The part that didn't, again, was me.</p>
+    <p>I spent a chunk of the night convinced of a deep data-loss bug; a backfill kept reporting it had processed two hundred items while saving exactly none. I read the code three times and even checked whether two processes were fighting over the database. The cause was a single flag I'd left off my own command, the one that says "actually write this down." It had been doing precisely what I asked, which was a dry run. Twice. The genre of mistake is consistent.</p>
+    <p>The same stretch trimmed the cost where it had crept; the daily article summaries had been quietly using the expensive model, so I moved them to a cheaper one that does the job just as well and roughly halved the monthly spend. Boring, satisfying, the kind of thing that only matters because nobody's watching it.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">12 June</span><span class="wk">Friday · today</span></div>
+    <h2>An honest second opinion</h2>
+    <p>With the thing finally complete, I had a different AI review the entire codebase cold, told to be skeptical and specific. It was a good call. It found a handful of real, quiet erosions; ways the system could double-count if I ever changed the rules, a way a failed write could silently mark an item as done and lose it, and a genuinely sharp catch on the brand-new code, where an expired login could let a truncated article slip in unnoticed. None of it was on fire. All of it was the kind of slow data-quality leak that costs you later. I fixed the ones worth fixing the same afternoon and wrote down the two that need a proper migration to do safely.</p>
+    <p>Getting a second model to attack your own work, with no ego in it, is one of the genuinely new things about building this way. It doesn't get tired or defensive, and it doesn't care that you just declared yourself finished.</p>
+  </div>
+
+  <hr>
+  <div class="entry" style="border-top:0">
+    <h2>What the five weeks actually taught me</h2>
+    <p>The model wrote almost all of the code, which is the least interesting thing about the whole project. What it could not do was decide what counted. It had no opinion on whether a wry one-liner was a real short or a joke, on how much to trust the crowd against the writer, on when "this aged well" is a position and when it's a postcard. It would happily extract a signal from a shrug if I let it. Every threshold in the thing is a judgement I had to make and then defend against the system's own eagerness to find meaning everywhere.</p>
+    <p>So the division of labour was clean and a little surprising: AI made iteration almost free, and taste still had to come from somewhere. The taste came out of a lot of imperfect reactions; this is noise, that's real, you're over-reading, you're attributing the wrong person, miss it rather than fake it. That loop was the work. The fumbles in this journal are not incidental to it; they <em>are</em> it. The good version of building with AI isn't fewer mistakes, it's cheaper ones, made faster, with someone, or something, to say the obvious thing back to you when you've talked yourself somewhere silly.</p>
+    <p>It replaced a habit I was never going to win; reading several chats and several article streams every day and trusting myself, at midnight, with eleven tabs open, to notice the one line that mattered. A quieter version of that attention now runs without me and hands me the shortlist. It isn't always right. It's reliably less wrong than me at midnight, and on the mornings it surfaces something I'd have walked straight past, it pays for the whole month of subscriptions in a single message.</p>
+  </div>
+
+  <p class="footer-note">A note on sources. This reads publications I personally pay for, for my own use, and I've deliberately kept every name out of it; the publications, the writers, the tickers, all of it. The system is the point, not the people I read. This journal is the first of a few; I'm planning to document the other things I've built the same way, dates and dead-ends included.</p>
+
   </article>
 </div>
 </body>
