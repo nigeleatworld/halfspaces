@@ -96,10 +96,16 @@
     text-align:center; background:var(--warm-white)}
   .out .t{margin:0 0 4px; font-weight:700; font-size:clamp(14px,1.4vw,16px)}
   .out .s{margin:0; font-family:var(--mono); color:var(--slate); font-size:clamp(11px,1.1vw,12px)}
+  .cols{display:flex; flex-direction:column; gap:9px}
+  .c-clay{background:#E8D1C5} .c-blue{background:#DCE7EA} .c-sage{background:#D7E1CE}
+  .c-gold{background:color-mix(in srgb,var(--yellow-wash) 50%,var(--warm-white))} .c-warm{background:#FCFAF2}
+  .good{color:var(--forest); font-weight:700} .bad{color:var(--terracotta); font-weight:700}
+  .stage .s.fields{text-align:left; display:inline-block}
   @media (min-width:760px){
     .pipe{flex-direction:row; align-items:stretch}
     .outs{flex-direction:row}
-    .arrow::before{content:"\2192"}
+    .cols{flex-direction:row}
+    .pipe .arrow::before{content:"\2192"}
   }
 
   /* aside / callout */
@@ -116,9 +122,6 @@
   @media (max-width:640px){
     body{font-size:17px}
     .figure{padding:14px 10px 8px}
-    /* wide diagrams scale down too far on a phone, shrinking their labels below
-       body text; hold them at a legible width and let the figure scroll sideways. */
-    .figure svg{min-width:680px}
   }
 </style>
 </head>
@@ -206,25 +209,15 @@
     <p>The rules that took the longest to pin down were all about <em>restraint</em>. A reader asking "thoughts on this one?" mentions a company while holding no view of it; that's not a signal. "There'll always be a buyer for these" is an observation, not a stance. A pasted news headline is the news's opinion, not the author's, unless they say otherwise. Each of these is obvious to a human and slippery to a model, and each one is a rule I had to write and then defend against the system's eagerness to find meaning in everything.</p>
 
     <div class="figure">
-      <svg viewBox="0 0 720 220" role="img" aria-label="A chat message is read by the model and reduced to a structured signal: company, stance, action, conviction, plus the exact words kept verbatim.">
-        <defs><marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8C917F"/></marker></defs>
-        <rect x="10" y="62" width="252" height="96" rx="10" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".18"/>
-        <text class="svgsub" x="26" y="52" text-anchor="start">a real chat message</text>
-        <text class="svglabel" x="26" y="92" text-anchor="start">"new position here, sized</text>
-        <text class="svglabel" x="26" y="110" text-anchor="start">small, think it can</text>
-        <text class="svglabel" x="26" y="128" text-anchor="start">re-rate hard from here"</text>
-        <line x1="262" y1="110" x2="314" y2="110" stroke="#8C917F" marker-end="url(#ar2)"/>
-        <rect x="314" y="86" width="86" height="48" rx="5" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
-        <text class="svglabel" x="357" y="114" text-anchor="middle" font-weight="600">the model</text>
-        <line x1="400" y1="110" x2="452" y2="110" stroke="#8C917F" marker-end="url(#ar2)"/>
-        <rect x="452" y="44" width="258" height="132" rx="6" fill="#F0D77A" fill-opacity=".32" stroke="#B88D33" stroke-opacity=".5"/>
-        <text class="svgsub" x="468" y="36" text-anchor="start">a structured signal</text>
-        <text class="svglabel" x="468" y="72" text-anchor="start">company &#8230;&#8230; the name</text>
-        <text class="svglabel" x="468" y="94" text-anchor="start">stance &#8230;&#8230;&#8230; buy</text>
-        <text class="svglabel" x="468" y="116" text-anchor="start">action &#8230;&#8230;&#8230; just opened</text>
-        <text class="svglabel" x="468" y="138" text-anchor="start">conviction &#8230; high</text>
-        <text class="svgsub" x="468" y="160" text-anchor="start">+ the exact words, kept verbatim</text>
-      </svg>
+      <div class="diagram" role="img" aria-label="A chat message is read by the model and reduced to a structured signal: company, stance, action, conviction, plus the exact words kept verbatim.">
+        <div class="pipe">
+          <div class="stage c-warm"><p class="t" style="font-weight:600;font-size:12.5px;color:var(--slate)">a real chat message</p><p class="s" style="font-size:clamp(13px,1.3vw,14.5px);color:var(--charcoal)">"new position here, sized small, think it can re-rate hard from here"</p></div>
+          <div class="arrow"></div>
+          <div class="stage c-sage"><p class="t">the model</p></div>
+          <div class="arrow"></div>
+          <div class="stage c-gold"><p class="t" style="font-weight:600;font-size:12.5px;color:var(--slate)">a structured signal</p><p class="s fields">company · the name<br>stance · buy<br>action · just opened<br>conviction · high<br>+ the exact words, kept verbatim</p></div>
+        </div>
+      </div>
       <div class="figcaption">every item, read the same way, reduced to the same handful of fields — or to nothing</div>
     </div>
     <p>I built the example set the model learns from by hand, and kept red-lining it with Claude until the edge cases were covered. The output is deliberately strict and boring: a fixed set of fields, an exact quote for every claim, and an empty answer when there's nothing real. Silence had to be a first-class result. A system that stays quiet is useful; one that invents conviction to fill space is worse than nothing.</p>
@@ -235,16 +228,12 @@
     <h2>Choosing the cheap brain on purpose</h2>
     <p>Reading every message with a frontier model would be lovely and would also quietly bleed money. So I ran a bake-off; the same few-shot examples against a flagship model and a much cheaper one, graded by hand. The cheap one agreed with the expensive one about ninety-odd percent of the time, at a small fraction of the cost, and its failures leaned the safe way; it under-read rather than hallucinated. Easy call. The expensive model gets saved for the single thing a human actually reads each day; the morning synthesis. Everything else, the millions of tiny reads, runs cheap.</p>
     <div class="figure plain">
-      <svg viewBox="0 0 720 150" role="img" aria-label="A cheap model does the millions of small reads; an expensive model is reserved for the one daily synthesis a human reads.">
-        <rect x="10" y="40" width="330" height="74" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".45"/>
-        <text class="svgbig" x="28" y="70" text-anchor="start">the cheap model</text>
-        <text class="svgsub" x="28" y="92" text-anchor="start">reads every message &amp; article</text>
-        <text class="svgsub" x="28" y="106" text-anchor="start">millions of reads; a few cents a day</text>
-        <rect x="380" y="40" width="330" height="74" rx="6" fill="#F0D77A" fill-opacity=".4" stroke="#B88D33" stroke-opacity=".5"/>
-        <text class="svgbig" x="398" y="70" text-anchor="start">the expensive model</text>
-        <text class="svgsub" x="398" y="92" text-anchor="start">writes the one daily brief</text>
-        <text class="svgsub" x="398" y="106" text-anchor="start">a human reads, once a day</text>
-      </svg>
+      <div class="diagram" role="img" aria-label="A cheap model does the millions of small reads; an expensive model is reserved for the one daily synthesis a human reads.">
+        <div class="cols">
+          <div class="stage c-sage"><p class="t">the cheap model</p><p class="s">reads every message &amp; article · millions of small reads · a few cents a day</p></div>
+          <div class="stage c-gold"><p class="t">the expensive model</p><p class="s">writes the one daily brief a human actually reads · once a day, on purpose</p></div>
+        </div>
+      </div>
       <div class="figcaption">spend the money where a person is looking; nowhere else</div>
     </div>
   </div>
@@ -256,21 +245,15 @@
     <p>That forced a distinction I now think is the heart of the whole thing: whose voice it is. The people who write the publications are one tier; their own calls are what count toward conviction. Everyone else in the chat is a second tier, kept as colour and early warning, never quietly promoted into "the author said so." Conflating those two is the single easiest way to make a signal feed lie to you.</p>
 
     <div class="figure">
-      <svg viewBox="0 0 720 230" role="img" aria-label="Two tiers: the writers' own calls count toward conviction; the wider chat is kept as colour. Convergence is two or more independent writers on the same name the same way.">
-        <rect x="10" y="20" width="330" height="66" rx="5" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".4"/>
-        <text class="svgbig" x="26" y="48" text-anchor="start">the writers themselves</text>
-        <text class="svgsub" x="26" y="70" text-anchor="start">their own calls → this is what counts</text>
-        <rect x="10" y="96" width="330" height="66" rx="5" fill="#E8D1C5" fill-opacity=".6" stroke="#A9553F" stroke-opacity=".35"/>
-        <text class="svgbig" x="26" y="124" text-anchor="start">everyone else in the chat</text>
-        <text class="svgsub" x="26" y="146" text-anchor="start">colour &amp; early warning, never the author's voice</text>
-        <line x1="340" y1="93" x2="404" y2="93" stroke="#8C917F"/>
-        <rect x="404" y="50" width="306" height="86" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
-        <text class="svgbig" x="557" y="84" text-anchor="middle">convergence</text>
-        <text class="svgsub" x="557" y="106" text-anchor="middle">≥ 2 independent writers · same name · same way</text>
-        <text class="svgsub" x="557" y="121" text-anchor="middle">that's the part worth a notification</text>
-        <text class="svgnote" x="10" y="196" text-anchor="start">Ranking by agreement, not volume, is the one rule that does most of the work.</text>
-        <text class="svgnote" x="10" y="214" text-anchor="start">Loud isn't signal. Quiet, independent agreement is.</text>
-      </svg>
+      <div class="diagram" role="img" aria-label="Two tiers: the writers' own calls count toward conviction; the wider chat is kept as colour. Convergence is two or more independent writers on the same name the same way.">
+        <div class="cols">
+          <div class="stage c-blue"><p class="t">the writers themselves</p><p class="s">their own calls → this is what counts toward conviction</p></div>
+          <div class="stage c-clay"><p class="t">everyone else in the chat</p><p class="s">colour &amp; early warning, never the author's voice</p></div>
+        </div>
+        <div class="arrow"></div>
+        <div class="stage c-sage"><p class="t">convergence</p><p class="s">≥ 2 independent writers · same name · same way — that's the part worth a notification</p></div>
+        <p class="flowrail">ranking by agreement, not volume, is the rule that does most of the work; loud isn't signal, quiet independent agreement is</p>
+      </div>
       <div class="figcaption">whose voice it is matters as much as what they said</div>
     </div>
     <p>By the end of week two it was delivering a real brief to a chat on my phone each morning. It looked finished. It wasn't.</p>
@@ -283,20 +266,13 @@
     <p>What followed was a couple of hours of detective work, almost all of it in Claude's hands; probe after probe, while I watched and guessed out loud. Was the login being ignored? No. A redirect? No. At one point the culprit looked like a compression setting quietly mangling the response, a real red herring Claude chased for a while. The actual answer was that one endpoint serves a polite truncated preview to everyone, and a different, less obvious endpoint serves the full body to a paid session. Switch endpoints, re-pull everything, problem gone.</p>
 
     <div class="figure plain">
-      <svg viewBox="0 0 720 180" role="img" aria-label="The obvious endpoint returned a truncated article cut at the paywall; a different by-id endpoint returned the full paid body.">
-        <defs><marker id="ar3" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8C917F"/></marker></defs>
-        <text class="svgsub" x="16" y="24" text-anchor="start">the obvious way</text>
-        <rect x="16" y="34" width="300" height="58" rx="5" fill="#E8D1C5" fill-opacity=".5" stroke="#A9553F" stroke-opacity=".4"/>
-        <text class="svglabel" x="32" y="58" text-anchor="start">article → cut off at the paywall ✕</text>
-        <text class="svgsub" x="32" y="78" text-anchor="start">looks fine, quietly missing half the body</text>
-        <text class="svgsub" x="16" y="126" text-anchor="start">the less obvious way</text>
-        <rect x="16" y="136" width="300" height="34" rx="5" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
-        <text class="svglabel" x="32" y="158" text-anchor="start">same article, by its id → full paid body ✓</text>
-        <line x1="330" y1="92" x2="372" y2="92" stroke="#8C917F" marker-end="url(#ar3)"/>
-        <rect x="372" y="60" width="332" height="64" rx="6" fill="#FCFAF2" stroke="#111B2E" stroke-opacity=".2"/>
-        <text class="svgnote" x="388" y="86" text-anchor="start">Two hours of probes. The fix was one</text>
-        <text class="svgnote" x="388" y="104" text-anchor="start">endpoint. Most "bugs" are like this.</text>
-      </svg>
+      <div class="diagram" role="img" aria-label="The obvious endpoint returned a truncated article cut at the paywall; a different by-id endpoint returned the full paid body.">
+        <div class="cols">
+          <div class="stage c-clay"><p class="t">the obvious way <span class="bad">✕</span></p><p class="s">the article comes back cut off at the paywall; looks fine, quietly missing half the body</p></div>
+          <div class="stage c-sage"><p class="t">the less obvious way <span class="good">✓</span></p><p class="s">the same article, fetched by its id; the full paid body</p></div>
+        </div>
+        <p class="flowrail">two hours of probes; the fix was one endpoint. most "bugs" are like this.</p>
+      </div>
       <div class="figcaption">the system wasn't broken; I was reading the wrong door</div>
     </div>
     <p>The same day I also tightened the extraction rules twice more, the second time to forbid a specific failure I'd caught: the model inventing a plausible ticker for a thesis when the author never named one. Its training data is full of plausible guesses; left unchecked it will confidently supply one. Better to miss a real signal than to manufacture a fake.</p>
@@ -327,16 +303,12 @@
     <h2>Giving it a second mouth</h2>
     <p>Two weeks after admitting the cross-machine wall, I built the real fix: a small, locked-down query service on the machine that holds the data, reachable only over my private network, that answers questions instead of handing over files. Now I can ask it things. "Why is this name showing up?" returns who said what, in their own words, even for names too thinly covered to ever make the morning brief. The brief pushes what it decided mattered; this lets me pull everything it didn't. That push-and-pull pairing is, I think, when it stopped being a report and started being a tool.</p>
     <div class="figure plain">
-      <svg viewBox="0 0 720 132" role="img" aria-label="Push: the brief and live nudges decide what I see. Pull: I can ask about anything, including names that never made the brief.">
-        <rect x="10" y="28" width="330" height="76" rx="6" fill="#DCE7EA" stroke="#496D7D" stroke-opacity=".4"/>
-        <text class="svgbig" x="28" y="56" text-anchor="start">push</text>
-        <text class="svgsub" x="28" y="78" text-anchor="start">brief + live nudges decide what reaches me</text>
-        <text class="svgsub" x="28" y="93" text-anchor="start">"here's what mattered"</text>
-        <rect x="380" y="28" width="330" height="76" rx="6" fill="#D7E1CE" stroke="#5E8061" stroke-opacity=".5"/>
-        <text class="svgbig" x="398" y="56" text-anchor="start">pull</text>
-        <text class="svgsub" x="398" y="78" text-anchor="start">I ask, it answers from the live data</text>
-        <text class="svgsub" x="398" y="93" text-anchor="start">"why this name?" — even the thin ones</text>
-      </svg>
+      <div class="diagram" role="img" aria-label="Push: the brief and live nudges decide what I see. Pull: I can ask about anything, including names that never made the brief.">
+        <div class="cols">
+          <div class="stage c-blue"><p class="t">push</p><p class="s">brief + live nudges decide what reaches me · "here's what mattered"</p></div>
+          <div class="stage c-sage"><p class="t">pull</p><p class="s">I ask, it answers from the live data · "why this name?" — even the thin ones</p></div>
+        </div>
+      </div>
       <div class="figcaption">the report became a tool the day I could interrogate it</div>
     </div>
   </div>
