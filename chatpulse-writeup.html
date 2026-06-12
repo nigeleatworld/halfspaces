@@ -249,7 +249,7 @@
     <div class="datechip"><span class="d">17–19 May</span><span class="wk">week 2</span></div>
     <h2>Turning signals into something I'd actually open</h2>
     <p>Now there were signals in a database; useless until shaped into a read. The brief got a fixed structure: what's new, what's converging across sources, the blunt action calls, the early first-mentions, the risks. And one rule that does most of the work; rank by <em>agreement</em>, not by volume. Counting mentions just surfaces whatever's loudest. What I care about is the quieter event of several independent writers landing on the same name, the same way, around the same time.</p>
-    <p>That forced a distinction I now think is the heart of the whole thing: whose voice is it. The people who write the publications are one tier; their own calls are what count toward conviction. Everyone else in the chat is a second tier, kept as colour and early warning, never quietly promoted into "the author said so." Conflating those two is the single easiest way to make a signal feed lie to you.</p>
+    <p>That forced a distinction I now think is the heart of the whole thing: whose voice it is. The people who write the publications are one tier; their own calls are what count toward conviction. Everyone else in the chat is a second tier, kept as colour and early warning, never quietly promoted into "the author said so." Conflating those two is the single easiest way to make a signal feed lie to you.</p>
 
     <div class="figure">
       <svg viewBox="0 0 720 230" role="img" aria-label="Two tiers: the writers' own calls count toward conviction; the wider chat is kept as colour. Convergence is two or more independent writers on the same name the same way.">
@@ -301,7 +301,7 @@
   <div class="entry">
     <div class="datechip"><span class="d">23 May</span><span class="wk">Saturday</span></div>
     <h2>A wall I'd built for myself</h2>
-    <p>Claude had built a neat way for my own separate agent to query all of this directly. Then I remembered the agent doesn't live on the same machine as the data; it runs on its own isolated box. You can't reach a database on one computer by pointing at a file path on another. The clever thing I'd built simply couldn't work, and the honest move was to write that down, mark it not-deployable, and sketch the real fix for later rather than pretend. It sat unsolved for almost two weeks.</p>
+    <p>Claude had built a neat way for my own separate agent to query all of this directly. Then I remembered the agent doesn't live on the same machine as the data; it runs on its own isolated box. You can't reach a database on one computer by pointing at a file path on another. The clever thing I'd built simply couldn't work, and the honest move was to write that down, mark it not-deployable, and sketch the real fix for later rather than pretend otherwise. It sat unsolved for almost two weeks.</p>
   </div>
 
   <div class="entry">
@@ -340,7 +340,7 @@
   <div class="entry">
     <div class="datechip"><span class="d">9 June</span><span class="wk">Monday · a detour that was my fault</span></div>
     <h2>Confidently wrong about my own desk</h2>
-    <p>Connecting that agent to the query service should have been quick. It turned into an evening, and the wrong idea was mine. I'd taken my own second machine for some separate, untrusted thing, and Claude, taking my word for it, built out a careful, fiddly path of sharing one machine across two private networks, with access-control rules and the works. It half-worked in a way that's worse than not working; the connection would say it was reachable, then quietly refuse on the one port that mattered, because that setup needs permission on <em>both</em> networks and I'd only granted it on one.</p>
+    <p>Connecting that agent to the query service should have been quick. It turned into an evening, and the wrong idea was mine. I'd taken my own second machine for some separate, untrusted thing, and Claude, taking my word for it, built out a careful, fiddly way of sharing one machine across two private networks, with access-control rules and the works. It half-worked in a way that's worse than not working; the connection would say it was reachable, then quietly refuse on the one port that mattered, because that setup needs permission on <em>both</em> networks and I'd only granted it on one.</p>
     <p>The thing is, both machines are mine. They sit on the same desk. The moment I said that out loud, the whole elaborate solution evaporated; just put the second machine on my own network like the others, done. There was a smaller comedy inside it too, where the login kept silently signing in as the wrong account until we forced a fresh browser window. The two of us, Claude and me, both capable of real work, spending an hour solving a problem I'd invented by misremembering where my own computers live.</p>
     <div class="aside warn">
       <span class="tag">The pattern</span>
@@ -353,7 +353,7 @@
     <h2>The last source, and a flag I forgot</h2>
     <p>The final piece was folding in the Asian-equities publication, which was awkward because it lives on a different platform <em>and</em> has its member chat on a different one again; articles fetched one way, chat read another, both needing to land as a single voice so they'd converge together. That part went smoothly. The part that didn't, again, was me.</p>
     <p>We lost a chunk of the night to what looked like a deep data-loss bug; a backfill kept reporting it had processed two hundred items while saving exactly none. Claude read the code three times and even checked whether two processes were fighting over the database. The cause was a single flag Claude had left off the command, the one that says "actually write this down." It had been doing precisely what it was told, which was a dry run. Twice. My job that night was the unglamorous half of the partnership: keep asking "are you sure that's it?" until the embarrassingly simple answer surfaced.</p>
-    <p>The same stretch trimmed the cost where it had crept; the daily article summaries had been quietly using the expensive model, so I moved them to a cheaper one that does the job just as well and roughly halved the monthly spend. Boring, satisfying, the kind of thing that only matters because nobody's watching it.</p>
+    <p>In the same stretch we trimmed the cost where it had crept; the daily article summaries had been quietly using the expensive model, so Claude moved them to a cheaper one that does the job just as well, roughly halving the monthly spend. Boring, satisfying, the kind of thing that only matters because nobody's watching it.</p>
   </div>
 
   <div class="entry">
