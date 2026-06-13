@@ -10,13 +10,21 @@ Five project threads live on the page: SpacePod, Mr. B, Budget Dashboard, Intros
 
 Brand spec: warm whites, parchment, linen, terracotta, forest, slate blue, ochre. No navy, no pure white. DM Sans + JetBrains Mono.
 
-## In-flight (2026-05-23)
+## "Field notes" — build-journal series (started 2026-06-13)
+
+A **"Field notes" dropdown** now lives in the hero action row (`index.html`, native `<details class="fieldnotes">`, no JS), the index for a series of dated build journals. First one PUBLISHED:
+
+- **`building-chatpulse.html`** — "Building chatpulse," the build journal for the chatpulse project (see `~/projects/chatpulse`). Live at `halfspaces.co/building-chatpulse`. Standalone self-contained HTML page in the site palette (DM Sans / JetBrains Mono). Dated journal (7 May–12 Jun 2026), Nigel's voice. **Discretion rules baked in: NO source/author/publication names anywhere** (chatpulse ingests paid newsletters; sources stay anonymous, framed as "a handful of paid investing newsletters" etc.). Honest-credit framing: Claude did the building + its fumbles, Nigel directed/decided/waited.
+- **Pattern for the rest of the series:** each journal is a standalone responsive HTML page in the site palette; diagrams are **responsive HTML (flexbox `.pipe`/`.cols`/`.stage`/`.arrow`, fluid `clamp()` text)**, NOT fixed SVG — they reflow row→vertical-stack and stay crisp on phones (the SVG version shrank text + needed horizontal scroll; rebuilt). Add each new one to the dropdown's `.fn-panel`.
+- Dropdown items marked **"soon"** (no link yet): halfspaces, SpacePod, Mr. B, Introspace, Bitpybit. `building-halfspaces.md` exists as markdown (below) but isn't yet an HTML page; convert + link it to fill its "soon" slot.
+
+## In-flight — building-halfspaces writeup (2026-05-23; now a "Field notes" candidate)
 
 **Writeup for the site — `building-halfspaces.md` (~1,300 words).**
 
 - Title: **"Building halfspaces"**
-- Placement: subtle about/history page on `halfspaces.co`. Nigel's framing: "nothing loud, but there — FOR NOW."
-- Status: drafted and revised. **Not yet published.**
+- Placement: NOW its slot in the **Field notes dropdown** (currently "soon"). Convert the markdown to a standalone HTML page (same template as `building-chatpulse.html`), then flip its dropdown entry to a live link.
+- Status: drafted and revised. **Not yet published** (still markdown).
 
 **Irreducibly-Nigel anchors in the draft (added to puncture AI-essay smoothness):**
 
