@@ -497,30 +497,97 @@
         }
 
         /* Field notes — build-journal dropdown (native <details>, grows over time) */
-        .fieldnotes { position: relative; display: inline-block; }
+        .fieldnotes {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
         .fieldnotes > summary {
-            display: inline-block; list-style: none; cursor: pointer;
-            border-bottom: 1px solid currentColor; color: var(--charcoal); padding-bottom: 1px;
+            display: inline-block;
+            list-style: none;
+            cursor: pointer;
+            border-bottom: 1px solid currentColor;
+            color: var(--charcoal);
+            padding-bottom: 1px;
+            font: 0.72rem var(--mono);
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
-        .fieldnotes > summary::-webkit-details-marker { display: none; }
-        .fieldnotes > summary::after { content: "\25BE"; font-size: 0.78em; margin-left: 5px; }
-        .fieldnotes[open] > summary::after { content: "\25B4"; }
-        .fieldnotes > summary:hover { color: var(--terracotta); }
+
+        .fieldnotes > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .fieldnotes > summary::after {
+            content: "\25BE";
+            font-size: 0.78em;
+            margin-left: 5px;
+        }
+
+        .fieldnotes[open] > summary::after {
+            content: "\25B4";
+        }
+
+        .fieldnotes > summary:hover {
+            color: var(--terracotta);
+        }
+
         .fn-panel {
-            position: absolute; top: calc(100% + 10px); left: 0; z-index: 40;
-            min-width: 238px; background: var(--warm-white);
-            border: 1px solid var(--line-strong); border-radius: 12px; padding: 7px;
-            box-shadow: 0 12px 32px rgba(17, 27, 46, 0.12);
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            z-index: 40;
+            min-width: 238px;
+            margin: 0;
+            padding: 7px;
+            list-style: none;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background: var(--warm-white);
+            box-shadow: 0 12px 32px color-mix(in srgb, var(--charcoal) 12%, transparent);
         }
+
+        .fn-panel li {
+            margin: 0;
+        }
+
         .fn-item {
-            display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
-            padding: 9px 11px; border-radius: 8px; text-decoration: none; border-bottom: 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 9px 11px;
+            border-bottom: 0;
+            border-radius: 6px;
+            text-decoration: none;
         }
-        .fn-item .nm { color: var(--charcoal); font-size: 0.96rem; }
-        .fn-item .st { font: 0.64rem var(--mono); letter-spacing: 0.09em; text-transform: uppercase; color: var(--ash); }
-        a.fn-item:hover { background: rgba(169, 85, 63, 0.07); }
-        a.fn-item:hover .nm { color: var(--terracotta); }
-        .fn-item.soon { opacity: 0.45; }
+
+        .fn-item .nm {
+            color: var(--charcoal);
+            font-size: 0.96rem;
+        }
+
+        .fn-item .st {
+            color: var(--ash);
+            font: 0.64rem var(--mono);
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        a.fn-item:hover {
+            background: color-mix(in srgb, var(--terracotta) 7%, transparent);
+        }
+
+        a.fn-item:hover .nm {
+            color: var(--terracotta);
+        }
+
+        .fn-item.soon .nm,
+        .fn-item.soon .st {
+            color: var(--ash);
+        }
 
         .status-pill {
             display: inline-flex;
@@ -1796,6 +1863,19 @@
                 transform: none;
             }
 
+            .fieldnotes[open] {
+                flex-basis: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .fieldnotes[open] .fn-panel {
+                position: static;
+                width: 100%;
+                min-width: 0;
+                margin-top: 10px;
+            }
+
             .budget-card-grid {
                 grid-template-columns: 1fr;
             }
@@ -1855,14 +1935,14 @@
                         <a class="text-link" href="#spacepod">Threads</a>
                         <details class="fieldnotes">
                             <summary>Field notes</summary>
-                            <div class="fn-panel" role="menu" aria-label="Build journals">
-                                <a class="fn-item" href="building-chatpulse.html"><span class="nm">chatpulse</span><span class="st">read</span></a>
-                                <span class="fn-item soon"><span class="nm">halfspaces</span><span class="st">soon</span></span>
-                                <span class="fn-item soon"><span class="nm">SpacePod</span><span class="st">soon</span></span>
-                                <span class="fn-item soon"><span class="nm">Mr. B</span><span class="st">soon</span></span>
-                                <span class="fn-item soon"><span class="nm">Introspace</span><span class="st">soon</span></span>
-                                <span class="fn-item soon"><span class="nm">Bitpybit</span><span class="st">soon</span></span>
-                            </div>
+                            <ul class="fn-panel" aria-label="Build journals">
+                                <li><a class="fn-item" href="building-chatpulse.html"><span class="nm">chatpulse</span><span class="st">read</span></a></li>
+                                <li><span class="fn-item soon"><span class="nm">halfspaces</span><span class="st">soon</span></span></li>
+                                <li><span class="fn-item soon"><span class="nm">SpacePod</span><span class="st">soon</span></span></li>
+                                <li><span class="fn-item soon"><span class="nm">Mr. B</span><span class="st">soon</span></span></li>
+                                <li><span class="fn-item soon"><span class="nm">Introspace</span><span class="st">soon</span></span></li>
+                                <li><span class="fn-item soon"><span class="nm">Bitpybit</span><span class="st">soon</span></span></li>
+                            </ul>
                         </details>
                         <a class="text-link" href="assets/nigel-lin-cv.pdf">CV</a>
                         <a class="text-link" href="https://www.linkedin.com/in/nigellin/">LinkedIn</a>
@@ -2193,6 +2273,23 @@
     </footer>
 
     <script>
+        const fieldnotes = document.querySelector(".fieldnotes");
+
+        if (fieldnotes) {
+            document.addEventListener("click", (event) => {
+                if (fieldnotes.open && !fieldnotes.contains(event.target)) {
+                    fieldnotes.removeAttribute("open");
+                }
+            });
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && fieldnotes.open) {
+                    fieldnotes.removeAttribute("open");
+                    fieldnotes.querySelector("summary").focus();
+                }
+            });
+        }
+
         const bitQuestions = [
             {
                 tag: "print",
