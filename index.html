@@ -824,14 +824,18 @@
             max-height: 500px;
         }
 
-        /* SpacePod demo */
+        /* SpacePod demo — "Quiet Orbit" dark app recreation (matches spacepod.co) */
         .spacepod-demo {
             width: 100%;
             max-width: 620px;
-            border: 1px solid var(--line-strong);
-            background: var(--linen);
-            color: var(--charcoal);
-            box-shadow: 0 22px 54px rgba(44, 42, 38, 0.10);
+            border: 1px solid rgba(244, 239, 230, 0.14);
+            border-radius: 16px;
+            background:
+                radial-gradient(circle at top right, rgba(120, 145, 246, 0.18), transparent 22rem),
+                radial-gradient(circle at top left, rgba(208, 168, 75, 0.10), transparent 20rem),
+                linear-gradient(180deg, #121318 0%, #0C0E12 72%);
+            color: #F4EFE6;
+            box-shadow: 0 26px 60px rgba(8, 9, 13, 0.45);
             overflow: hidden;
         }
 
@@ -840,157 +844,129 @@
             justify-content: space-between;
             align-items: center;
             gap: 12px;
-            border-bottom: 1px solid var(--stone);
-            padding: 13px 15px;
+            border-bottom: 1px solid rgba(244, 239, 230, 0.12);
+            padding: 14px 17px;
         }
 
         .spacepod-logo {
-            font-family: var(--sans);
-            font-size: 1.18rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.26rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #F4EFE6;
         }
 
         .spacepod-nav {
             display: flex;
-            gap: 14px;
-            color: var(--slate);
+            gap: 16px;
+            color: #B8B0A3;
             font: 0.72rem var(--mono);
             font-weight: 500;
         }
 
+        .spacepod-nav .is-active {
+            color: #94A8FF;
+        }
+
         .spacepod-stage {
             display: grid;
-            grid-template-columns: 0.34fr 0.66fr;
-            gap: 14px;
-            padding: 16px;
+            gap: 12px;
+            padding: 17px;
         }
 
-        .pod-library {
-            background: var(--warm-white);
-            border: 1px solid var(--stone);
-            padding: 12px;
-        }
-
-        .pod-library-head {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 10px;
-            font: 0.7rem var(--mono);
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            color: var(--charcoal);
-        }
-
-        .pod-library-head span {
-            color: var(--ash);
-            font-weight: 500;
-        }
-
-        .pod-item {
-            border-top: 1px solid var(--stone);
-            padding: 9px 0;
-        }
-
-        .pod-item strong {
-            display: block;
-            color: var(--charcoal);
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-
-        .pod-item span {
-            display: block;
-            margin-top: 4px;
-            color: var(--slate);
-            font-size: 0.7rem;
-            line-height: 1.4;
-        }
-
-        .pod-add {
-            margin-top: 10px;
-            border: 1px dashed var(--stone);
-            padding: 8px;
-            text-align: center;
-            color: var(--terracotta);
-            font: 0.7rem var(--mono);
-            font-weight: 600;
-        }
-
-        .pod-answer {
-            display: grid;
-            gap: 10px;
-            align-content: start;
-        }
-
-        .pod-question {
-            font-family: var(--sans);
-            font-size: clamp(1.04rem, 1.7vw, 1.32rem);
-            font-weight: 600;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
-            color: var(--charcoal);
-        }
-
-        .pod-card {
-            border-top: 2px solid var(--terracotta);
-            background: var(--warm-white);
-            border: 1px solid var(--stone);
-            border-top-width: 2px;
-            border-top-color: var(--terracotta);
-            padding: 14px;
-        }
-
-        .pod-card strong {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 0.94rem;
-            color: var(--charcoal);
-        }
-
-        .pod-card p {
-            color: var(--slate);
-            font-size: 0.84rem;
-            line-height: 1.55;
-        }
-
-        .pod-source {
-            border: 1px solid var(--stone);
-            background: var(--warm-white);
-            color: var(--ash);
-            padding: 8px 11px;
-            font: 0.7rem var(--mono);
-            font-weight: 500;
-        }
-
-        .pod-ask {
+        .pod-search {
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 8px;
         }
 
-        .pod-ask span {
-            padding: 10px 12px;
-            font: 0.72rem var(--mono);
-            font-weight: 500;
+        .pod-search-input {
+            border: 1px solid rgba(244, 239, 230, 0.16);
+            background: #171A22;
+            color: #F4EFE6;
+            padding: 11px 13px;
+            border-radius: 10px;
+            font-size: 0.84rem;
         }
 
-        .pod-ask span {
-            border: 1px solid var(--stone);
-            color: var(--ash);
-            background: var(--warm-white);
-        }
-
-        .pod-ask .pod-ask-button {
+        .pod-search-button {
             border: 0;
-            background: var(--charcoal);
-            color: var(--warm-white);
+            background: #7891F6;
+            color: #0C0E12;
+            padding: 11px 17px;
+            border-radius: 10px;
+            font: 0.72rem var(--mono);
             font-weight: 600;
+        }
+
+        .pod-answer {
+            border: 1px solid rgba(244, 239, 230, 0.12);
+            border-left: 2px solid #D0A84B;
+            background: rgba(23, 26, 34, 0.72);
+            border-radius: 10px;
+            padding: 14px 15px;
+        }
+
+        .pod-answer-label {
+            font: 0.6rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: #D0A84B;
+            margin-bottom: 8px;
+        }
+
+        .pod-answer-text {
+            color: #E7E0D4;
+            font-size: 0.86rem;
+            line-height: 1.55;
+        }
+
+        .pod-sources-label {
+            font: 0.62rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: #8C8376;
+        }
+
+        .pod-source {
+            border: 1px solid rgba(244, 239, 230, 0.10);
+            background: #14171E;
+            border-radius: 9px;
+            padding: 10px 12px;
+        }
+
+        .pod-source strong {
+            display: block;
+            color: #72A7B7;
+            font: 0.6rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+        }
+
+        .pod-source span {
+            display: block;
+            margin-top: 3px;
+            color: #C8C0B2;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .pod-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 2px;
+        }
+
+        .pod-chips span {
+            border: 1px solid rgba(244, 239, 230, 0.14);
+            color: #B8B0A3;
+            padding: 6px 11px;
+            border-radius: 999px;
+            font: 0.68rem var(--mono);
         }
 
         /* Telegram phone */
@@ -1991,27 +1967,21 @@
                         <div class="spacepod-demo" aria-label="SpacePod product interface demo">
                             <div class="spacepod-demo-top">
                                 <div class="spacepod-logo">SpacePod</div>
-                                <div class="spacepod-nav"><span>Library (3)</span><span>Ask</span></div>
+                                <div class="spacepod-nav"><span class="is-active">Ask</span><span>Library</span></div>
                             </div>
                             <div class="spacepod-stage">
-                                <aside class="pod-library" aria-label="Podcast library">
-                                    <div class="pod-library-head">Library <span>3 searchable</span></div>
-                                    <div class="pod-item"><strong>David Senra</strong><span>Adam Foroughi, AppLovin</span></div>
-                                    <div class="pod-item"><strong>Invest Like The Best</strong><span>Nick Kokonas; Know What You Are Selling</span></div>
-                                    <div class="pod-add">+ Add podcast</div>
-                                </aside>
-                                <div class="pod-answer">
-                                    <h4 class="pod-question">Find me three quotes on resilience.</h4>
-                                    <div class="pod-card">
-                                        <strong>Three useful pulls</strong>
-                                        <p>Failure as process. Ownership instead of waiting. Persistence through loss. The thread is simple: small advantages compound when you keep moving.</p>
-                                    </div>
-                                    <div class="pod-source">1 source cited &middot; Invest Like The Best</div>
-                                    <div class="pod-ask">
-                                        <span>What would you like to know?</span>
-                                        <span class="pod-ask-button">Ask</span>
-                                    </div>
+                                <div class="pod-search">
+                                    <div class="pod-search-input">hiring mistakes</div>
+                                    <span class="pod-search-button">Search</span>
                                 </div>
+                                <div class="pod-answer">
+                                    <div class="pod-answer-label">From your podcast library</div>
+                                    <p class="pod-answer-text">The sharper point across these episodes isn&rsquo;t &ldquo;hire slow, fire fast&rdquo;; it&rsquo;s hire for slope, not intercept. Founders who waited for proof of trajectory over a polished r&eacute;sum&eacute; built teams that compounded instead of stalling.</p>
+                                </div>
+                                <div class="pod-sources-label">Sources: 2 episodes</div>
+                                <div class="pod-source"><strong>Invest Like The Best</strong><span>Nick Kokonas: Know What You Are Selling</span></div>
+                                <div class="pod-source"><strong>Founders</strong><span>David Senra on Adam Foroughi, AppLovin</span></div>
+                                <div class="pod-chips"><span>leadership</span><span>hiring mistakes</span><span>pricing strategy</span><span>compound interest</span></div>
                             </div>
                         </div>
                     </div>
