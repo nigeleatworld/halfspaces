@@ -8,7 +8,7 @@ Live since May 2026. Quarterly cadence. Audience: recruiters scanning for "can t
 
 Five project threads live on the page: SpacePod, Mr. B, Budget Dashboard, Introspace, Bitpybit.
 
-Brand spec: warm whites, parchment, linen, terracotta, forest, slate blue, ochre. No navy, no pure white. DM Sans + JetBrains Mono.
+Palette: warm whites, parchment, linen, terracotta, forest, slate blue, ochre; a cool charcoal base (`--charcoal: #111B2E`, intentional); DM Sans + JetBrains Mono. Follows the `~/PALETTE.md` method (palette fits the task; WCAG AA contrast is the only hard rule). There is no "no navy" rule — that was a stale Claude-authored note, removed 2026-06-17.
 
 ## 2026-06-16 session (SpacePod rebuild + Tier 1 polish + joint assessment)
 
@@ -16,7 +16,7 @@ Brand spec: warm whites, parchment, linen, terracotta, forest, slate blue, ochre
 - **Tier 1 polish shipped** (commit `93b5391`): added Open Graph + Twitter card + canonical + theme-color meta (link now unfurls a real preview card); new **favicon** `assets/favicon.svg` (half-space motif: warm charcoal tile, linen lanes, terracotta dot); new **1200×630 share card** `assets/og-image.png` (built in-palette via headless-Chrome screenshot of a temp HTML, then deleted the temp); whitelisted both new assets past the `assets/*` ignore rule; dropped stale "May 2026" from hero dateline → "Nigel Lin / Singapore"; gave `--slate-blue` a distinct `#3F6B85` (it had collapsed to the same `#53657D` as `--slate`, flattening that accent across ~16 uses).
 - **CORRECTION — there is NO dark mode.** Earlier this session Claude wrongly asserted the site "supports light + dark via prefers-color-scheme" and labelled fixes "dark-mode-correct." Reality (Codex caught it): the two CSS var blocks are `.palette-field` (active, set on `<html>`) and `.palette-atelier` (unused) — both *light* palettes, switched by an HTML class, not the OS. No `@media (prefers-color-scheme: dark)` exists. The `color-mix`-on-theme-vars fixes are still good (palette-adaptive), just not "dark mode."
 - **Joint website assessment** (Claude + Codex via `codex exec`, read-only). Open follow-ups NOT yet done:
-  - **Navy palette decision (needs Nigel's yes/no):** active `.palette-field` uses `--charcoal: #111B2E` (navy) despite the "No navy" brand spec above. Either intentional cool palette for this site, or drift to fix.
+  - ~~Navy palette decision~~ RESOLVED 2026-06-17: the PALETTE.md reset makes palette fit the task with AA contrast as the only universal, so the cool charcoal base is fine as an intentional choice. No "no navy" rule exists.
   - **"Build proof" rows (high-value content work):** add role / stack / status / live-or-private / journal-link to each project thread. Bigger session, not polish.
   - Lower: footer is bare (just "Top"); closing Einstein bicycle quote is generic vs Nigel's voice; orphaned local-only assets in `assets/` (artifact-*, mockups) sit unreferenced (already gitignored, so not deployed).
 
@@ -54,7 +54,7 @@ Full checklist of cheap fixes for future Nigel-voice writing: see `feedback_writ
 1. **Locate the halfspaces git repo on this machine** (or confirm it's only on the work Macbook Pro).
 2. **Verify push auth** from whichever machine. SSH key or `gh` CLI logged in to `nigeleatworld/halfspaces`.
 3. **Decide HTML integration approach.** Options: (a) inject a styled HTML section at the bottom of `index.html` with a small footer link, (b) add a separate `/about.html` or `/building.html` page and slip a small link into the existing nav row. Nigel said "subtle" and "FOR NOW."
-4. **Convert markdown to styled HTML** in the personal palette (DM Sans body, JetBrains Mono labels, no navy).
+4. **Convert markdown to styled HTML** in the site palette (DM Sans body, JetBrains Mono labels).
 5. **Stage commit and let Nigel diff before push.** Default posture is confirm-before-push for public URLs (per system rules on risky actions).
 
 ## Files
