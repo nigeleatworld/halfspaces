@@ -10,6 +10,15 @@ Five project threads live on the page: SpacePod, Mr. B, Budget Dashboard, Intros
 
 Palette: warm whites, parchment, linen, terracotta, forest, slate blue, ochre; a cool charcoal base (`--charcoal: #111B2E`, intentional); DM Sans + JetBrains Mono. Follows the `~/PALETTE.md` method (palette fits the task; WCAG AA contrast is the only hard rule). There is no "no navy" rule — that was a stale Claude-authored note, removed 2026-06-17.
 
+## 2026-06-27 session (visitor-feedback round + project refresh + positioning copy)
+
+Acted on feedback from a real first-time visitor, plus a project-accuracy audit and an article-driven positioning reframe. Commits `441f789`, `3145310`, `877b844`.
+- **CV removed entirely** (both links gone, PDF untracked + de-whitelisted so it no longer deploys; local copy kept) — it was a non-tailored CV.
+- **"Field notes" → "Build logs"** (the term was opaque to first-timers). Kept "proof-of-work" (deliberate voice).
+- **All five project threads audited vs reality + refreshed:** Introspace `idea/concept/2025 → prototype/local/2026` (working Flask+SQLite MVP, was flagged as a mere "idea"); SpacePod `beta→live`, false `SQLite FTS5` chip → `Postgres + pgvector` +Stripe, `2025→2026`; Budget copy now names the investments view; all statuses aligned to `2026 / Status / medium`.
+- **Positioning copy reframe (Codex-checkpointed):** hero lead now reads research as the *source* of judgment, not the pre-AI chapter; closing through-line retired the generic Einstein quote for Nigel's own thesis ("deciding what's worth building, then staying close enough to build it"). Driven by the Hudson/Lenny "inner game" frame (effort+knowledge commoditized; judgment + human layer is the edge). Removed orphaned `.closing cite` CSS.
+- **Still open:** Claude's design fingerprint is recognisable (palette = biggest tell; Nigel okay with it for now). The Mr. B thread *understates* him (he now autonomously runs SpacePod + Introspace). The `building-halfspaces.md` writeup is still unpublished (a "Build logs" slot).
+
 ## 2026-06-16 session (SpacePod rebuild + Tier 1 polish + joint assessment)
 
 - **SpacePod thread mock rebuilt** (commit `7396e03`) to match the live `spacepod.co` design, now the dark **"Quiet Orbit"** theme: near-black gradient panel, periwinkle `#7891F6` + gold `#D0A84B` + teal `#72A7B7` tokens, serif logo, real nav (Ask/Library), "From your podcast library" answer panel, source episode cards, the app's actual example-query chips. NOTE: the thread mocks are **coded HTML/CSS recreations, not screenshots** (Nigel's word "screenshots" = these recreations). SpacePod is now the only *dark* mock; the other four are light — deliberate (flagship) for now. Introspace deliberately left as-is.
