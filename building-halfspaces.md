@@ -14,9 +14,9 @@ The site began as an extension of the resume; the resume was one page, compressi
 
 At first I thought it might be a clean personal landing page: name, intro, projects, contact link. Too generic, the kind of page that could have belonged to anyone.
 
-The site needed to carry one idea: *a market researcher with 13 years of experience, now using AI to turn ideas into interfaces*. That became the hero:
+The site needed to carry one idea, and the line has sharpened since launch: market research as the source of the judgment, not the thing I left behind. The hero now reads:
 
-> I'm a market researcher with 13 years of experience, now using AI to turn my ideas into interfaces. This site is my proof-of-work layer: a place to show how I think, and what I've built.
+> Thirteen years in market research taught me to read people and markets, and to spot what's worth building. Now I build those things myself; this site is my proof-of-work layer: how I think, and what I've made.
 
 The phrase "proof-of-work layer" was the line that made it click; the site wasn't a portfolio, it was evidence.
 
@@ -53,7 +53,7 @@ I reacted negatively to versions long before I could articulate why: too corpora
 
 At first that felt inefficient; it was the design process. I didn't have the vocabulary upfront, so I discovered it through rejections, and every "not that" narrowed the field.
 
-Each of the five project sections had to answer the same two questions: what is it, and why did I build it. Earlier versions mixed those with "what exists now," which made some projects feel more real than others when the difference was just maturity. Status moved into metadata: *Beta, Live, In use, Idea, Pre-launch*.
+Each of the five project sections had to answer the same two questions: what is it, and why did I build it. Earlier versions mixed those with "what exists now," which made some projects feel more real than others when the difference was just maturity. Status moved into metadata: *Live, In use, Prototype, Pre-launch*.
 
 Introspace was the hardest visually. The first version of its teletext panel had a black background with bright yellow, blue, red, cyan, green; it worked as a reference, it didn't work next to the rest of the site. I muted it.
 
@@ -61,17 +61,17 @@ Colour was the clearest example. Or maybe spacing; they ran in parallel, and col
 
 The photo question came back several times: for the resume, no photo; for the website, yes. I tried it in the hero and it never worked; one version had my face planted huge on the hero, which I will not be sharing. The photo moved to the closing contact card, where, by the time someone gets there, it isn't decorative; it anchors the page.
 
-The closing line was rewritten several times. An earlier version was *"Define the space. Build inside it."* It sounded elegant, and it also implied I only build inside predefined boxes; the wrong message for a portfolio. I eventually went with Einstein:
+The closing line was rewritten several times. An earlier version was *"Define the space. Build inside it."* It sounded elegant, and it also implied I only build inside predefined boxes; the wrong message for a portfolio. For a while I used an Einstein quote about riding a bicycle, then cut it; it was borrowed, and the rest of the page is mine. The closing now says it more plainly:
 
-> "Life is like riding a bicycle. To keep your balance, you must keep moving."
+> The through-line is deciding what's worth building, then staying close enough to build it.
 
 ## What AI did not do
 
-AI helped me build the site, obviously; what I noticed more was what AI didn't do.
+AI helped me build the site; what I noticed more was what AI didn't do.
 
 It didn't know what sounded like me. It generated "AI frontier" for the hero a dozen times before I worked out why it kept making me wince; too LinkedIn. It knew the Introspace visual was conceptually right; it had no way of knowing it was visually too much next to everything around it. It didn't catch that *"Define the space. Build inside it."* carried a subtle negative implication.
 
-AI made iteration cheap; taste still had to come from somewhere. Taste came from a lot of imperfect reactions: *not that, closer, too much, too little, this feels more like me*; that loop was the work.
+AI made iteration cheap; the taste still had to come from somewhere, and it came from a lot of imperfect reactions: *not that, closer, too much, too little, this feels more like me*; that loop was the work.
 
 ## Shipping
 
@@ -81,4 +81,4 @@ The deployment was simple, once I stopped looking for the "Create" button that w
 
 The site is live; that's not the same as being done.
 
-I started this because I had a domain and an empty page, and I thought I'd need to learn design and code. What I needed was the willingness to keep saying *"not that"* until what was left felt true. The AI handled the generation; the work was rejection; the vocabulary came after.
+I started this because I had a domain and an empty page, and I thought I'd need to learn design and code. What I needed was the willingness to keep saying *"not that"* until what was left felt true. The generation was the cheap part; what took the time was looking at each version and knowing, before I could say why, that it wasn't yet me.

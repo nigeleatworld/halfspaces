@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building halfspaces · a build journal · halfspaces</title>
+<meta name="description" content="How I built halfspaces.co with no design training; the real work was rejection, and the taste had to come from somewhere.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#FCFAF2; --parchment:#EFE1BC; --linen:#E7DED1; --stone:#CDBFAE;
+    --sage-wash:#D7E1CE; --blue-wash:#DCE7EA; --clay-wash:#E8D1C5; --yellow-wash:#F0D77A;
+    --charcoal:#111B2E; --slate:#53657D; --ash:#8C917F;
+    --forest:#5E8061; --terracotta:#A9553F; --ochre:#B88D33; --slate-blue:#496D7D;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  /* masthead */
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:32em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
+  article p{margin:0 0 20px}
+  h2{font-size:25px; line-height:1.18; margin:38px 0 14px; font-weight:700; letter-spacing:-.01em}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
+    color:var(--charcoal); font-size:19px}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+
+  /* the halfspaces mark */
+  .figure{margin:26px 0; padding:24px 18px; border:1px solid var(--line); border-radius:5px;
+    background:var(--warm-white); text-align:center}
+  .figure svg{display:block; margin:0 auto}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em; margin-top:14px}
+
+  .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:44px}
+
+  @media (max-width:640px){ body{font-size:17px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Building halfspaces</h1>
+    <p class="standfirst">Building a personal site with no design training; the work turned out to be saying &ldquo;not that&rdquo; until what was left felt like me.</p>
+    <p class="runmeta">May 2026 &middot; built with Claude &middot; live at halfspaces.co on Cloudflare Pages</p>
+  </header>
+
+  <article>
+    <p>I know almost nothing about website building; I don&rsquo;t have a designer&rsquo;s eye in the trained sense, and I don&rsquo;t know the proper vocabulary for half the things I react to. My wardrobe is a mixture of white or grey tees, five comfortable-fitting yoga pants from the same brand, and oversized retro jerseys; I&rsquo;m the last person who&rsquo;d know what tasteful design looks like. I can look at a page and say &ldquo;this feels cramped&rdquo; or &ldquo;too corporate&rdquo; or &ldquo;that colour feels wrong&rdquo; without always being able to explain what rule has been violated.</p>
+
+    <p>In May 2026 I tried to launch a personal website. I owned <code>halfspaces.co</code>, I&rsquo;d updated my resume, and if a hiring manager clicked the link and found nothing there, that would undercut the resume itself. The resume kept using words like <em>build</em>, <em>systems</em>, <em>AI</em>, <em>data</em>, <em>productised insight</em>; the claim that I built useful things around messy problems. If the site was empty, all of that stayed a claim.</p>
+
+    <p>So the job of the site became clear: it had to be proof. Not perfect proof, not a polished agency-grade portfolio; a proof-of-work layer.</p>
+
+    <p>The rest was messier than expected.</p>
+
+    <h2>A resume companion</h2>
+    <p>The site began as an extension of the resume; the resume was one page, compressing seniority, market research experience, leadership, AI curiosity, and builder energy. A website could breathe.</p>
+
+    <p>At first I thought it might be a clean personal landing page: name, intro, projects, contact link. Too generic, the kind of page that could have belonged to anyone.</p>
+
+    <p>The site needed to carry one idea, and the line has sharpened since launch: market research as the source of the judgment, not the thing I left behind. The hero now reads:</p>
+
+    <blockquote>Thirteen years in market research taught me to read people and markets, and to spot what&rsquo;s worth building. Now I build those things myself; this site is my proof-of-work layer: how I think, and what I&rsquo;ve made.</blockquote>
+
+    <p>The phrase &ldquo;proof-of-work layer&rdquo; was the line that made it click; the site wasn&rsquo;t a portfolio, it was evidence.</p>
+
+    <h2>About the name</h2>
+    <p>The name had to make sense in the first scroll.</p>
+
+    <p>In geometry, a half-space is one side of a boundary: a region made clear by a constraint. In football, the half-space is the inside channel between the centre and the wing; the kind of space creative players often occupy; not the most crowded, not the widest, tactically valuable, close enough to hurt and quiet enough to receive.</p>
+
+    <p>I tried longer versions; the geometry line was short, the football line ran on. The final pair:</p>
+
+    <blockquote>In geometry: one side of a boundary; a region made clear by a constraint.<br>In football: the inside channel between centre and wing; where creative play often resides.</blockquote>
+
+    <p>There&rsquo;s a small diagram at the top: not a full pitch, just a rectangle with two horizontal shaded bands and a dot. It connects the two definitions without explaining either.</p>
+
+    <figure class="figure">
+      <svg viewBox="0 0 148 84" width="148" height="84" role="img" aria-label="The halfspaces mark: a rectangle with two shaded bands and a dot in the upper band">
+        <rect x="1" y="1" width="146" height="82" fill="none" stroke="#111B2E" stroke-opacity=".28"/>
+        <rect x="1" y="17" width="146" height="16" fill="#111B2E" fill-opacity=".09"/>
+        <rect x="1" y="51" width="146" height="16" fill="#111B2E" fill-opacity=".09"/>
+        <circle cx="99" cy="25" r="5" fill="#A9553F"/>
+      </svg>
+      <figcaption>The mark: two half-space bands and a dot. It connects the two definitions without explaining either.</figcaption>
+    </figure>
+
+    <h2>The hero was the hardest part</h2>
+    <p>The hero took the most back-and-forth, which surprised me; I&rsquo;d thought the project sections would be harder.</p>
+
+    <p>Most of the work happened mornings at Ya Kun, after dropping Brennan at infant care; laptop on the table, kopi c siu dai peng in a takeaway cup, and back to the file.</p>
+
+    <p>The first screen has to answer too many questions at once: who are you, what is this, why should I keep scrolling, what is the tone, are you serious, are you trying too hard.</p>
+
+    <p>Early versions felt too generic. Then too corporate, too sparse, too cramped; sometimes too sparse and too cramped in the same draft. The categories of wrong kept multiplying.</p>
+
+    <p>Eventually the hero settled into: the halfspaces definition, a life-in-years dot strip, &ldquo;Hello! Nigel here,&rdquo; the positioning line, action links, and a small post-it card listing the five threads.</p>
+
+    <p>The dot strip was a late addition; or mid-process, I keep calling it late. Ninety dots, thirty-nine filled to represent my age, the last filled dot blinking subtly to show I&rsquo;m 39 and alive, the last 13 marked separately as &ldquo;13 years in market research.&rdquo;</p>
+
+    <h2>Design is mostly saying &ldquo;not that&rdquo;</h2>
+    <p>I reacted negatively to versions long before I could articulate why: too corporate, too grey, too jarring. Too much empty space; then too cramped, sometimes within the same hour. Too &ldquo;AI slop,&rdquo; too self-deprecating, too LinkedIn. Too polished in a way that didn&rsquo;t feel like me.</p>
+
+    <p>At first that felt inefficient; it was the design process. I didn&rsquo;t have the vocabulary upfront, so I discovered it through rejections, and every &ldquo;not that&rdquo; narrowed the field.</p>
+
+    <p>Each of the five project sections had to answer the same two questions: what is it, and why did I build it. Earlier versions mixed those with &ldquo;what exists now,&rdquo; which made some projects feel more real than others when the difference was just maturity. Status moved into metadata: <em>Live, In use, Prototype, Pre-launch</em>.</p>
+
+    <p>Introspace was the hardest visually. The first version of its teletext panel had a black background with bright yellow, blue, red, cyan, green; it worked as a reference, it didn&rsquo;t work next to the rest of the site. I muted it.</p>
+
+    <p>Colour was the clearest example. Or maybe spacing; they ran in parallel, and colour was the one I could finally explain. The first version had one gradient and then snapped back to white; the sections now bleed tonally through warm white, parchment, sage, blue-grey, aged yellow, clay, and a dark-blue closing panel.</p>
+
+    <p>The photo question came back several times: for the resume, no photo; for the website, yes. I tried it in the hero and it never worked; one version had my face planted huge on the hero, which I will not be sharing. The photo moved to the closing contact card, where, by the time someone gets there, it isn&rsquo;t decorative; it anchors the page.</p>
+
+    <p>The closing line was rewritten several times. An earlier version was <em>&ldquo;Define the space. Build inside it.&rdquo;</em> It sounded elegant, and it also implied I only build inside predefined boxes; the wrong message for a portfolio. For a while I used an Einstein quote about riding a bicycle, then cut it; it was borrowed, and the rest of the page is mine. The closing now says it more plainly:</p>
+
+    <blockquote>The through-line is deciding what&rsquo;s worth building, then staying close enough to build it.</blockquote>
+
+    <h2>What AI did not do</h2>
+    <p>AI helped me build the site; what I noticed more was what AI didn&rsquo;t do.</p>
+
+    <p>It didn&rsquo;t know what sounded like me. It generated &ldquo;AI frontier&rdquo; for the hero a dozen times before I worked out why it kept making me wince; too LinkedIn. It knew the Introspace visual was conceptually right; it had no way of knowing it was visually too much next to everything around it. It didn&rsquo;t catch that <em>&ldquo;Define the space. Build inside it.&rdquo;</em> carried a subtle negative implication.</p>
+
+    <p>AI made iteration cheap; the taste still had to come from somewhere, and it came from a lot of imperfect reactions: <em>not that, closer, too much, too little, this feels more like me</em>; that loop was the work.</p>
+
+    <h2>Shipping</h2>
+    <p>Before launch, no one had seen the site. Amanda had been pleased with the name from early on, which helped; everything else I&rsquo;d kept to myself.</p>
+
+    <p>The deployment was simple, once I stopped looking for the &ldquo;Create&rdquo; button that wasn&rsquo;t there. I committed to GitHub, the repo was already connected to Cloudflare Pages, and Cloudflare detected the push and redeployed.</p>
+
+    <p>The site is live; that&rsquo;s not the same as being done.</p>
+
+    <p>I started this because I had a domain and an empty page, and I thought I&rsquo;d need to learn design and code. What I needed was the willingness to keep saying <em>&ldquo;not that&rdquo;</em> until what was left felt true. The generation was the cheap part; what took the time was looking at each version and knowing, before I could say why, that it wasn&rsquo;t yet me.</p>
+
+    <p class="footer-note">First of a few build journals; I&rsquo;m writing up the things I&rsquo;ve made the same way, the deciding included. <a href="index.html">Back to halfspaces.co</a></p>
+  </article>
+</div>
+</body>
+</html>
