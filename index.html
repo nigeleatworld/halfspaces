@@ -670,6 +670,11 @@
             --section-to: color-mix(in srgb, var(--parchment) 72%, transparent);
             border-top-color: var(--line);
         }
+        .band-linen {
+            --section-from: color-mix(in srgb, var(--warm-white) 90%, transparent);
+            --section-to: color-mix(in srgb, var(--linen) 88%, transparent);
+            border-top-color: var(--line);
+        }
 
         .proof-start {
             --section-from: color-mix(in srgb, var(--parchment) 74%, transparent);
@@ -890,6 +895,36 @@
             border: 1px solid var(--line);
             padding: 4px 9px; border-radius: 999px;
         }
+
+        /* Client research: de-identified study-spec card (no findings shown) */
+        .study-card {
+            width: 100%;
+            max-width: 520px;
+            border: 1px solid var(--line-strong);
+            background: var(--warm-white);
+            box-shadow: 0 18px 40px color-mix(in srgb, var(--charcoal) 12%, transparent);
+            overflow: hidden;
+        }
+        .study-top {
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+            border-bottom: 1px solid var(--line);
+            padding: 12px 15px;
+            font-family: var(--mono);
+        }
+        .study-top .who { color: var(--charcoal); font-size: 0.74rem; font-weight: 600; }
+        .study-top .tag { color: var(--ash); font-size: 0.6rem; letter-spacing: 0.07em; text-transform: uppercase; }
+        .study-row {
+            display: grid; grid-template-columns: 86px 1fr; gap: 14px;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--line);
+        }
+        .study-row:last-child { border-bottom: 0; }
+        .study-row .k {
+            font: 0.62rem var(--mono); letter-spacing: 0.05em; text-transform: uppercase;
+            color: var(--slate-blue); padding-top: 3px;
+        }
+        .study-row .v { color: var(--charcoal); font-size: 0.86rem; line-height: 1.45; }
+        .study-row .v small { display: block; color: var(--ash); font-size: 0.76rem; margin-top: 3px; }
 
         /* SpacePod demo — "Quiet Orbit" dark app recreation (matches spacepod.co) */
         .spacepod-demo {
@@ -1985,7 +2020,7 @@
                     </div>
                 </div>
                 <aside class="hero-thread-card reveal" aria-label="Live threads preview">
-                    <h2>Six proof-of-work threads.</h2>
+                    <h2>Seven proof-of-work threads.</h2>
                     <div class="hero-thread-list">
                         <a class="hero-thread" href="#spacepod"><em>01</em><strong>SpacePod</strong><span>live</span></a>
                         <a class="hero-thread" href="#mrb"><em>02</em><strong>Mr. B</strong><span>live</span></a>
@@ -1993,6 +2028,7 @@
                         <a class="hero-thread" href="#introspace"><em>04</em><strong>Introspace</strong><span>prototype</span></a>
                         <a class="hero-thread" href="#bitpybit"><em>05</em><strong>Bitpybit</strong><span>pre-launch</span></a>
                         <a class="hero-thread" href="#operator-context-kit"><em>06</em><strong>Operator Context Kit</strong><span>open source</span></a>
+                        <a class="hero-thread" href="#client-research"><em>07</em><strong>Client research</strong><span>delivered</span></a>
                     </div>
                 </aside>
                 <p class="operating-bias reveal">high agency, hands-on, low theatre.</p>
@@ -2307,6 +2343,40 @@
 ├─ examples/          <i>solo &middot; consultant &middot; 2-machine</i>
 └─ docs/              <i>walkthrough &middot; privacy</i></div>
                             <div class="ock-foot"><span>not a database</span><span>not an MCP server</span><span>not SaaS</span></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="band band-linen" id="client-research">
+            <div class="shell">
+                <article class="chapter">
+                    <div class="chapter-copy">
+                        <div class="chapter-head">
+                            <p class="label">07 / Client research</p>
+                            <h3>Positioning research for an education client.</h3>
+                            <div class="chapter-meta"><span>2026</span><span class="meta-divider">/</span><span>Delivered</span><span class="meta-divider">/</span><span>client work</span></div>
+                        </div>
+                        <p class="chapter-lead">My first independent research client. A Singapore tuition centre wanted to know which position it could credibly own in a crowded market, so I ran the study end to end and handed back a recommendation it could act on.</p>
+                        <div class="qa">
+                            <div class="answer"><strong>What it is</strong><p>A positioning study for a Singapore education client, kept anonymous here. An online survey of 300 screened parents, an importance versus satisfaction gap analysis, and a competitor scan, delivered as an exhibit deck, a prose insights piece, and a data table.</p></div>
+                            <div class="answer"><strong>How I worked</strong><p>Senior-direct, no agency layer. I designed the instrument, ran the analysis, and turned it into a decision the client could act on. AI carried the build and the checking; the judgment on what to measure and what it meant was mine.</p></div>
+                        </div>
+                        <div class="chips">
+                            <span class="chip">survey n=300</span>
+                            <span class="chip">gap analysis</span>
+                            <span class="chip">competitor scan</span>
+                            <span class="chip">senior-direct</span>
+                        </div>
+                    </div>
+                    <div class="artifact">
+                        <div class="study-card" aria-label="De-identified summary of the client research engagement">
+                            <div class="study-top"><span class="who">Positioning study</span><span class="tag">delivered &middot; anonymised</span></div>
+                            <div class="study-row"><span class="k">Client</span><span class="v">A Singapore tuition centre <small>kept anonymous here</small></span></div>
+                            <div class="study-row"><span class="k">Question</span><span class="v">Which position can it credibly own in a crowded, fragmented market?</span></div>
+                            <div class="study-row"><span class="k">Method</span><span class="v">Online survey, 300 screened parents <small>importance vs satisfaction gap &middot; competitor scan</small></span></div>
+                            <div class="study-row"><span class="k">Delivered</span><span class="v">Exhibit deck, prose insights, data table <small>findings stay with the client</small></span></div>
                         </div>
                     </div>
                 </article>
