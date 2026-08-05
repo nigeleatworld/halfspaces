@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building BAH! · a build journal · halfspaces</title>
+<meta name="description" content="A bus-spotting game I built for my toddler, who shouts BAH! at every bus; how it stayed one small rule while the street around it kept growing.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#FCFAF2; --parchment:#EFE1BC; --linen:#E7DED1; --stone:#CDBFAE;
+    --sage-wash:#D7E1CE; --blue-wash:#DCE7EA; --clay-wash:#E8D1C5; --yellow-wash:#F0D77A;
+    --charcoal:#111B2E; --slate:#53657D; --ash:#8C917F;
+    --forest:#5E8061; --terracotta:#A9553F; --ochre:#B88D33; --slate-blue:#496D7D;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:32em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
+  article p{margin:0 0 20px}
+  h2{font-size:25px; line-height:1.18; margin:38px 0 14px; font-weight:700; letter-spacing:-.01em}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
+    color:var(--charcoal); font-size:19px}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+
+  .figure{margin:26px 0; padding:24px 18px; border:1px solid var(--line); border-radius:5px;
+    background:var(--warm-white); text-align:center}
+  .figure svg{display:block; margin:0 auto}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em; margin-top:14px}
+
+  .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:44px}
+
+  @media (max-width:640px){ body{font-size:17px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Building BAH!</h1>
+    <p class="standfirst">A bus-spotting game for my son, who shouts &ldquo;BAH!&rdquo; at every bus; it stayed one small rule while the street around it kept growing.</p>
+    <p class="runmeta">July&ndash;August 2026 &middot; built with Claude &middot; one self-contained offline HTML file &middot; every sound recorded on the couch</p>
+  </header>
+
+  <article>
+    <p>Brennan is not yet three, and he shouts &ldquo;BAH!&rdquo; at every bus. Not some buses; every bus, from the pram, from the window, from across a car park, with the full-body conviction of someone announcing important news. So I built him the thing he was already doing: a street where buses and animals go past, and one big button he presses only when the bus shows up.</p>
+
+    <figure class="figure">
+      <svg viewBox="0 0 240 150" width="188" height="118" role="img" aria-label="The green Singapore double-decker bus from the game">
+        <rect x="10" y="12" width="220" height="116" rx="20" fill="#84BD00"/>
+        <rect x="10" y="12" width="220" height="13" rx="10" fill="#9BD11A"/>
+        <rect x="22" y="26" width="196" height="30" rx="7" fill="#1d1f26"/>
+        <g fill="#84BD00">
+          <rect x="58" y="26" width="5" height="30"/><rect x="92" y="26" width="5" height="30"/>
+          <rect x="126" y="26" width="5" height="30"/><rect x="160" y="26" width="5" height="30"/>
+          <rect x="194" y="26" width="5" height="30"/>
+        </g>
+        <path d="M120 67 C114 60,104 61,104 54 C104 49,111 48,116 52 C118 53,120 55,120 56 C120 55,122 53,124 52 C129 48,136 49,136 54 C136 61,126 60,120 67 Z" fill="#e23744"/>
+        <rect x="18" y="66" width="30" height="28" rx="6" fill="#1d1f26"/>
+        <rect x="56" y="64" width="26" height="50" rx="4" fill="#1d1f26"/>
+        <rect x="67" y="64" width="3" height="50" fill="#3a3d47"/>
+        <rect x="98" y="70" width="120" height="26" rx="6" fill="#1d1f26"/>
+        <g fill="#84BD00"><rect x="134" y="70" width="5" height="26"/><rect x="170" y="70" width="5" height="26"/></g>
+        <circle cx="20" cy="104" r="5" fill="#ffd23f"/>
+        <rect x="10" y="114" width="220" height="10" rx="5" fill="#cfd3da"/>
+        <circle cx="60" cy="126" r="17" fill="#17181c"/><circle cx="60" cy="126" r="8" fill="#9aa0a8"/>
+        <circle cx="190" cy="126" r="17" fill="#17181c"/><circle cx="190" cy="126" r="8" fill="#9aa0a8"/>
+      </svg>
+      <figcaption>The bus. Drawn, not an emoji; a Singapore double-decker with a little SG heart between the decks.</figcaption>
+    </figure>
+
+    <p>That single rule, bus or not-bus, is the entire game, and keeping it the entire game turned out to be most of the work.</p>
+
+    <h2>It started as a bribe</h2>
+    <p>The honest origin is less wholesome than a learning app. He had influenza A, he wouldn&rsquo;t eat, and I needed food to go into him somehow. The game became the deal: one bite, one bus. It worked, which is the only reason it survived past that week.</p>
+
+    <h2>Then it became a screen-time problem</h2>
+    <p>Amanda watched him tap at it and called it screen time, which was fair. That one comment shaped the game more than any feature idea. If he was going to look at a screen, I wanted it to be the opposite of a feed: short, shared, and finite. So the sessions end themselves after ten buses, with a little bye-bye screen; a grown-up stays in the loop; the reward is a sound and a star, not an endless scroll.</p>
+
+    <h2>Everything you hear is me</h2>
+    <p>The BAH is my voice, recorded on the couch; so is the lion&rsquo;s roar, the &ldquo;choo choo,&rdquo; and the counting to ten. I tried synthesised voices first, and they sounded like a hospital intercom, so they went. The animals are full-bodied on purpose, side-on, whole creatures rather than the floating emoji heads a quick build reaches for; a toddler should see a cow, not a cow&rsquo;s face. The bus is a Singapore double-decker; there&rsquo;s an MRT on a viaduct and an 800 SUPER garbage truck drawn from a photo I took on the street, because this is his street and not a stock one. No 3D, ever. A three-year-old wants a bright shape that does something when he presses it, not realism.</p>
+
+    <h2>Teaching, without turning it into a quiz</h2>
+    <p>At some point I wanted it to be &ldquo;educational,&rdquo; and nearly ruined it. The instinct is to bolt on letters and numbers and &ldquo;tap the red one&rdquo; tasks. I had Claude and a second model both look at it, and they landed where I eventually did: the clean bus-only rule is already the lesson; it trains paying attention and holding still, which is most of what a three-year-old is working on. So the learning stayed quiet. It counts the buses in my voice, you can tap any animal to hear its name, and at the end it shows a few of the things that went past and asks, scoring nothing, &ldquo;what did we see?&rdquo;</p>
+
+    <h2>The junction</h2>
+    <p>The piece I&rsquo;m most pleased with is a pedestrian crossing. I wanted animals to be able to cross the road, which sounds simple and isn&rsquo;t. My first attempt waited for a gap in the traffic; with cars coming both ways on two roads, a gap never comes. The fix was the obvious real-world one I&rsquo;d been avoiding: stop the cars. The light turns red, the traffic holds at the line, and two or three animals cross together and then walk off down the far pavement. It took an embarrassing number of goes; at one point they crossed the road and walked straight up into the sky, which my son found funnier than I did.</p>
+
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>AI built most of this with me; it drew the shapes, wrote the game logic, and could even render the screen and check its own work without a browser open. What it couldn&rsquo;t do was feel it. It kept playing the crocodile&rsquo;s snap before the crocodile arrived, and had no way to hear that it was wrong. It moved the big button into a row and didn&rsquo;t notice the button now jerked sideways on every press; my son noticed in about four seconds. The taste, the &ldquo;the sound is early,&rdquo; the &ldquo;they&rsquo;re flying,&rdquo; the &ldquo;do it again,&rdquo; stayed mine. The generation was cheap; the noticing was the job.</p>
+
+    <h2>The spine never moved</h2>
+    <p>It grew far past what it needed to be: three colours of bus, weather, a sky that can be morning or evening, a button that fills the screen with bubbles, a whole working crossing. Most of that is there because it was fun to make and he kept reacting. Underneath all of it the thing never changed:</p>
+
+    <blockquote>You open one file, offline, it works on the first tap, and there is exactly one rule: press only for the bus.</blockquote>
+
+    <p>The easy version of this was a YouTube video; I made him his own thing instead, tied to the buses and animals and trains he already loved, and kept changing it so it stayed interesting to him. It did most of what I built it for: he ate, he got the hang of waiting for the bus, and he still asks for it by name. He also still shouts BAH! at every real bus, which the game has done nothing to cure, and I hope it never does.</p>
+
+    <p class="footer-note"><a href="bah-bus.html">Play BAH!</a> &middot; <a href="index.html">Back to halfspaces.co</a></p>
+  </article>
+</div>
+</body>
+</html>
