@@ -814,7 +814,7 @@
 
         .demo-controls {
             display: grid;
-            gap: 12px;
+            gap: 10px;
             margin-top: 26px;
             border-top: 1px solid var(--line);
             padding-top: 18px;
@@ -859,6 +859,17 @@
             opacity: 0.35;
             cursor: default;
             pointer-events: none;
+        }
+
+        .demo-column {
+            display: grid;
+            gap: 12px;
+            align-content: start;
+            min-width: 0;
+        }
+
+        .demo-column .demo-nav {
+            justify-content: flex-end;
         }
 
         .demo-bridge {
@@ -1954,13 +1965,9 @@
                         <div class="demo-controls" id="demo-deck">
                             <p class="label">The craft, shown safely &#8594;</p>
                             <p>Four pages, same reporting approach as the real engagement, and deliberately nothing that could be mistaken for its results. Swipe or use the arrows.</p>
-                            <div class="demo-nav">
-                                <button class="demo-arrow" type="button" data-demo-prev aria-label="Previous slide">&#8592;</button>
-                                <button class="demo-arrow" type="button" data-demo-next aria-label="Next slide">&#8594;</button>
-                                <div class="demo-dots" data-demo-dots role="tablist" aria-label="Slide position"></div>
-                            </div>
                         </div>
                     </div>
+                    <div class="demo-column">
                     <p class="demo-bridge"><b>Why kopi, not tuition?</b> The client&rsquo;s real deck is confidential, so this one is invented from scratch: a fictional brand, synthetic numbers, the same craft.</p>
                     <div class="demo-track" data-demo-track tabindex="0" aria-roledescription="carousel" aria-label="Four-slide demonstration study">
                         <section class="demo-slide" aria-label="Slide 1 of 4: the brief">
@@ -2112,6 +2119,12 @@
                             </div>
                             <div class="demo-slide-foot"><span>Wholly synthetic; not client work</span><span>4 / 4</span></div>
                         </section>
+                    </div>
+                    <div class="demo-nav">
+                        <button class="demo-arrow" type="button" data-demo-prev aria-label="Previous slide">&#8592;</button>
+                        <button class="demo-arrow" type="button" data-demo-next aria-label="Next slide">&#8594;</button>
+                        <div class="demo-dots" data-demo-dots role="tablist" aria-label="Slide position"></div>
+                    </div>
                     </div>
                 </article>
 
