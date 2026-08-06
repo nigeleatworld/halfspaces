@@ -1939,7 +1939,7 @@
                         </div>
                         <div class="demo-controls" id="demo-deck">
                             <p class="label">The craft, shown safely &#8594;</p>
-                            <p>The findings stay with the client, so the deck alongside is a four-page demonstration: an unrelated, fictional category and wholly synthetic data, showing the reporting approach itself. Swipe it or use the arrows.</p>
+                            <p>The findings stay with the client, so what you can flip through here is a demonstration instead: a fictional kopi chain, deliberately far from tuition so nothing on these pages can be mistaken for the client&rsquo;s results. Synthetic data, same reporting approach. Swipe or use the arrows.</p>
                             <div class="demo-nav">
                                 <button class="demo-arrow" type="button" data-demo-prev aria-label="Previous slide">&#8592;</button>
                                 <button class="demo-arrow" type="button" data-demo-next aria-label="Next slide">&#8594;</button>
@@ -2358,12 +2358,21 @@
                 dot.className = "demo-dot" + (index === 0 ? " is-active" : "");
                 dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
                 dot.addEventListener("click", () => {
-                    demoTrack.scrollTo({ left: slide.offsetLeft, behavior: "smooth" });
+                    demoJump(index);
                 });
                 demoDots.appendChild(dot);
             });
 
-            const demoIndex = () => Math.round(demoTrack.scrollLeft / demoTrack.clientWidth);
+            const demoStride = () => demoSlides.length > 1
+                ? demoSlides[1].offsetLeft - demoSlides[0].offsetLeft
+                : demoTrack.clientWidth;
+
+            const demoIndex = () => Math.round(demoTrack.scrollLeft / demoStride());
+
+            const demoJump = (i) => {
+                demoTrack.scrollLeft = i * demoStride();
+                syncDemo();
+            };
 
             const syncDemo = () => {
                 const i = demoIndex();
@@ -2373,8 +2382,7 @@
             };
 
             const demoGo = (delta) => {
-                const target = Math.min(Math.max(demoIndex() + delta, 0), demoSlides.length - 1);
-                demoTrack.scrollTo({ left: demoSlides[target].offsetLeft, behavior: "smooth" });
+                demoJump(Math.min(Math.max(demoIndex() + delta, 0), demoSlides.length - 1));
             };
 
             demoPrev.addEventListener("click", () => demoGo(-1));
