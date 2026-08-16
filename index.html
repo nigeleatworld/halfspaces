@@ -980,9 +980,14 @@
 
         .demo-slide-body {
             display: grid;
-            align-content: start;
+            grid-template-rows: auto 1fr;
+            row-gap: 18px;
             padding: clamp(20px, 2.6vw, 30px) clamp(16px, 2.4vw, 26px) clamp(16px, 2.2vw, 24px);
             min-width: 0;
+        }
+
+        .demo-slide-body > :nth-child(2) {
+            align-self: center;
         }
 
         .demo-slide-foot {
@@ -2080,9 +2085,11 @@
                         <section class="demo-slide" aria-label="Slide 1 of 4: the brief">
                             <div class="demo-slide-top"><span class="brand">Kopi Lima &middot; a fictional kopi chain</span><span class="mark">Demonstration &middot; synthetic data</span></div>
                             <div class="demo-slide-body">
-                                <p class="demo-eyebrow">01 &middot; The brief</p>
-                                <h4>A mid-sized kopi chain wants a position it can own.</h4>
-                                <p class="demo-lead">Kopi Lima is an invented 14-outlet chain competing against bigger names with more stores and louder marketing. Every page of this study, including the client, is made up; the way of working is the part that&rsquo;s real.</p>
+                                <div class="demo-head">
+                                    <p class="demo-eyebrow">01 &middot; The brief</p>
+                                    <h4>A mid-sized kopi chain wants a position it can own.</h4>
+                                    <p class="demo-lead">Kopi Lima is an invented 14-outlet chain competing against bigger names with more stores and louder marketing. Every page of this study, including the client, is made up; the way of working is the part that&rsquo;s real.</p>
+                                </div>
                                 <div class="demo-kv">
                                     <span class="k">Question</span><span class="v">Which claim can a smaller chain credibly own, and which fights should it not pick?</span>
                                     <span class="k">Method</span><span class="v">Online survey, n=400 synthetic Kopi Lima customers. Importance forced by a top-3 ranking; satisfaction read as a net, at Kopi Lima itself.</span>
@@ -2094,8 +2101,10 @@
                         <section class="demo-slide" aria-label="Slide 2 of 4: the exhibit">
                             <div class="demo-slide-top"><span class="brand">Kopi Lima &middot; a fictional kopi chain</span><span class="mark">Demonstration &middot; synthetic data</span></div>
                             <div class="demo-slide-body">
-                                <p class="demo-eyebrow">02 &middot; The exhibit &middot; importance vs. satisfaction</p>
-                                <h4 class="demo-exhibit-title">Speed and seating carry the widest gaps; taste is already a strength. The territory worth testing is the fast, reliable kopi run.</h4>
+                                <div class="demo-head">
+                                    <p class="demo-eyebrow">02 &middot; The exhibit &middot; importance vs. satisfaction</p>
+                                    <h4 class="demo-exhibit-title">Speed and seating carry the widest gaps; taste is already a strength. The territory worth testing is the fast, reliable kopi run.</h4>
+                                </div>
                                 <div class="demo-exhibit-grid">
                                     <div class="demo-chart">
                                         <svg viewBox="0 0 640 430" role="img" aria-label="Demonstration scatter chart of importance versus net satisfaction for twelve numbered synthetic factors; speed of service and seat availability sit in the high-importance, below-median-satisfaction opportunity zone.">
@@ -2179,8 +2188,10 @@
                         <section class="demo-slide" aria-label="Slide 3 of 4: the choices behind the exhibit">
                             <div class="demo-slide-top"><span class="brand">Kopi Lima &middot; a fictional kopi chain</span><span class="mark">Demonstration &middot; synthetic data</span></div>
                             <div class="demo-slide-body">
-                                <p class="demo-eyebrow">03 &middot; The choices behind it</p>
-                                <h4>Four decisions do the analytical work.</h4>
+                                <div class="demo-head">
+                                    <p class="demo-eyebrow">03 &middot; The choices behind it</p>
+                                    <h4>Four decisions do the analytical work.</h4>
+                                </div>
                                 <div class="demo-cards">
                                     <div class="demo-card">
                                         <strong>Importance is ranked, not rated.</strong>
@@ -2205,8 +2216,10 @@
                         <section class="demo-slide" aria-label="Slide 4 of 4: the recommendation">
                             <div class="demo-slide-top"><span class="brand">Kopi Lima &middot; a fictional kopi chain</span><span class="mark">Demonstration &middot; synthetic data</span></div>
                             <div class="demo-slide-body">
-                                <p class="demo-eyebrow">04 &middot; The recommendation</p>
-                                <h4>Build toward the fast, reliable kopi run; use taste as supporting proof.</h4>
+                                <div class="demo-head">
+                                    <p class="demo-eyebrow">04 &middot; The recommendation</p>
+                                    <h4>Build toward the fast, reliable kopi run; use taste as supporting proof.</h4>
+                                </div>
                                 <div class="demo-rec-grid">
                                     <div class="demo-steps">
                                         <div class="demo-step"><em>1</em><p><strong>Fix peak throughput before claiming it.</strong> A speed claim the queue contradicts is worse than no claim; earn it operationally first.</p></div>
