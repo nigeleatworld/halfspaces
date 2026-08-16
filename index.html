@@ -671,14 +671,17 @@
         }
 
         @media (max-width: 860px) {
-            :root { --ch-l: 7%; --ch-r: 93%; }
+            /* the lane moves into the left gutter so it never crosses text */
+            :root { --ch-l: 8px; --ch-r: 100%; }
             .pitch::after { display: none; }
+            .pitch .wash { display: none; }
             .in-channel { margin-left: 0; }
             .hero { min-height: auto; padding: 8vh 0 6vh; }
             .piece, .piece.flip { grid-template-columns: 1fr; padding: 7vh 0; }
             .piece.flip .piece-copy { order: 1; }
             .piece.flip .piece-art { order: 2; }
             .footer-inner { flex-direction: column; align-items: flex-start; }
+            .footer-links { white-space: normal; flex-wrap: wrap; }
         }
     </style>
 </head>
