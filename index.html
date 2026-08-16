@@ -283,9 +283,43 @@
             z-index: 2;
         }
 
+        .hero-side {
+            align-self: center;
+            display: grid;
+            gap: 16px;
+        }
+
+        .current-focus {
+            border: 1px solid var(--line);
+            background: color-mix(in srgb, var(--warm-white) 55%, transparent);
+            padding: 16px 18px 14px;
+        }
+
+        .cf-label {
+            color: var(--terracotta);
+            font: 0.7rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        .current-focus ul {
+            margin: 10px 0 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+        }
+
+        .current-focus li {
+            border-top: 1px solid var(--line);
+            padding: 8px 0;
+            color: var(--slate);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
         .hero-thread-card {
             position: relative;
-            align-self: center;
             border: 1px solid var(--line-strong);
             background: var(--warm-white);
             padding: 22px 20px 16px;
@@ -398,6 +432,24 @@
             color: var(--slate);
             font-size: clamp(0.98rem, 1.18vw, 1.1rem);
             line-height: 1.5;
+        }
+
+        .career-strip {
+            max-width: 36rem;
+            display: grid;
+            gap: 8px;
+            border-left: 1px solid var(--line);
+            padding-left: clamp(16px, 2vw, 22px);
+        }
+
+        .career-strip .label {
+            color: var(--slate);
+        }
+
+        .career-strip p {
+            color: var(--slate);
+            font-size: 0.95rem;
+            line-height: 1.55;
         }
 
         .hero-actions {
@@ -1923,8 +1975,12 @@
                     <div class="intro-note">
                         <span class="label">public workbench</span>
                         <p class="lead">Fourteen years in market research taught me to read people and markets, and to spot what&rsquo;s worth building. Now I build those things myself; this site is my proof-of-work layer: how I think, and what I&rsquo;ve made.</p>
-                        <p class="lead-secondary">The work I take on: positioning studies, customer understanding, and practical AI workflows around research. If that&rsquo;s the shape of your problem, <a class="inline-link" href="mailto:nigeleatworld@gmail.com?subject=Project%20enquiry">email me</a>.</p>
+                        <p class="lead-secondary">Two tracks right now: open to senior consumer-insights and research-strategy roles, and taking scoped positioning and customer-understanding briefs. If either fits, <a class="inline-link" href="mailto:nigeleatworld@gmail.com?subject=Project%20enquiry">email me</a>.</p>
                         <p class="lead-secondary">Enjoy your stay.</p>
+                    </div>
+                    <div class="career-strip">
+                        <span class="label">track record</span>
+                        <p>Fourteen years in consumer research; most recently five years at Milieu Insight, first as Head of Research (APAC), then Head of Data &amp; Strategic Solutions, running panel studies across Southeast Asia for tobacco, alcohol, government, tech, and FMCG clients.</p>
                     </div>
                     <div class="hero-actions">
                         <a class="cta-button" href="mailto:nigeleatworld@gmail.com?subject=Project%20enquiry">Email me</a>
@@ -1945,7 +2001,8 @@
                         <a class="text-link" href="https://github.com/nigeleatworld">GitHub</a>
                     </div>
                 </div>
-                <aside class="hero-thread-card reveal" aria-label="Workbench index">
+                <div class="hero-side reveal">
+                <aside class="hero-thread-card" aria-label="Workbench index">
                     <h2>Proof of work.</h2>
                     <div class="hero-thread-group">Featured</div>
                     <div class="hero-thread-list">
@@ -1964,8 +2021,18 @@
                     <div class="hero-thread-group">Paused queue</div>
                     <div class="hero-thread-list">
                         <a class="hero-thread" href="#paused"><em>&middot;</em><strong>Introspace</strong><span>paused</span></a>
+                        <a class="hero-thread" href="#paused"><em>&middot;</em><strong>One Shot</strong><span>shelved</span></a>
                     </div>
                 </aside>
+                <aside class="current-focus" aria-label="Current focus">
+                    <p class="cf-label">Current focus &middot; August 2026</p>
+                    <ul>
+                        <li>In the market for senior consumer-insights and research-strategy roles.</li>
+                        <li>Taking scoped positioning and customer-understanding briefs.</li>
+                        <li>Calibrating The Cai Fan Test with its first real respondents.</li>
+                    </ul>
+                </aside>
+                </div>
                 <p class="operating-bias reveal">high agency, hands-on, low theatre.</p>
             </div>
         </section>
