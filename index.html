@@ -937,9 +937,21 @@
         }
 
         .demo-arrow[disabled] {
-            opacity: 0.35;
+            border-style: dashed;
+            border-color: var(--line);
+            color: var(--stone);
+            background: transparent;
             cursor: default;
             pointer-events: none;
+        }
+
+        .demo-count {
+            min-width: 44px;
+            text-align: center;
+            color: var(--ash);
+            font: 0.74rem var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.08em;
         }
 
         .demo-column {
@@ -1013,8 +1025,8 @@
 
         .demo-slide-body {
             display: grid;
-            align-content: center;
-            padding: clamp(16px, 2.2vw, 24px) clamp(16px, 2.4vw, 26px);
+            align-content: start;
+            padding: clamp(20px, 2.6vw, 30px) clamp(16px, 2.4vw, 26px) clamp(16px, 2.2vw, 24px);
             min-width: 0;
         }
 
@@ -2086,7 +2098,7 @@
                                     <span class="k">Output</span><span class="v">One exhibit, the choices behind it, and the recommendation it produces.</span>
                                 </div>
                             </div>
-                            <div class="demo-slide-foot"><span>Wholly synthetic; not client work</span><span>1 / 4</span></div>
+                            <div class="demo-slide-foot"><span>Wholly synthetic; not client work</span><span>Kopi Lima study</span></div>
                         </section>
                         <section class="demo-slide" aria-label="Slide 2 of 4: the exhibit">
                             <div class="demo-slide-top"><span class="brand">Kopi Lima &middot; a fictional kopi chain</span><span class="mark">Demonstration &middot; synthetic data</span></div>
@@ -2171,7 +2183,7 @@
                                 </div>
                                 <p class="demo-basenote">Base: 400 synthetic respondents, Kopi Lima customers. Importance = % ranking the factor top-3; the column sums to ~300 by construction. Net = % like &minus; % dislike at Kopi Lima. Dashed lines split each axis at its median, so zones are relative. Numbers on the dots match the table.</p>
                             </div>
-                            <div class="demo-slide-foot"><span>Wholly synthetic; not client work</span><span>2 / 4</span></div>
+                            <div class="demo-slide-foot"><span>Wholly synthetic; not client work</span><span>Kopi Lima study</span></div>
                         </section>
                         <section class="demo-slide" aria-label="Slide 3 of 4: the choices behind the exhibit">
                             <div class="demo-slide-top"><span class="brand">Kopi Lima &middot; a fictional kopi chain</span><span class="mark">Demonstration &middot; synthetic data</span></div>
@@ -2197,7 +2209,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="demo-slide-foot"><span>Wholly synthetic; not client work</span><span>3 / 4</span></div>
+                            <div class="demo-slide-foot"><span>Wholly synthetic; not client work</span><span>Kopi Lima study</span></div>
                         </section>
                         <section class="demo-slide" aria-label="Slide 4 of 4: the recommendation">
                             <div class="demo-slide-top"><span class="brand">Kopi Lima &middot; a fictional kopi chain</span><span class="mark">Demonstration &middot; synthetic data</span></div>
@@ -2221,11 +2233,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="demo-slide-foot"><span>Wholly synthetic; not client work</span><span>4 / 4</span></div>
+                            <div class="demo-slide-foot"><span>Wholly synthetic; not client work</span><span>Kopi Lima study</span></div>
                         </section>
                     </div>
                     <div class="demo-nav">
                         <button class="demo-arrow" type="button" data-demo-prev aria-label="Previous slide">&#8592;</button>
+                        <span class="demo-count" data-demo-count aria-live="polite">1 / 4</span>
                         <button class="demo-arrow" type="button" data-demo-next aria-label="Next slide">&#8594;</button>
                         <div class="demo-dots" data-demo-dots role="tablist" aria-label="Slide position"></div>
                     </div>
@@ -2488,6 +2501,7 @@
             const demoDots = document.querySelector("[data-demo-dots]");
             const demoPrev = document.querySelector("[data-demo-prev]");
             const demoNext = document.querySelector("[data-demo-next]");
+            const demoCount = document.querySelector("[data-demo-count]");
 
             demoSlides.forEach((slide, index) => {
                 const dot = document.createElement("button");
@@ -2516,6 +2530,7 @@
                 [...demoDots.children].forEach((d, di) => d.classList.toggle("is-active", di === i));
                 demoPrev.toggleAttribute("disabled", i <= 0);
                 demoNext.toggleAttribute("disabled", i >= demoSlides.length - 1);
+                demoCount.textContent = `${i + 1} / ${demoSlides.length}`;
             };
 
             const demoGo = (delta) => {
