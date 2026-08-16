@@ -165,20 +165,7 @@
             color: var(--terracotta);
         }
 
-        /* Name primer */
-        .name-primer {
-            border-bottom: 1px solid var(--line);
-            padding: 14px 0 12px;
-            color: var(--slate);
-        }
-
-        .name-primer-inner {
-            display: grid;
-            grid-template-columns: auto minmax(140px, 0.18fr) minmax(0, 1fr);
-            gap: clamp(14px, 2.4vw, 28px);
-            align-items: center;
-        }
-
+        /* Halfspace mark (used in the footer) */
         .halfspace-diagram {
             width: 58px;
             height: 34px;
@@ -204,45 +191,6 @@
             border-radius: 50%;
             background: var(--terracotta);
             transform: translate(-50%, -50%);
-        }
-
-        .name-primer-title {
-            border-right: 1px solid var(--line);
-            padding-right: clamp(14px, 2vw, 24px);
-        }
-
-        .name-primer h2 {
-            color: var(--charcoal);
-            font-family: var(--sans);
-            font-weight: 700;
-            font-size: clamp(1.06rem, 1.4vw, 1.32rem);
-            line-height: 1;
-            letter-spacing: -0.01em;
-            white-space: nowrap;
-        }
-
-        .name-primer-copy {
-            display: grid;
-            gap: 4px;
-            align-items: center;
-            font-size: clamp(0.74rem, 0.78vw, 0.82rem);
-            line-height: 1.5;
-        }
-
-        .name-primer-copy p {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 8px;
-            align-items: baseline;
-            border-left: 1px solid var(--line);
-            padding-left: clamp(10px, 1.5vw, 14px);
-            white-space: nowrap;
-        }
-
-        .name-primer-copy strong {
-            color: var(--charcoal);
-            font-weight: 600;
-            white-space: nowrap;
         }
 
         /* Hero */
@@ -403,9 +351,9 @@
             text-transform: uppercase;
         }
 
-        .hero-kicker span + span::before {
+        .hero-kicker span:not(:last-child)::after {
             content: "/";
-            margin-right: 10px;
+            margin-left: 10px;
             color: var(--ash);
         }
 
@@ -689,7 +637,7 @@
             max-width: 780px;
             font-family: var(--sans);
             font-weight: 700;
-            font-size: clamp(2.4rem, 5vw, 4.6rem);
+            font-size: clamp(2rem, 3.6vw, 3.3rem);
             line-height: 0.95;
             letter-spacing: -0.025em;
             color: var(--charcoal);
@@ -842,6 +790,8 @@
             display: grid;
             gap: 10px;
             min-width: 0;
+            width: fit-content;
+            max-width: 100%;
         }
 
         .artifact-caption {
@@ -1831,14 +1781,52 @@
 
         .footer-inner {
             display: flex;
-            justify-content: flex-end;
-            gap: 18px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-name {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .footer-word {
+            color: var(--charcoal);
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
+            text-transform: none;
+        }
+
+        .footer-defs {
+            margin: 3px 0 0;
+            max-width: 62ch;
+            color: var(--slate);
+            font-family: var(--sans);
+            font-weight: 400;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            letter-spacing: 0;
+        }
+
+        .footer-defs strong {
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        .footer-updated {
+            color: var(--slate);
         }
 
         .footer-links {
             display: flex;
+            align-items: baseline;
             gap: 18px;
             color: var(--slate);
+            white-space: nowrap;
         }
 
         .footer-links a {
@@ -1885,8 +1873,6 @@
 
         /* Responsive */
         @media (max-width: 980px) {
-            .name-primer-inner,
-            .name-primer-copy,
             .hero-inner,
             .section-head,
             .chapter,
@@ -1927,15 +1913,8 @@
                 padding-top: 64px;
             }
 
-            .name-primer-title {
-                border-right: 0;
-                border-bottom: 1px solid var(--line);
-                padding-right: 0;
-                padding-bottom: 12px;
-            }
-
-            .name-primer-copy p {
-                white-space: normal;
+            .footer-name {
+                align-items: start;
             }
 
             .fieldnotes[open] {
@@ -1957,6 +1936,11 @@
 
             .demo-tables {
                 grid-template-columns: 1fr;
+            }
+
+            .demo-slide-top {
+                flex-direction: column;
+                gap: 3px;
             }
 
             .demo-cards,
@@ -2022,7 +2006,7 @@
                 </div>
                 <div class="hero-side reveal">
                 <aside class="hero-thread-card" aria-label="Workbench index">
-                    <h2>Proof of work.</h2>
+                    <h2>Proof of work</h2>
                     <div class="hero-thread-group">Featured</div>
                     <div class="hero-thread-list">
                         <a class="hero-thread" href="#client-research"><em>01</em><strong>Client research</strong><span>delivered</span></a>
@@ -2330,7 +2314,7 @@
                 <div class="section-head">
                     <div>
                         <p class="eyebrow">experiments &amp; tools</p>
-                        <h2>The shelf.</h2>
+                        <h2>The shelf</h2>
                     </div>
                     <p>Smaller things that are alive and in use; each earns a card, not a chapter. Statuses mean what they say: live is publicly accessible, in use is running for real but private, pre-launch is built and unshipped, in validation is an experiment with explicit kill criteria.</p>
                 </div>
@@ -2416,7 +2400,7 @@
                 <div class="section-head">
                     <div>
                         <p class="eyebrow">paused queue</p>
-                        <h2>Paused, on purpose.</h2>
+                        <h2>Paused, on purpose</h2>
                     </div>
                     <p>Ideas parked with their restart conditions attached. A live list stays honest when the stalled things move out of it.</p>
                 </div>
@@ -2461,23 +2445,19 @@
                 </div>
             </div>
         </section>
-        <section class="name-primer" id="name" aria-label="Meaning of halfspace">
-            <div class="shell name-primer-inner">
-                <div class="halfspace-diagram" aria-hidden="true"></div>
-                <div class="name-primer-title">
-                    <h2>halfspaces</h2>
-                </div>
-                <div class="name-primer-copy">
-                    <p><strong>In geometry:</strong> one side of a boundary; a region made clear by a constraint.</p>
-                    <p><strong>In football:</strong> the inside channel between centre and wing; where creative play often resides.</p>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <footer>
+    <footer id="name">
         <div class="shell footer-inner">
+            <div class="footer-name">
+                <div class="halfspace-diagram" aria-hidden="true"></div>
+                <div>
+                    <span class="footer-word">halfspaces</span>
+                    <p class="footer-defs"><strong>In geometry:</strong> one side of a boundary; a region made clear by a constraint. <strong>In football:</strong> the inside channel between centre and wing; where creative play often resides.</p>
+                </div>
+            </div>
             <span class="footer-links">
+                <span class="footer-updated">Updated August 2026</span>
                 <a href="#main">Top</a>
             </span>
         </div>
