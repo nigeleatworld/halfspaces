@@ -3,18 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Building chatpulse — a build journal — halfspaces</title>
+<title>Building chatpulse &middot; a build journal &middot; halfspaces</title>
 <meta name="description" content="Five weeks building a system that reads everything I pay to read and tells me what's worth my attention. The real timeline, fumbles included.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --warm-white:#FCFAF2; --parchment:#EFE1BC; --linen:#E7DED1; --stone:#CDBFAE;
-    --sage-wash:#D7E1CE; --blue-wash:#DCE7EA; --clay-wash:#E8D1C5; --yellow-wash:#F0D77A;
-    --charcoal:#111B2E; --slate:#53657D; --ash:#8C917F;
-    --forest:#5E8061; --terracotta:#A9553F; --ochre:#B88D33; --slate-blue:#496D7D;
+    --warm-white:#F6F7F1; --parchment:#E7EBDD; --linen:#EAEEE3; --stone:#C3C9BB;
+    --sage-wash:#DDE6D6; --blue-wash:#DDE8E3; --clay-wash:#F2DED5; --yellow-wash:#EFDDB2;
+    --charcoal:#1C2B21; --slate:#52655A; --ash:#6E7A66;
+    --forest:#3E7A4E; --terracotta:#C2431F; --ochre:#D9A94B; --slate-blue:#3F6B5C;
     --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --serif:"Fraunces",Georgia,serif;
     --sans:"DM Sans",system-ui,-apple-system,sans-serif;
     --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
     --measure:720px;
@@ -65,10 +66,10 @@
   .figure svg{width:100%; height:auto; display:block}
   .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em;
     margin-top:12px; text-align:center}
-  .svglabel{font-family:"JetBrains Mono",monospace; font-size:12px; fill:#111B2E}
-  .svgsub{font-family:"JetBrains Mono",monospace; font-size:10.5px; fill:#53657D}
-  .svgnote{font-family:"DM Sans",sans-serif; font-size:12px; fill:#53657D}
-  .svgbig{font-family:"DM Sans",sans-serif; font-size:15px; font-weight:700; fill:#111B2E}
+  .svglabel{font-family:"JetBrains Mono",monospace; font-size:12px; fill:#1C2B21}
+  .svgsub{font-family:"JetBrains Mono",monospace; font-size:10.5px; fill:#52655A}
+  .svgnote{font-family:"DM Sans",sans-serif; font-size:12px; fill:#52655A}
+  .svgbig{font-family:"DM Sans",sans-serif; font-size:15px; font-weight:700; fill:#1C2B21}
   /* responsive HTML pipeline diagram — reflows row->stack, real text, fluid sizes */
   .diagram{margin:2px 0}
   .pipe{display:flex; flex-direction:column; gap:9px; align-items:stretch}
@@ -77,10 +78,10 @@
   .stage .t{margin:0 0 5px; font-weight:700; font-size:clamp(15px,1.5vw,17px); line-height:1.15}
   .stage .s{margin:0; font-family:var(--mono); color:var(--slate);
     font-size:clamp(11.5px,1.15vw,12.5px); line-height:1.45}
-  .stage.src{background:#E8D1C5}
-  .stage.read{background:#DCE7EA}
-  .stage.kept{background:#FCFAF2}
-  .stage.understood{background:#D7E1CE; border:2px solid var(--forest); position:relative}
+  .stage.src{background:#F2DED5}
+  .stage.read{background:#DDE8E3}
+  .stage.kept{background:#F6F7F1}
+  .stage.understood{background:#DDE6D6; border:2px solid var(--forest); position:relative}
   .stage.signals{background:color-mix(in srgb,var(--yellow-wash) 55%,var(--warm-white))}
   .hardpart{position:absolute; top:-11px; left:50%; transform:translateX(-50%);
     background:var(--terracotta); color:var(--warm-white); font-family:var(--mono);
@@ -95,8 +96,8 @@
   .out .t{margin:0 0 4px; font-weight:700; font-size:clamp(14px,1.4vw,16px)}
   .out .s{margin:0; font-family:var(--mono); color:var(--slate); font-size:clamp(11px,1.1vw,12px)}
   .cols{display:flex; flex-direction:column; gap:9px}
-  .c-clay{background:#E8D1C5} .c-blue{background:#DCE7EA} .c-sage{background:#D7E1CE}
-  .c-gold{background:color-mix(in srgb,var(--yellow-wash) 50%,var(--warm-white))} .c-warm{background:#FCFAF2}
+  .c-clay{background:#F2DED5} .c-blue{background:#DDE8E3} .c-sage{background:#DDE6D6}
+  .c-gold{background:color-mix(in srgb,var(--yellow-wash) 50%,var(--warm-white))} .c-warm{background:#F6F7F1}
   .good{color:var(--forest); font-weight:700} .bad{color:var(--terracotta); font-weight:700}
   .stage .s.fields{text-align:left; display:inline-block}
   @media (min-width:760px){
@@ -121,6 +122,11 @@
     body{font-size:17px}
     .figure{padding:14px 10px 8px}
   }
+
+  /* Grass & Chalk: serif headings, matching the front page */
+  h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
+  h1 { font-weight:400; font-variation-settings:"opsz" 130 }
+  h2 { font-weight:500; font-variation-settings:"opsz" 60 }
 </style>
 </head>
 <body>

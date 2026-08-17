@@ -275,32 +275,68 @@
             background: var(--ok);
         }
 
-        /* current focus: sits in the hero's open right side */
+        /* current focus: the fourth official's board, gold on pine */
         .current-focus {
-            border: 1px solid var(--line);
-            background: color-mix(in srgb, var(--frame-bg) 70%, transparent);
-            padding: 16px 18px 12px;
+            background: var(--ink);
+            padding: 13px 16px 15px;
+            box-shadow: 0 10px 30px rgba(28, 43, 33, 0.13);
         }
 
         .cf-label {
-            color: var(--accent);
-            font: 600 0.7rem var(--mono);
-            letter-spacing: 0.09em;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            border-bottom: 1px solid rgba(246, 247, 241, 0.15);
+            padding-bottom: 11px;
+            color: var(--gold);
+            font: 600 0.68rem var(--mono);
+            letter-spacing: 0.07em;
             text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .cf-live {
+            flex: none;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: cf-pulse 2.6s ease-out infinite;
+        }
+
+        @keyframes cf-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(217, 169, 75, 0.55); }
+            70% { box-shadow: 0 0 0 8px rgba(217, 169, 75, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(217, 169, 75, 0); }
         }
 
         .current-focus ul {
-            margin: 8px 0 0;
+            margin: 0;
             padding: 0;
             list-style: none;
         }
 
         .current-focus li {
-            border-top: 1px solid var(--line);
-            padding: 9px 0;
-            color: var(--slate);
-            font-size: 0.88rem;
-            line-height: 1.45;
+            border-bottom: 1px solid rgba(246, 247, 241, 0.1);
+            padding: 12px 0;
+            color: rgba(246, 247, 241, 0.82);
+            font-size: 0.86rem;
+            line-height: 1.5;
+        }
+
+        .current-focus li:last-child { border-bottom: 0; padding-bottom: 2px; }
+
+        .cf-tag {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--gold);
+            font: 600 0.63rem var(--mono);
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cf-live { animation: none; }
         }
 
         /* ---- selected work ---- */
@@ -534,6 +570,51 @@
             color: var(--slate);
         }
 
+        /* ---- build notes: supporting material, not a fourth chapter ---- */
+        .notes { padding: 0 0 11vh; }
+
+        .notes-intro {
+            margin: 14px 0 26px;
+            max-width: 46ch;
+            color: var(--slate);
+            font-size: 0.95rem;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+        }
+
+        .notes-grid a {
+            display: block;
+            background: var(--paper);
+            padding: 17px 18px 18px;
+            text-decoration: none;
+            transition: background 160ms ease;
+        }
+
+        .notes-grid a:hover { background: rgba(46, 96, 60, 0.05); }
+
+        .notes-grid strong {
+            display: block;
+            font: 500 1.05rem var(--serif);
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        .notes-grid a:hover strong { color: var(--accent); }
+
+        .notes-grid span {
+            display: block;
+            margin-top: 5px;
+            color: var(--ash);
+            font-size: 0.85rem;
+            line-height: 1.45;
+        }
+
         /* ---- closing ---- */
         .closing {
             position: relative;
@@ -706,6 +787,7 @@
             .piece.flip .piece-art { order: 2; }
             .footer-inner { flex-direction: column; align-items: flex-start; }
             .footer-links { white-space: normal; flex-wrap: wrap; }
+            .notes-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -734,11 +816,11 @@
                     </div>
                 </div>
                 <aside class="current-focus" aria-label="Current focus">
-                    <p class="cf-label">Current focus &middot; August 2026</p>
+                    <p class="cf-label"><span class="cf-live" aria-hidden="true"></span>Current focus &middot; Aug 2026</p>
                     <ul>
-                        <li>In the market for senior roles: consumer insight, strategy, consulting.</li>
-                        <li>Taking scoped positioning and customer-understanding briefs.</li>
-                        <li>Building for myself: an ESP32 desk companion, and a BJJ reference that replaces twenty YouTube professors.</li>
+                        <li><span class="cf-tag">Looking</span>Senior roles: consumer insight, strategy, consulting.</li>
+                        <li><span class="cf-tag">Taking</span>Scoped positioning and customer-understanding briefs.</li>
+                        <li><span class="cf-tag">Building</span>An ESP32 desk companion, and a BJJ reference that replaces twenty YouTube professors.</li>
                     </ul>
                 </aside>
             </div>
@@ -885,10 +967,23 @@
                 <div class="row"><em>05</em><a href="building-chatpulse.html"><strong>chatpulse, newsletters distilled to one briefing</strong></a><span>In use, daily</span></div>
                 <div class="row"><em>06</em><strong>Budget dashboard, bank exports into answers</strong><span>In use, private</span></div>
                 <div class="row"><em>07</em><strong>Bitpybit, Python in three questions a day</strong><span>Pre-launch, iOS</span></div>
-                <div class="row"><em>08</em><a href="bah-bus.html"><strong>BAH! Bus, a game for one toddler</strong></a><span>In use &middot; play it</span></div>
+                <div class="row"><em>08</em><a href="bah-bus.html"><strong>BAH! Bus, a game for one toddler</strong></a><span>In use &middot; <a href="building-bah.html">the note</a></span></div>
                 <div class="row"><em>09</em><strong>Podviz, listening with your eyes</strong><span>In validation</span></div>
                 <div class="row"><em>10</em><strong>Introspace, warm intros with the right to say no</strong><span>Paused, on purpose</span></div>
                 <div class="row"><em>11</em><a href="building-oneshot.html"><strong>One Shot, a sniper game two AIs told me to stop polishing</strong></a><span>Shelved &middot; the journal</span></div>
+            </div>
+        </section>
+
+        <section class="notes" id="notes">
+            <div class="shell">
+                <p class="label label-accent in-channel">Build notes</p>
+                <p class="notes-intro in-channel">Longer write-ups on how a few of these were actually made, including the parts that went wrong.</p>
+                <div class="notes-grid">
+                    <a href="building-chatpulse.html"><strong>Building chatpulse</strong><span>Five weeks building a system that reads everything I pay to read.</span></a>
+                    <a href="building-oneshot.html"><strong>Building One Shot</strong><span>Two other AIs told me to throw away my best day&rsquo;s work. They were right.</span></a>
+                    <a href="building-bah.html"><strong>Building BAH! Bus</strong><span>A bus game for my son, kept to one small rule while the street grew.</span></a>
+                    <a href="building-halfspaces.html"><strong>Building halfspaces</strong><span>This site, with no design training; mostly saying &ldquo;not that&rdquo; until it fit.</span></a>
+                </div>
             </div>
         </section>
     </main>
