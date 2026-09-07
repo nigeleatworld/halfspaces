@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Beebee &middot; a build journal &middot; halfspaces</title>
+<meta name="description" content="Three weeks turning a gadget bought for experiments into the most useful screen in the house: a pager, an AI budget dial, and a toddler's TV timer. The real log, outages included.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#F6F7F1; --parchment:#E7EBDD; --linen:#EAEEE3; --stone:#C3C9BB;
+    --sage-wash:#DDE6D6; --blue-wash:#DDE8E3; --clay-wash:#F2DED5; --yellow-wash:#EFDDB2;
+    --charcoal:#1C2B21; --slate:#52655A; --ash:#6E7A66;
+    --forest:#3E7A4E; --terracotta:#C2431F; --ochre:#D9A94B; --slate-blue:#3F6B5C;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  .wide{max-width:980px; margin:0 auto; padding:0 22px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  /* masthead */
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:31em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
+  article p{margin:0 0 20px}
+  h2{font-size:25px; line-height:1.18; margin:8px 0 14px; font-weight:700; letter-spacing:-.01em}
+  h3{font-size:18px; margin:30px 0 8px; font-weight:700; color:var(--charcoal)}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
+    color:var(--charcoal); font-size:19px}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+  hr{border:0; border-top:1px solid var(--line); margin:8px 0 0}
+
+  /* dated entry */
+  .entry{padding:30px 0 6px; border-top:1px solid var(--line)}
+  .entry:first-of-type{border-top:0}
+  .datechip{display:inline-flex; align-items:baseline; gap:10px; font-family:var(--mono);
+    font-size:12.5px; letter-spacing:.04em; color:var(--slate); margin-bottom:6px}
+  .datechip .d{background:var(--charcoal); color:var(--warm-white); padding:3px 9px; border-radius:3px;
+    font-weight:600; letter-spacing:.03em}
+  .datechip .wk{color:var(--ash)}
+  .entry h2{margin-top:6px}
+
+  /* figures */
+  .figure{margin:30px 0; padding:22px 18px 12px; border:1px solid var(--line); border-radius:5px;
+    background:color-mix(in srgb, var(--parchment) 22%, var(--warm-white));
+    overflow-x:auto; -webkit-overflow-scrolling:touch}
+  .figure.plain{background:var(--warm-white)}
+  .figure.hero{padding:36px 30px 22px; margin:16px 0 10px; border-color:var(--line-strong);
+    background:color-mix(in srgb, var(--sage-wash) 15%, var(--warm-white));
+    box-shadow:0 1px 0 var(--line)}
+  .figure.hero .figcaption{font-size:13px; color:var(--slate); margin-top:16px}
+  .figure svg{width:100%; height:auto; display:block}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em;
+    margin-top:12px; text-align:center}
+  .svglabel{font-family:"JetBrains Mono",monospace; font-size:12px; fill:#1C2B21}
+  .svgsub{font-family:"JetBrains Mono",monospace; font-size:10.5px; fill:#52655A}
+  .svgnote{font-family:"DM Sans",sans-serif; font-size:12px; fill:#52655A}
+  .svgbig{font-family:"DM Sans",sans-serif; font-size:15px; font-weight:700; fill:#1C2B21}
+  /* responsive HTML pipeline diagram — reflows row->stack, real text, fluid sizes */
+  .diagram{margin:2px 0}
+  .pipe{display:flex; flex-direction:column; gap:9px; align-items:stretch}
+  .stage{flex:1 1 0; min-width:0; border:1px solid var(--line-strong); border-radius:11px;
+    padding:14px 12px; text-align:center; background:var(--warm-white)}
+  .stage .t{margin:0 0 5px; font-weight:700; font-size:clamp(15px,1.5vw,17px); line-height:1.15}
+  .stage .s{margin:0; font-family:var(--mono); color:var(--slate);
+    font-size:clamp(11.5px,1.15vw,12.5px); line-height:1.45}
+  .stage.src{background:#F2DED5}
+  .stage.read{background:#DDE8E3}
+  .stage.kept{background:#F6F7F1}
+  .stage.understood{background:#DDE6D6; border:2px solid var(--forest); position:relative}
+  .stage.signals{background:color-mix(in srgb,var(--yellow-wash) 55%,var(--warm-white))}
+  .hardpart{position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+    background:var(--terracotta); color:var(--warm-white); font-family:var(--mono);
+    font-size:10px; letter-spacing:.04em; padding:2px 9px; border-radius:9px; white-space:nowrap}
+  .arrow{flex:0 0 auto; display:flex; align-items:center; justify-content:center;
+    color:var(--ash); font-size:20px; line-height:1; min-height:16px}
+  .arrow::before{content:"\2193"}
+  .flowrail{text-align:center; font-family:var(--mono); font-size:12px; color:var(--ash); margin:13px 0 3px}
+  .outs{display:flex; flex-direction:column; gap:9px}
+  .out{flex:1 1 0; border:1px solid var(--line); border-radius:11px; padding:12px;
+    text-align:center; background:var(--warm-white)}
+  .out .t{margin:0 0 4px; font-weight:700; font-size:clamp(14px,1.4vw,16px)}
+  .out .s{margin:0; font-family:var(--mono); color:var(--slate); font-size:clamp(11px,1.1vw,12px)}
+  .cols{display:flex; flex-direction:column; gap:9px}
+  .c-clay{background:#F2DED5} .c-blue{background:#DDE8E3} .c-sage{background:#DDE6D6}
+  .c-gold{background:color-mix(in srgb,var(--yellow-wash) 50%,var(--warm-white))} .c-warm{background:#F6F7F1}
+  .good{color:var(--forest); font-weight:700} .bad{color:var(--terracotta); font-weight:700}
+  .stage .s.fields{text-align:left; display:inline-block}
+  @media (min-width:760px){
+    .pipe{flex-direction:row; align-items:stretch}
+    .outs{flex-direction:row}
+    .cols{flex-direction:row}
+    .pipe .arrow::before{content:"\2192"}
+  }
+
+  /* aside / callout */
+  .aside{background:var(--blue-wash); border-radius:5px; padding:16px 18px; margin:24px 0;
+    font-size:16px; color:var(--charcoal)}
+  .aside .tag{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--slate-blue); display:block; margin-bottom:6px}
+  .aside.warn{background:var(--clay-wash)}
+  .aside.warn .tag{color:var(--terracotta)}
+
+  .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:34px}
+
+  @media (max-width:640px){
+    body{font-size:17px}
+    .figure{padding:14px 10px 8px}
+  }
+
+  /* Grass & Chalk: serif headings, matching the front page */
+  h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
+  h1 { font-weight:400; font-variation-settings:"opsz" 130 }
+  h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Building Beebee</h1>
+    <p class="standfirst">A palm-sized screen in the kitchen that pages our helper, keeps my AI budgets honest, and times my son's television. It was built for a different job entirely.</p>
+    <p class="runmeta">16 Aug – 6 Sep 2026 · built with Claude · one ESP32 touchscreen, a Mac&nbsp;Mini as its brain</p>
+  </header>
+
+  <article>
+    <p>The hardware was a deliberate purchase: an M5Stack CoreS3, a palm-sized touchscreen computer with a battery and a speaker, bought so I could experiment with building things I can actually hold. The first experiment I outsourced. I run a second AI assistant on its own Mac in a corner of the study, and an AI on that machine wrote the device its first firmware, a physical conscience for the resident assistant: when it wanted to do something risky, the little screen would light up and wait for me to press and hold "approve". A dedicated consent button for a machine. The idea was sound, the handover back to me was a solid-state drive and a note, and the software on it didn't work; one bug made every request read as already expired, and the security layer had been switched off entirely, a known gap the handover note owned up to.</p>
+
+    <p>What follows is the log of the three weeks after that, in which the consent button got used for consent exactly once, to prove it worked, and the gadget slowly became the most useful screen in the house. Same arrangement as the other journals: Claude did the building and the typing, I did the deciding, and the deciding turned out to be most of the story. The outages are in here too, including the one I caused personally.</p>
+
+    <div class="aside">
+      <span class="tag">How to read this</span>
+      A journal, not a product page. The device works; the interesting parts are the days it didn't, and the features that got rejected.
+    </div>
+
+    <h2 style="margin-top:8px">The shape, before the story</h2>
+    <p>One picture so the dates have something to hang on to. A button on my phone, a bridge running on my Mac, and a battery-powered screen that can sit anywhere in the house with an opinion about everything.</p>
+  </article>
+</div>
+
+<div class="wide">
+  <div class="figure plain hero">
+    <div class="diagram" role="img" aria-label="A button on my phone reaches a bridge program on the Mac Mini, which feeds Beebee, a palm-sized touchscreen. Her screen serves three jobs: a pager that rings until acknowledged, six usage meters for the household's AI accounts, and a toddler timer that drains from green to amber to red.">
+      <div class="pipe">
+        <div class="stage src"><p class="t">my phone</p><p class="s">one button</p></div>
+        <div class="arrow"></div>
+        <div class="stage read"><p class="t">the bridge</p><p class="s">a program on the Mac&nbsp;Mini</p></div>
+        <div class="arrow"></div>
+        <div class="stage understood"><span class="hardpart">THE DEVICE</span><p class="t">Beebee</p><p class="s">palm-sized touchscreen,<br>battery, speaker, WiFi</p></div>
+      </div>
+      <p class="flowrail">and on her screen</p>
+      <div class="outs">
+        <div class="out"><p class="t">the pager</p><p class="s">rings until someone taps it</p></div>
+        <div class="out"><p class="t">the budgets</p><p class="s">six AI meters + her battery</p></div>
+        <div class="out"><p class="t">the timer</p><p class="s">green, amber, red, done</p></div>
+      </div>
+    </div>
+    <div class="figcaption">phone &rarr; bridge &rarr; Beebee · the consent button is in there somewhere, parked</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <article>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">16–17 Aug</span><span class="wk">the handover</span></div>
+    <h2>Fix it first, then ask what it's for</h2>
+    <p>The two launch bugs were satisfying in the way only other people's bugs are. The expiry timestamps were being sent as decimal numbers and read by code that fails closed on anything unexpected, so every consent request was born already expired; correct behaviour, wrong input, nothing on screen. And the security layer was off because the chip genuinely cannot verify a certificate for a bare IP address; whoever built it hit that wall and shrugged. We stopped arguing with the chip and pinned the exact certificate's fingerprint instead; Beebee now refuses to talk to anything except the one bridge she was married to.</p>
+    <p>By the second night the consent flow worked end to end, screen to press-and-hold to decision, and with it finally working I could see clearly that I didn't want it. What I wanted, and had wanted for months, was a pager. Our helper has a late-morning stretch when her phone is out of reach, which is precisely when lunch questions come up, and the household's most advanced piece of communication technology at that hour was me, going to look for her. A loud screen that lives in the kitchen and rings when I press a button on my phone; that was the actual product. The consent feature got parked, the bridge moved onto my own Mac, and the gadget got a new job description.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">17–18 Aug</span><span class="wk">one long day, into the night</span></div>
+    <h2>Pager, dashboard, a name</h2>
+    <p>The pager came together in a day: an old-fashioned double ring, synthesised, with the volume ramping up over the first rings so an accidental page taps you on the shoulder before it wakes the street, and quiet hours after ten so a misfired button at midnight gets refused by the bridge instead of ringing at all. I pressed the button on my phone and she rang in the kitchen; the whole project justified itself in that one second.</p>
+    <p>Then the screen needed something to show the other 23 hours a day, so it became a dashboard for my AI budgets, the usage meters I otherwise check by opening terminals and typing commands. And since she has a microphone, we tried voice memos: click the side button, speak, and the recording lands transcribed in my notes. Getting that working was a small war; the memory card on this chip lies about what it has written, and five upload designs died before the one that survived, which reads the file exactly once, front to back, and never asks it a second question. Somewhere past midnight the device acquired an idle face that blinks, and with a face came a name. Beebee.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">20–21 Aug</span><span class="wk">week 2</span></div>
+    <h2>The gauge that lied politely</h2>
+    <p>One of the meters is an estimate: my heaviest AI model's weekly usage, reconstructed from local logs because the provider only reports it on a panel I'd have to go open. Checked against that panel, the estimate read 80.7% when the truth was 64. The cause was a decision, not a typo. The code treated cached reads as "nearly free" and left them out of the count, and nearly free multiplied by 633 million tokens is a real number. We rebuilt the estimate to weight every token type by what it costs, and it has tracked the panel within a point or two since.</p>
+    <p>The habit that came out of this: any gauge I build gets audited against ground truth on a schedule, because a dashboard that's wrong is worse than a terminal command that's annoying. Market research instincts, it turns out, transfer directly to hardware.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">22 Aug</span><span class="wk">week 2</span></div>
+    <h2>Updates over the air, with a parachute</h2>
+    <p>Every firmware change had meant carrying Beebee to the desk and plugging in a cable, which is why small improvements kept getting deferred. So she learned to update herself over WiFi, with the safety design carrying all the weight: a freshly installed update boots on probation, and only after it proves it can still reach the bridge, which exercises the WiFi, the clock, the security pinning and the authentication in one go, does it become permanent. Any crash before that point and she reboots into the previous version like nothing happened. We proved the whole cycle on the first attempt, then made publishing an update a deliberate separate step from building one, on the theory that a build nobody has smoke-tested has no business being beamed into the kitchen.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">24 Aug</span><span class="wk">week 2</span></div>
+    <h2>Two features we refused to build, one nearly by accident</h2>
+    <p>The tempting one was a walkie-talkie; speak into the phone, have Beebee play it aloud, let the helper answer through her. Entirely buildable with parts we already had, and rejected on the simplest test: once she's been paged, WhatsApp does everything the walkie-talkie would, for zero build. The feature would have saved one walk to a phone.</p>
+    <p>The near-miss was quieter. Reviewing battery life, I asked why Beebee polls the bridge every two seconds when the consent feature it polls for has been parked since week one. It looked exactly like dead code, and removing it would have silently killed the pager, because the pager's messages ride that same poll under the old feature's name. We renamed everything a week later. Code that misleads its own author about what's load-bearing is a defect even when it works perfectly.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">31 Aug</span><span class="wk">week 3</span></div>
+    <h2>Paging from the street, and forty quiet hours</h2>
+    <p>The pager had one gap: it only worked from home WiFi, and the first time the button got pressed away from that WiFi it reached nothing, twice. The fix was a secure public tunnel to the bridge, so the same button now works from anywhere; the proof was ringing the kitchen from the phone on 5G.</p>
+    <p>The same day's log check found something worse. The bridge's log had grown to 92 megabytes, and inside it the same error repeated 72,678 times: the bridge refusing Beebee's check-ins, every two seconds, for roughly forty hours, after which it quietly healed itself. The pager had been dead for nearly two days and the household simply hadn't needed it, which is the most dangerous kind of luck. The cause was a classic Python trap; database connections that a <code>with</code> statement looks like it closes and doesn't, leaking one handle per check-in until the process ran out. We fixed the leak, capped the log, and I updated a personal rule: prefer detection to discipline, because a system that fails loudly is an inconvenience and one that heals itself before you look is a trap.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">1 Sep</span><span class="wk">week 3</span></div>
+    <h2>A confident wrong diagnosis</h2>
+    <p>Flash day for a batch of small features: the screen now dims when idle, wakes on a tap, and shows her battery. Except at the desk she froze within a minute of every boot, on the new firmware and on the known-good old one. The WiFi signal at the desk measured &minus;85, which is barely a signal at all, so we wrote it up with some confidence: the desk is a dead zone, USB ports radiate exactly where WiFi lives, mystery explained. The new build went out anyway, and she went home to the kitchen.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">2–3 Sep</span><span class="wk">week 3</span></div>
+    <h2>It was me</h2>
+    <p>She froze at home too, face stuck mid-blink, and the dead-zone theory died with it. The real cause was mine. Two nights earlier, cleaning up after an accidental publish, I had deleted the file that advertises firmware updates, so her every-fifteen-minutes "anything new for me?" started getting an empty reply for the first time in her life, and the code's next move was to read the body of a reply that has no body, on a connection with no timeout. That read blocks forever, and because she is single-threaded, forever takes the pager, the screen and the touch input down with it.</p>
+    <p>The immediate fix took a minute; put the file back. The proper fix took an evening: teach the code that empty replies have no body, give every network read a timeout so nothing can block longer than ten seconds, and add a once-a-minute heartbeat to her logs so a stalled loop shows up as a visible gap instead of costing an hour of forensics. On the next flash day we recreated the empty-file condition on purpose, with instruments attached, and watched her shrug it off. The desk WiFi really is terrible, for the record. It just wasn't the killer.</p>
+    <div class="aside warn">
+      <span class="tag">Lesson</span>
+      The freeze only existed because a manifest had existed continuously since the day updates shipped, so the "nothing to update" path had never once run in production. It waited three weeks, then introduced itself.
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">5 Sep</span><span class="wk">week 3</span></div>
+    <h2>"Why so small"</h2>
+    <p>Two more meters wanted in. My prepaid credits on a third AI service, so I stop logging in just to check a balance, and the usage of the household's other AI, read off its own machine over the private network. That last one meant a small exporter program on the second Mac, and the discovery, around midnight, that the copy of the project living there had never been a git repository at all; it was a folder that arrived on a drive and stayed a folder. It is a repository now.</p>
+    <p>My actual design contribution that evening was three words, sent after squinting at the new credits row from across the room: "wow, why so small". The dashboard had grown by accretion, card by card, and the numbers had shrunk to fit. So the cards went, replaced by one uniform column of readings, small label, thin meter, big number, six rows and space for a seventh. The screen finally looks designed instead of negotiated.</p>
+    <p>The same evening produced my favourite failure of the project. We flashed the new build over the cable before publishing it to the update channel, so for a minute or two the channel still advertised the old version, and Beebee, doing exactly her job, saw an "update", downgraded herself to it, then a quarter of an hour later noticed the corrected channel and upgraded herself back. The parachute got a live demonstration nobody planned. The rule is now: publish first, then flash.</p>
+  </div>
+
+  <div class="entry">
+    <div class="datechip"><span class="d">6 Sep</span><span class="wk">week 3 · the button's second life</span></div>
+    <h2>A clock for someone who can't read one</h2>
+    <p>I finally admitted I hadn't used the voice memos once since the night we built them, which freed up the physical button on her side. Brennan is 21 months old, newly able to follow instructions and years from reading a clock, and what I needed was a way to end television that isn't my voice. So the button became his timer. Click it and a big green disc appears and starts draining; amber takes over for the last three minutes, red for the last one, and when the red is gone, the TV is done. A soft two-note chime, deliberately nothing like the pager, and her face comes back.</p>
+    <p>The toddler-proofing was the design work. While the timer runs, his pokes and taps do nothing at all; cancelling early takes a finger held on the glass for a second and a half, a parent's gesture. And the amber and red stretches are fixed lengths no matter which preset I pick, so "red means one minute" stays true forever. He gets one rule to learn and the rule never moves.</p>
+  </div>
+
+  <hr>
+  <div class="entry" style="border-top:0">
+    <h2>What three weeks with a screen taught me</h2>
+    <p>Nothing Beebee does today was in her original job description, and the consent button she was born to be sits parked in the code, waiting for a future that may not come. Every feature she has was pulled in by the household: the pager by a phone that goes unanswered at the same hour every day, the dashboard by my laziness about opening terminals, the timer by a 21-month-old. The evictions matter as much. The walkie-talkie lost to WhatsApp; the memos lost to me never once pressing the button for them; and the field test I kept scheduling for the pager got cancelled by the pager just working, week after week, in daily use.</p>
+    <p>The building itself was the cheap part, same as the other journals; Claude wrote or rewrote all of it: the firmware another AI began, the bridge and its collectors, and every one of the failed memo uploads. What cost something was deciding, and the deciding was mostly refusal: of features, of my own first diagnosis when a better one turned up, and once of my own urge to optimise away a poll that turned out to be the pager's heartbeat. I also supplied one of the outages personally.</p>
+    <p>The first red disc hasn't been watched all the way down to zero yet; he's 21 months, and we'll see.</p>
+  </div>
+
+  <p class="footer-note">The hardware is an M5Stack CoreS3, an ESP32 with a touchscreen, speaker and battery, smaller than a drink coaster. The bridge is a small Python service on the Mac Mini that also runs <a href="building-chatpulse.html">chatpulse</a>. This is the fourth build journal; same deal as the others, dates and dead-ends included.</p>
+
+  </article>
+</div>
+</body>
+</html>
