@@ -321,6 +321,8 @@
             grid-template-columns: auto 1fr auto;
             gap: 10px;
             align-items: baseline;
+            min-height: 44px;
+            box-sizing: border-box;
             border-bottom: 1px solid rgba(44, 42, 38, 0.14);
             padding: 10px 0;
             color: var(--slate);
@@ -1590,6 +1592,12 @@
             justify-self: start;
         }
 
+        .shelf-card .shelf-journal-link {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+        }
+
         .shelf-legend {
             margin-top: 10px;
             color: var(--ash);
@@ -1904,11 +1912,12 @@
                         <details class="fieldnotes">
                             <summary>Build logs</summary>
                             <ul class="fn-panel" aria-label="Build journals">
+                                <li><a class="fn-item" href="building-pokerspace.html"><span class="nm">Pokerspace</span><span class="st">read</span></a></li>
                                 <li><a class="fn-item" href="building-chatpulse.html"><span class="nm">chatpulse</span><span class="st">read</span></a></li>
                                 <li><a class="fn-item" href="building-halfspaces.html"><span class="nm">halfspaces</span><span class="st">read</span></a></li>
                                 <li><span class="fn-item soon"><span class="nm">SpacePod</span><span class="st">soon</span></span></li>
                                 <li><span class="fn-item soon"><span class="nm">Mr. B</span><span class="st">soon</span></span></li>
-                                <li><span class="fn-item soon"><span class="nm">Introspace</span><span class="st">soon</span></span></li>
+
                                 <li><span class="fn-item soon"><span class="nm">Bitpybit</span><span class="st">soon</span></span></li>
                             </ul>
                         </details>
@@ -1930,12 +1939,10 @@
                         <a class="hero-thread" href="#shelf"><em>&middot;</em><strong>Budget dashboard</strong><span>in use</span></a>
                         <a class="hero-thread" href="#shelf"><em>&middot;</em><strong>Bitpybit</strong><span>pre-launch</span></a>
                         <a class="hero-thread" href="#shelf"><em>&middot;</em><strong>BAH! Bus</strong><span>in use</span></a>
+                        <a class="hero-thread" href="building-pokerspace.html"><em>&middot;</em><strong>Pokerspace</strong><span>in workshop</span></a>
                         <a class="hero-thread" href="#shelf"><em>&middot;</em><strong>Podviz</strong><span>in validation</span></a>
                     </div>
-                    <div class="hero-thread-group">Paused queue</div>
-                    <div class="hero-thread-list">
-                        <a class="hero-thread" href="#paused"><em>&middot;</em><strong>Introspace</strong><span>paused</span></a>
-                    </div>
+
                 </aside>
                 <p class="operating-bias reveal">high agency, hands-on, low theatre.</p>
             </div>
@@ -2275,6 +2282,11 @@
                         <a class="text-link" href="bah-bus.html">Play it &#8599;</a>
                     </div>
                     <div class="shelf-card">
+                        <div class="shelf-card-head"><h3>Pokerspace</h3><span class="shelf-status">in workshop</span></div>
+                        <p>A private offline Hold&rsquo;em room against five recreational bot styles, with tournament play, spectator equity, and post-hand learning that is being taught not to bluff.</p>
+                        <a class="text-link shelf-journal-link" href="building-pokerspace.html">Read the build journal &#8599;</a>
+                    </div>
+                    <div class="shelf-card">
                         <div class="shelf-card-head"><h3>Podviz</h3><span class="shelf-status">in validation</span></div>
                         <p>Wordless visual explainers synced to podcast audio: ears take the words, eyes take the pictures. An experiment running against explicit kill criteria.</p>
                     </div>
@@ -2291,14 +2303,7 @@
                     </div>
                     <p>Ideas parked with their restart conditions attached. A live list stays honest when the stalled things move out of it.</p>
                 </div>
-                <div class="paused-item">
-                    <div class="paused-item-head"><h3>Introspace</h3><span class="shelf-status">paused 2026</span></div>
-                    <div class="paused-kv">
-                        <div class="paused-cell"><span class="k">What it is</span><span class="v">A private, invite-only network for trust-based referrals: requests that carry context, and connectors who keep the right to say no.</span></div>
-                        <div class="paused-cell"><span class="k">Where it got to</span><span class="v">A working prototype, stress-tested with a simulated pilot; the trust workflow and the cold decline path are designed and built.</span></div>
-                        <div class="paused-cell"><span class="k">Unpauses when</span><span class="v">A first real cohort exists: enough people in transition, and enough connectors, who would use it next week rather than in principle.</span></div>
-                    </div>
-                </div>
+
                 <div class="paused-item">
                     <div class="paused-item-head"><h3>One Shot</h3><span class="shelf-status">shelved 2026</span></div>
                     <div class="paused-kv">

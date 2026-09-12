@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Pokerspace · a build journal · halfspaces</title>
+<meta name="description" content="How a one-shot browser poker game became a serious rules engine, an unreliable teacher, and eventually a much clearer product.">
+<link rel="canonical" href="https://halfspaces.co/building-pokerspace.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building Pokerspace · a build journal">
+<meta property="og:description" content="I asked for pro-level browser poker in one shot, then spent ten days finding out where it was bluffing.">
+<meta property="og:url" content="https://halfspaces.co/building-pokerspace.html">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#FCFAF2; --parchment:#EFE1BC; --linen:#E7DED1; --stone:#CDBFAE;
+    --sage-wash:#D7E1CE; --blue-wash:#DCE7EA; --clay-wash:#E8D1C5; --yellow-wash:#F0D77A;
+    --charcoal:#111B2E; --slate:#53657D; --ash:#6B7164;
+    --forest:#355F50; --terracotta:#A9553F; --ochre:#B88D33; --slate-blue:#496D7D;
+    --felt:#174D3A; --oxblood:#702F38; --brass:#B99855; --ink:#F2E8D2;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{margin:0;font-family:var(--sans);color:var(--charcoal);background:var(--warm-white);line-height:1.62;font-size:18px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure);margin:0 auto;padding:0 22px}
+  a{color:var(--slate-blue);text-underline-offset:2px}
+  .skip-link{position:absolute;left:-9999px;top:auto}
+  .skip-link:focus{left:16px;top:12px;z-index:10;background:var(--charcoal);color:white;padding:10px 14px;border-radius:4px}
+  .sitebar{max-width:var(--measure);margin:0 auto;padding:20px 22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .sitebar a{color:var(--charcoal);font-weight:600;text-decoration:none;padding:10px 0;min-height:44px;display:inline-flex;align-items:center}
+  .workshop-badge{color:var(--terracotta);border:1px solid rgba(169,85,63,.35);padding:7px 9px;border-radius:999px;white-space:nowrap}
+  :focus-visible{outline:3px solid var(--terracotta);outline-offset:4px}
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--terracotta);margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px);line-height:1.04;margin:0 0 18px;font-weight:700;letter-spacing:-.015em}
+  .standfirst{font-size:21px;color:var(--slate);margin:0 0 6px;max-width:34em}
+  .runmeta{font-family:var(--mono);font-size:12.5px;color:var(--ash);margin-top:22px;letter-spacing:.02em}
+  article p{margin:0 0 20px}
+  h2{font-size:25px;line-height:1.18;margin:40px 0 14px;font-weight:700;letter-spacing:-.01em}
+  blockquote{margin:26px 0;padding:6px 0 6px 20px;border-left:3px solid var(--terracotta);color:var(--charcoal);font-size:19px}
+  code{font-family:var(--mono);font-size:.84em;background:var(--linen);padding:1px 6px;border-radius:3px}
+  .aside{margin:26px 0;padding:18px 20px;background:var(--sage-wash);border-left:4px solid var(--forest);font-size:16px}
+  .aside.warn{background:var(--clay-wash);border-color:var(--terracotta)}
+  .aside .tag{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;color:var(--slate)}
+  .figure{margin:28px 0;padding:22px 18px;border:1px solid var(--line);border-radius:6px;background:#fffdf7}
+  .product-shot{margin:30px 0}
+  .product-shot img{display:block;width:100%;height:auto;border:1px solid var(--line-strong);border-radius:8px;background:var(--charcoal)}
+  .product-shot figcaption{margin-top:10px;font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--ash)}
+  .figcaption{font-family:var(--mono);font-size:12px;color:var(--ash);letter-spacing:.02em;margin-top:14px;text-align:center}
+  .stack{display:grid;gap:8px;max-width:560px;margin:0 auto}
+  .layer{padding:15px 17px;border-radius:5px;color:white;display:grid;grid-template-columns:112px 1fr;gap:14px;align-items:center}
+  .layer strong{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase}
+  .layer span{font-size:14px;line-height:1.4}
+  .layer.rules{background:var(--felt)}
+  .layer.people{background:#496D7D}
+  .layer.teacher{background:var(--oxblood)}
+  .arrow{text-align:center;color:var(--ash);font-family:var(--mono);font-size:12px}
+  .hand{background:#102D24;color:var(--ink);padding:20px;border-radius:7px;margin:26px 0;border:1px solid rgba(185,152,85,.45)}
+  .hand .label{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--brass);margin-bottom:8px}
+  .hand p{margin:0;font-family:var(--mono);font-size:13px;line-height:1.55}
+  .hand .versus{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .hand .verdict{padding:12px;border:1px solid rgba(242,232,210,.18);border-radius:4px;background:rgba(0,0,0,.16)}
+  .hand .verdict b{display:block;color:var(--brass);font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+  .status-card{margin:30px 0;padding:20px;border:1px solid var(--line-strong);border-radius:6px;background:var(--yellow-wash)}
+  .status-card strong{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
+  .footer-note{font-family:var(--mono);font-size:13px;color:var(--ash);border-top:1px solid var(--line);padding:24px 0 80px;margin-top:44px}
+  .footer-note a{display:inline-flex;min-height:44px;align-items:center}
+  @media(max-width:640px){body{font-size:17px}.workshop-badge{font-size:10px;padding:7px 8px}.layer{grid-template-columns:1fr;gap:4px}.hand .versus{grid-template-columns:1fr}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#journal">Skip to journal</a>
+<nav class="sitebar" aria-label="Halfspaces journal navigation">
+  <a href="index.html" aria-label="Halfspaces home">halfspaces</a>
+  <span class="workshop-badge">In workshop · no public build</span>
+</nav>
+<main id="journal">
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Building Pokerspace</h1>
+    <p class="standfirst">I asked for pro-level browser poker in one shot, got something that looked the part, then spent ten days finding out where it was bluffing.</p>
+    <p class="runmeta">1&ndash;10 August 2026 &middot; built with Mr. B &middot; one self-contained offline HTML file &middot; many more test hands than human ones</p>
+  </header>
+
+  <article>
+    <p>I asked for an online poker game in one shot. Six to eight players, opponents somewhere around the level of Phil Ivey and Daniel Negreanu; an absurd brief delivered without much ceremony, as though making seven world-class poker players appear inside a browser file was the sort of thing one might clear before dinner.</p>
+
+    <p>The first version appeared in minutes. It had a green table, named opponents, cards that dealt, chips that moved, and buttons that worked. It looked enough like poker to make the next question unavoidable: was any of it real?</p>
+
+    <p>Not really. One of the first cold reviews watched a hand where K8 offsuit raised, QJ offsuit reraised, pocket sixes raised again, and 94 suited stayed in. The opponents had names like &ldquo;pressure architect&rdquo; and &ldquo;balanced theorist&rdquo;; underneath, they were mostly enthusiasm with different labels.</p>
+
+    <div class="aside warn">
+      <span class="tag">The first correction</span>
+      Calling the opponents pro-level did not make them pro-level. It made the gap between the label and the play more embarrassing.
+    </div>
+
+    <h2>The rules became the real project</h2>
+
+    <p>I could have polished the table and hoped nobody noticed. Instead the game went in the other direction, down into the parts a screenshot cannot prove. Legal minimum raises, incomplete all-ins, side pots, odd chips, uncalled bets, heads-up blind order, burns, tournament eliminations, chip conservation; each one is invisible until it breaks, and poker players notice immediately when it does.</p>
+
+    <p>The tests grew alongside it: one ugly betting edge case at a time, then simulated tournaments, then complete hands against deliberately simple exploit strategies. One preserved adversarial run covered 750 hands and 5,960 actions with no illegal move, stall, missing chip, or hidden-information read; a larger all-bot run later covered 15,000 hands and 130,394 decisions with the same clean boundaries. None of that proved the bots were brilliant, but it did prove they were playing legal poker without cheating.</p>
+
+    <div class="figure">
+      <div class="stack" role="img" aria-label="Pokerspace grew in three layers: a rules engine underneath, opponent behaviour in the middle, and a teaching layer on top. The rules became strongest first; the teaching layer arrived last and proved least trustworthy.">
+        <div class="layer teacher"><strong>The teacher</strong><span>post-hand grades, replay, debrief; useful only if every surface tells the same truth</span></div>
+        <div class="arrow">rests on</div>
+        <div class="layer people"><strong>The opponents</strong><span>ranges, position, stack depth, board texture, and five deliberately different recreational styles</span></div>
+        <div class="arrow">rests on</div>
+        <div class="layer rules"><strong>The rules</strong><span>betting rights, side pots, runouts, tournament order, persistence, and every chip accounted for</span></div>
+      </div>
+      <div class="figcaption">the bottom layer became the strongest; the top one caused the biggest mistake</div>
+    </div>
+
+    <h2>A tournament measured in hands</h2>
+
+    <p>The game began as an endless cash table where busted players quietly reappeared with fresh chips. Nothing mattered. A tournament gave it a shape: 3,000 chips, eight seats, rising blinds, one winner. The small design choice I like most is that the blind levels advance by completed hands, not time. Pokerspace has three pace settings; if the clock controlled the blinds, playing slowly would make the tournament harder for no poker reason. Seven hands is seven hands at every speed.</p>
+
+    <p>The last two players exposed another fake seam. Full-table position labels were leaking into heads-up, so both opponents became too eager to fold and politely handed each other the blinds. A separate heads-up policy fixed the worst of it: across 60,000 simulated preflop hands, the small blind raised 59% and folded 13%, while the big blind defended an open about 61% of the time. The same run caught the next problem, though; those frequencies barely changed between five and sixty big blinds, so the blind-walking was fixed but short-stack play still was not.</p>
+
+    <h2>River Room was the wrong name</h2>
+
+    <p>The first build was called River Room. It was pleasant and generic, which was the problem. Pokerspace arrived later; not outer space, no planets or neon galaxies, just a private room where poker happens. The table moved toward walnut, green felt, oxblood controls, brass details, and cream cards. &ldquo;Space&rdquo; became room rather than theme.</p>
+
+    <p>This was also when the game stopped borrowing famous players in spirit. Seven original opponents remained, organised into five measured play styles rather than seven flattering bios: Pressure, Balanced, Value, Trap, and Nit. They are credible recreational bots, not solvers and not Phil Ivey in a JavaScript file. The smaller claim is the truer one.</p>
+
+    <h2>Folding should not end the hand</h2>
+
+    <p>The feature that made the game feel like its own thing came from a dead moment. In single-player poker, folding usually means waiting while bots finish without you. Pokerspace turns that wait into spectator mode: the remaining players&rsquo; win percentages and exact outs appear as the board develops. You get to watch the hand you left, not click past it.</p>
+
+    <figure class="product-shot">
+      <img src="assets/pokerspace-spectator.png" width="1280" height="800" loading="lazy" alt="The actual Pokerspace workshop table after the player folds preflop. Two remaining opponents show live equity badges on the felt, the flop is visible in the centre, and the spectator tray explains the exact runout calculation below the table.">
+      <figcaption>Actual workshop build · after a preflop fold, live opponent equity moves onto the felt while the hand continues.</figcaption>
+    </figure>
+
+    <p>The first version put all of that into a cramped rectangle under the table. It technically displayed the information and made it easy not to see. The better version moved the numbers onto the felt beside the live cards. This became a recurring lesson: secondary information should live where the decision is happening, not where the layout happened to have spare pixels.</p>
+
+    <h2>The phone could open the file, but not play it</h2>
+
+    <p>Because it is one self-contained HTML file, I assumed sending it to my phone would be the easy part. Telegram&rsquo;s document preview opened it beautifully and blocked the JavaScript, so the tournament button did nothing. The file worked; the thing displaying it did not. I spent longer than I should have checking the game before putting up a temporary web tunnel and playing the exact public link on a phone.</p>
+
+    <p>It was a useful distinction. &ldquo;Works on mobile&rdquo; can mean the layout fits a narrow screen, or it can mean a person can receive the thing, open it, and begin. I had proved the first and mistaken it for the second.</p>
+
+    <h2>Then I tried to make it teach</h2>
+
+    <p>The next idea was the one that nearly discredited the whole thing. After each hand, Pokerspace would compare the player&rsquo;s estimated chance of winning with the price of calling, grade the decision, and collect the mistakes into a session debrief. No live advice while choosing; the lesson only arrives after the decision is locked.</p>
+
+    <p>It looked convincing. Green for correct, red for mistake, percentages, chip values, a hand review. Then I played one ordinary hand and found the same fold described two ways.</p>
+
+    <div class="hand">
+      <div class="label">the same decision, in the same build</div>
+      <div class="versus">
+        <div class="verdict"><b>Post-hand</b><p>&ldquo;14% win chance vs 38% needed. Folding saves chips long-run.&rdquo;</p></div>
+        <div class="verdict"><b>Session debrief</b><p>&ldquo;Folded despite a profitable call. 0% correct. EV cost 49.&rdquo;</p></div>
+      </div>
+    </div>
+
+    <p>The debrief had the sign backwards for folds. Worse, the &ldquo;EV cost&rdquo; was not proper chip EV, and raises were being graded from blunt equity thresholds that ignored sizing and fold equity. Each screen had grown its own little version of the truth. The interface was polished enough to make bad instruction sound authoritative.</p>
+
+    <blockquote>A poker trainer confidently teaching opposite lessons is worse than a poker game that teaches nothing.</blockquote>
+
+    <p>I stopped adding features and asked Mr. B to review the whole product cold. The answer was about six out of ten: the poker engine and table were in decent shape, spectator mode had become its own useful thing, and the trainer could still tell the same decision two different ways. The repair was deliberately narrower. One grading function now drives every fold and call verdict; raises stay ungraded where the model cannot support a responsible answer. The table keeps a compact result, while the detail belongs in review. Less instruction, more trust.</p>
+
+    <h2>There were also two Pokerspaces</h2>
+
+    <p>While the coaching was drifting, the release had split in two. The documented game was <code>index.html</code>; the newest teaching work lived in <code>Pokerspace.html</code>; the ZIP still contained the older one; parts of the test suite were reading each. Everything could pass while the thing being sent to someone remained stale.</p>
+
+    <p>This is a boring failure and therefore an important one. The current workshop version has one canonical game file, tests that read that exact file, and a release check that extracts the ZIP and compares the bytes. A feature is not shipped because it exists somewhere in the folder.</p>
+
+    <h2>What it is now</h2>
+
+    <p>Pokerspace is not an online poker room, a social casino, or a solver. It is becoming a private offline Hold&rsquo;em training room: credible recreational opponents, a tournament with real consequence, spectator equity after a fold, and post-hand learning careful enough to say &ldquo;ungraded&rdquo; when it does not know.</p>
+
+    <p>It still lacks the reason to return tomorrow. There is no lasting career, no pattern of recurring leaks, no next-session goal; saving a tournament is persistence, not progression. The opponents are credible rather than proven strong, and the hand review is closer to a rich transcript than a true street-by-street replay. Those are the next real jobs. More decorative features are not.</p>
+
+    <div class="status-card">
+      <strong>Where it stands</strong>
+      The game remains in the workshop. The current local build has one canonical game file and 85 passing automated checks, and its active and settled layouts have been exercised on desktop and at 390 &times; 844 mobile. I am not calling it released until the benchmark, packaged ZIP, and independent reviews have all been run against the same file.
+    </div>
+
+    <p>The original brief was to make world-class poker opponents in one shot. Ten days later, the useful result is almost the opposite of that sentence. Good poker software is a stack of unglamorous truths: every chip conserved, every action legal, every opponent kept away from hidden cards, every lesson consistent with the last one. The visuals make it inviting; the restraint makes it worth trusting.</p>
+
+    <p>When Pokerspace appears properly on halfspaces, I want the playable game beside this journal. Not as proof that one prompt can make a finished product, because it cannot; as proof that a loose prompt can start a serious process, if you are willing to keep finding the part that is pretending.</p>
+
+    <p class="footer-note"><a href="index.html">Back to halfspaces.co</a> &middot; playable Pokerspace will be linked here after the release gates pass</p>
+  </article>
+</div>
+</main>
+</body>
+</html>
