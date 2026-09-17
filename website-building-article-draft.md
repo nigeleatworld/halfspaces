@@ -139,13 +139,12 @@ The "Open to work" button was another delicate decision. It had to be visible wi
 
 ## The Projects Had To Prove The Word "Build"
 
-The site eventually centred on five threads:
+The site eventually centred on four threads:
 
-1. SpacePod
-2. Mr. B
-3. Budget Dashboard
-4. Introspace
-5. Bitpybit
+1. Mr. B
+2. Budget Dashboard
+3. Introspace
+4. Bitpybit
 
 Each one had to answer: what is it, and why did I build it?
 
@@ -163,28 +162,6 @@ The current state is carried elsewhere, in the metadata: Beta, Live, In use, Ide
 That was cleaner.
 
 It also made the sections more balanced. Every thread got the same explanatory structure, even if the underlying projects were at different stages.
-
-## SpacePod: Listening As Searchable Memory
-
-SpacePod is a live podcast knowledge base.
-
-The problem was simple: I would listen to useful podcast episodes and then forget too much of what was said. SpacePod is an attempt to make listening reusable.
-
-The write-up became:
-
-> I'd listen to podcasts and forget a lot of what was said. SpacePod helps keep the wisdom within reach.
-
-What it is:
-
-> A podcast knowledge base: followed shows become transcripts, transcripts become searchable memory, and search becomes cited synthesis.
-
-Why I built it:
-
-> Most knowledge tools treat listening as disposable. I wanted a place where good conversations could be queried later, with sources attached.
-
-At first, we considered using screenshots. Later, we moved toward recreating the interface as an HTML artifact. That made the page feel more consistent and less dependent on static screenshots.
-
-The SpacePod visual shows a library, an answer card, a cited source, and an input field. It is not fully interactive, but it communicates the product idea quickly.
 
 ## Mr. B: An Assistant That Nudges
 
@@ -359,7 +336,6 @@ The issue was that the site initially had one gradient, and then it snapped back
 So the sections now bleed tonally:
 
 - the hero starts in clean warm white
-- SpacePod moves into parchment
 - Mr. B moves into sage
 - Budget moves into blue-grey
 - Introspace moves into aged yellow
@@ -392,7 +368,7 @@ Too much space and the page feels unfinished.
 
 The right amount of space makes the reader feel guided.
 
-We also had to make the prototype visuals proportionate. Mr. B's Telegram phone initially took up too much vertical space. Introspace was too loud. SpacePod and Budget needed to sit at a wider artifact scale. Bitpybit and Mr. B needed to remain phone-sized.
+We also had to make the prototype visuals proportionate. Mr. B's Telegram phone initially took up too much vertical space. Introspace was too loud. Budget needed to sit at a wider artifact scale. Bitpybit and Mr. B needed to remain phone-sized.
 
 The goal was not identical dimensions. The goal was equal visual weight.
 
@@ -559,8 +535,6 @@ After launch, it became a public surface.
 
 That does not mean it is final. In fact, the opposite. Now that it is live, it is easier to treat it as a living thing.
 
-If SpacePod improves, the site should update.
-
 If Mr. B becomes more useful, the site should update.
 
 If Introspace moves from idea to build, the site should update.
@@ -624,7 +598,6 @@ Key decisions:
 - Deployed via GitHub and Cloudflare Pages.
 
 Projects shown:
-- SpacePod: podcast knowledge base, searchable memory, cited synthesis.
 - Mr. B: personal AI chief-of-staff / Telegram assistant.
 - Budget Dashboard: private finance dashboard tracking every transaction and financial health.
 - Introspace: idea for trust-based referrals workflow.
