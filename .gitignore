@@ -7,3 +7,6 @@ assets/*
 !assets/favicon.svg
 !assets/og-image.png
 CONTEXT.md
+
+# working drafts stay local; the deploy publishes every tracked file
+*.md
