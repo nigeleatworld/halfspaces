@@ -852,6 +852,51 @@
             .footer-links { white-space: normal; flex-wrap: wrap; }
             .notes-grid { grid-template-columns: 1fr; }
         }
+
+        /* ---- the hello: hangs in the wing beside the channel line on wide screens ---- */
+        .hero-grid { position: relative; }
+        .hero .in-channel { align-self: start; }
+        /* 34px short of the channel line (18vw), top-aligned to the label.
+           shell left = (100vw - 1200px)/2 above 1240px, so offset = 18vw - 146px - shell left */
+        .byline {
+            position: absolute;
+            top: 0;
+            left: calc(454px - 32vw);
+            width: 112px;
+            margin: 0;
+        }
+        .byline img,
+        .hello-row img {
+            object-fit: cover;
+            object-position: 50% 12%;
+            border: 1px solid var(--line-strong);
+        }
+        .byline img { width: 112px; height: 136px; }
+        .byline figcaption {
+            margin-top: 12px;
+            font: italic 400 1.18rem/1.15 var(--serif);
+            font-variation-settings: "opsz" 40;
+            color: var(--ink);
+        }
+
+        /* not enough wing to hang in: the hello moves under the definition instead */
+        .hello-row { display: none; }
+        @media (max-width: 1239px) {
+            .byline { display: none; }
+            .hello-row {
+                display: flex;
+                align-items: center;
+                gap: 18px;
+                margin-top: 30px;
+            }
+            .hello-row img { width: 84px; height: 102px; }
+            .hello-row p {
+                font: italic 400 1.5rem/1.1 var(--serif);
+                font-variation-settings: "opsz" 50;
+                color: var(--ink);
+            }
+            .hello-row + .hero-sub { margin-top: 18px; }
+        }
     </style>
 </head>
 <body>
@@ -862,10 +907,12 @@
     <header class="hero">
         <div class="shell">
             <div class="hero-grid">
+                <figure class="byline"><img src="assets/nigel-grass.png" alt="Nigel Lin" width="112" height="136" decoding="async"><figcaption>Hello!</figcaption></figure>
                 <div class="in-channel">
                     <p class="label">Nigel Lin / Singapore / consumer research, 14 years</p>
                     <h1>The useful space between the <em>obvious options.</em></h1>
                     <p class="name-primer"><b>half-space (n.)</b> the inside channel between centre and wing; the most valuable, least defended space on the pitch.</p>
+                    <div class="hello-row"><img src="assets/nigel-grass.png" alt="" width="84" height="102" decoding="async"><p>Hello!</p></div>
                     <p class="hero-sub">Fourteen years reading people and markets; now building the things worth building. Open to senior roles, and to briefs I can take on directly.</p>
                     <p class="career-line">Most recently five years at Milieu Insight: Head of Research (APAC), then Head of Data &amp; Strategic Solutions, where I built the practice that turned panel data across Southeast Asia into decisions clients could act on.</p>
                     <div class="hero-cta">
@@ -1062,7 +1109,7 @@
                     <span class="status">Open to work</span>
                 </div>
                 <div class="contact-card">
-                    <img src="assets/nigel-hero-crop.png" alt="Portrait of Nigel Lin" width="76" height="92" loading="lazy" decoding="async">
+                    <img src="assets/nigel-grass.png" alt="Portrait of Nigel Lin" width="76" height="92" loading="lazy" decoding="async">
                     <div>
                         <strong>Nigel Lin</strong>
                         <span>Singapore</span>
