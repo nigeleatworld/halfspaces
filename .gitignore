@@ -6,6 +6,7 @@ assets/*
 !assets/nigel-grass.png
 !assets/favicon.svg
 !assets/og-image.png
+!assets/pokerspace-table.jpg
 CONTEXT.md
 
 # working drafts stay local; the deploy publishes every tracked file
