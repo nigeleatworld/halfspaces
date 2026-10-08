@@ -9,11 +9,11 @@ assets/*
 !assets/pokerspace-table.jpg
 !assets/bitpybit-neutral.jpg
 !assets/caifan-live.jpg
-!assets/hero-poker.jpg
-!assets/hero-app.jpg
-!assets/hero-test.jpg
-!assets/hero-study.jpg
-!assets/hero-bah.jpg
+!assets/peek-poker.jpg
+!assets/peek-app.jpg
+!assets/peek-test.jpg
+!assets/peek-study.jpg
+!assets/peek-bah.jpg
 CONTEXT.md
 
 # working drafts stay local; the deploy publishes every tracked file

@@ -1274,6 +1274,48 @@
             .hero-below { margin-top: 22px; }
             .hero-below .readers > div { padding: 12px 0; }
         }
+
+        /* ================= V13: sneak-peek strip. A wide, short slice of each build, under its title ================= */
+        .hero-grid, .hero .hero-grid { display: block; }
+        .hero-pic { margin-top: var(--sp-tight); }
+        @media (min-width: 1240px) { .hero-pic { margin-left: calc(638px - 32vw); } .hero .lately-frame { max-width: none; } }
+        .hero .hero-pic .lately-frame { max-width: none; margin-top: 0; }
+        .hero .lately-view { aspect-ratio: 3 / 1; }
+        .hero-pic { max-width: 600px; }
+        .hero .lately-view img, .hero .frame .lately-view img { object-position: 50% 0; }
+        .made-label { margin-top: var(--sp-block); }
+        .made-roll { margin-bottom: 22px; }
+        @media (min-width: 1240px) { .hero h1 { font-size: clamp(2.6rem, 4vw, 3.8rem); } }
+        @media (max-width: 860px) { .hero .lately-view { aspect-ratio: 5 / 2; } .hero-pic { max-width: none; } .made-roll { margin-bottom: 14px; } }
+
+        /* ================= V15: Codex's composition. Wide headline; a band (title | sneak peek); reader row; contact row ================= */
+        .hero h1 { margin-top: 18px; }
+        @media (min-width: 1100px) { .hero h1 { font-size: clamp(2.9rem, 4.15vw, 3.75rem); line-height: 1.08; } }
+        .band { margin-top: var(--sp-block); }
+        .band .made-label { margin-top: 0; }
+        .band .hero-pic { position: relative; max-width: none; margin-left: 0; margin-top: 18px; }
+        .hero .lately-view { aspect-ratio: 17 / 5; }
+        .band .made-cap { min-height: 0; padding-right: 70px; }
+        .band .made-pause { position: absolute; right: 0; bottom: 0; margin: 0; padding: 0; }
+        @media (min-width: 981px) {
+            .band { display: grid; grid-template-columns: minmax(200px, 0.29fr) minmax(0, 0.71fr); column-gap: clamp(32px, 4.4vw, 64px); align-items: start; }
+            .band .hero-pic { margin-top: 4px; }
+            .band .made-roll { margin-bottom: 0; white-space: normal; height: auto; min-height: 2.5em; overflow: hidden; }
+            .band .made-roll .roll-word { white-space: normal; }
+        }
+        /* fixed rail: 112px photo + 64px gutter + main area, the same at every wide width */
+        @media (min-width: 1240px) {
+            .byline { left: 0; }
+            .hero .in-channel, .band, .hero-below { margin-left: 176px; }
+        }
+        @media (min-width: 861px) and (max-width: 1239px) { .band { margin-left: calc(18vw + 18px); } .band .hero-pic { margin-left: 0; } }
+        @media (max-width: 980px) { .hero .lately-view { aspect-ratio: 8 / 3; } }
+        /* contact row: email left, links right */
+        @media (min-width: 861px) {
+            .hero-below { display: grid; grid-template-columns: 1fr auto; align-items: center; row-gap: 26px; }
+            .hero-below .readers { grid-column: 1 / -1; }
+            .hero-below .hero-cta, .hero-below .hero-links { margin-top: 0; }
+        }
     </style>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -1287,22 +1329,27 @@
                 <div class="in-channel">
                     <div class="id-row"><img src="assets/nigel-neutral.jpg" alt="Nigel Lin" width="56" height="68" decoding="async"><p><span>Hello!</span><span class="id-name">Nigel Lin / Singapore</span></p></div>
                     <p class="label">Nigel Lin / Singapore</p>
-                    <h1><span>I solve problems by</span> <span>reading the room and</span> <span>reading people.</span></h1>
-                    <p class="made-label">Things I&rsquo;ve made</p>
-                    <p class="made-roll roll" aria-hidden="true"><span class="roll-word is-in">a poker room.</span></p>
-                    <p class="sr-only">Things I have made: a poker room, an iPhone app, a personality test and a toddler distractor. Research I have delivered: a positioning study.</p>
+                    <h1><span>I solve problems by reading</span> <span>the room and reading people.</span></h1>
+
                     <div class="hello-row"><img src="assets/nigel-neutral.jpg" alt="" width="84" height="102" decoding="async"><p>Hello!</p></div>
 
 
 
                 </div>
 
+                <div class="band">
+                  <div class="band-text">
+                    <p class="made-label">Things I&rsquo;ve made</p>
+                    <p class="made-roll roll" aria-hidden="true"><span class="roll-word is-in">a poker room.</span></p>
+                    <p class="sr-only">Things I have made: a poker room, an iPhone app, a personality test and a toddler distractor. Research I have delivered: a positioning study.</p>
+                  </div>
                 <div class="hero-pic">
                 <a class="frame lately-frame" href="#p3">
-                    <span class="lately-view"><img class="is-in" src="assets/hero-poker.jpg" alt=""></span>
+                    <span class="lately-view"><img class="is-in" src="assets/peek-poker.jpg" alt=""></span>
                     <span class="made-cap">Pokerspace &middot; Launched October 2026</span>
                 </a>
                 <button type="button" class="made-pause" aria-pressed="false">Pause</button>
+                </div>
                 </div>
             </div>
             <div class="hero-below">
@@ -1599,11 +1646,11 @@
 <script>
 (function(){
   var items=[
-    {w:'a poker room.', img:'assets/hero-poker.jpg', href:'#p3', cap:'Pokerspace \u00b7 Launched October 2026'},
-    {w:'an iPhone app.', img:'assets/hero-app.jpg', href:'#bitpybit', cap:'Bitpybit \u00b7 Available on the App Store'},
-    {w:'a personality test.', img:'assets/hero-test.jpg', href:'#p2', cap:'Cai Fan Test \u00b7 Live; development paused'},
-    {w:'a positioning study.', label:'Research I\u2019ve delivered', img:'assets/hero-study.jpg', href:'#p1', cap:'Keynote Learning \u00b7 Delivered; illustration uses synthetic data'},
-    {w:'a toddler distractor.', img:'assets/hero-bah.jpg', href:'bah-bus.html', cap:'BAH! Bus \u00b7 In use, by one toddler'}
+    {w:'a poker room.', img:'assets/peek-poker.jpg', href:'#p3', cap:'Pokerspace \u00b7 Launched October 2026'},
+    {w:'an iPhone app.', img:'assets/peek-app.jpg', href:'#bitpybit', cap:'Bitpybit \u00b7 Available on the App Store'},
+    {w:'a personality test.', img:'assets/peek-test.jpg', href:'#p2', cap:'Cai Fan Test \u00b7 Live; development paused'},
+    {w:'a positioning study.', label:'Research I\u2019ve delivered', img:'assets/peek-study.jpg', href:'#p1', cap:'Keynote Learning \u00b7 Delivered; illustration uses synthetic data'},
+    {w:'a toddler distractor.', img:'assets/peek-bah.jpg', href:'bah-bus.html', cap:'BAH! Bus \u00b7 In use, by one toddler'}
   ];
   var roll=document.querySelector('.roll'), view=document.querySelector('.lately-view'), link=document.querySelector('.lately-frame');
   if(!roll||!view) return;
