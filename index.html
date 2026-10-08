@@ -1252,6 +1252,7 @@
         /* ================= V12: review fixes (contrast, pause control, chart data, phone spacing) ================= */
         .hero-pic { min-width: 0; }
         @media (min-width: 861px) and (max-width: 1239px) { .hero-pic { margin-left: calc(18vw + 18px); } .hero .hero-pic .lately-frame { margin-left: 0; } }
+        .made-label { transition: opacity 220ms ease; }
         .made-pause {
             margin-top: 4px; padding: 6px 0; background: none; border: 0; cursor: pointer;
             font: 400 0.86rem/1.5 var(--sans); color: var(--ash); text-decoration: underline; text-underline-offset: 3px;
@@ -1289,7 +1290,7 @@
                     <h1><span>I solve problems by</span> <span>reading the room and</span> <span>reading people.</span></h1>
                     <p class="made-label">Things I&rsquo;ve made</p>
                     <p class="made-roll roll" aria-hidden="true"><span class="roll-word is-in">a poker room.</span></p>
-                    <p class="sr-only">Things I have made: a poker room, an iPhone app, a personality test, a research study and a toddler distractor.</p>
+                    <p class="sr-only">Things I have made: a poker room, an iPhone app, a personality test and a toddler distractor. Research I have delivered: a positioning study.</p>
                     <div class="hello-row"><img src="assets/nigel-neutral.jpg" alt="" width="84" height="102" decoding="async"><p>Hello!</p></div>
 
 
@@ -1601,7 +1602,7 @@
     {w:'a poker room.', img:'assets/hero-poker.jpg', href:'#p3', cap:'Pokerspace \u00b7 Launched October 2026'},
     {w:'an iPhone app.', img:'assets/hero-app.jpg', href:'#bitpybit', cap:'Bitpybit \u00b7 Available on the App Store'},
     {w:'a personality test.', img:'assets/hero-test.jpg', href:'#p2', cap:'Cai Fan Test \u00b7 Live; development paused'},
-    {w:'a research study.', img:'assets/hero-study.jpg', href:'#p1', cap:'Keynote Learning \u00b7 Delivered; illustration uses synthetic data'},
+    {w:'a positioning study.', label:'Research I\u2019ve delivered', img:'assets/hero-study.jpg', href:'#p1', cap:'Keynote Learning \u00b7 Delivered; illustration uses synthetic data'},
     {w:'a toddler distractor.', img:'assets/hero-bah.jpg', href:'bah-bus.html', cap:'BAH! Bus \u00b7 In use, by one toddler'}
   ];
   var roll=document.querySelector('.roll'), view=document.querySelector('.lately-view'), link=document.querySelector('.lately-frame');
@@ -1625,6 +1626,8 @@
     swap(view,function(){ var im=document.createElement('img'); im.src=it.img; im.alt=''; return im; }, true);
     link.setAttribute('href', it.href);
     var cap=document.querySelector('.made-cap'); if(cap) cap.textContent=it.cap;
+    var lab=document.querySelector('.made-label'), want=it.label||'Things I\u2019ve made';
+    if(lab && lab.textContent!==want){ lab.style.opacity=0; setTimeout(function(){ lab.textContent=want; lab.style.opacity=1; }, 220); }
   }
   setInterval(next, 6000);
   [link, roll].forEach(function(el){
