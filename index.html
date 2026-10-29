@@ -139,6 +139,8 @@
             @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
         }
         .bar .b em { font-style: normal; }
+        .bar .e { display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; color: var(--ink); }
+        .bar .e em { font-style: normal; }
 
         /* Sections hang from the time margin */
         section { padding: clamp(56px, 8vw, 104px) 0; border-top: 1px solid var(--line); }
@@ -180,6 +182,7 @@
         .founder img { width: 132px; border-radius: 10px; }
         .founder p + p { margin-top: 12px; }
         .founder .muted { color: var(--muted); }
+        .founder .more { display: inline-block; padding: 6px 0; }
 
         /* Finale */
         .finale { background: var(--ink); color: var(--ground); border-top: 0; }
@@ -204,8 +207,8 @@
             .leaks li { grid-template-columns: minmax(0, 1fr); padding: 18px 0; }
             .leaks .said { font-size: 19px; }
             .steps { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-            .founder { grid-template-columns: 96px minmax(0, 1fr); gap: 18px; }
-            .founder img { width: 96px; }
+            .founder { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+            .founder img { width: 112px; }
             .wont li { font-size: 18px; }
             .leaks, .steps, .wont, .founder { margin-top: 28px; }
             .people, .fineprint { margin-top: 18px; }
@@ -234,21 +237,21 @@
             <p class="how"><strong>Common sense, applied rigorously.</strong> Sometimes that means a better process, sometimes a simple tool, sometimes AI. We use whatever is simplest and actually gets used.</p>
             <div class="act">
                 <a class="btn" href="mailto:nigel@halfspaces.co?subject=Enquiry%20from%20halfspaces.co">Email us</a>
-                <span class="note">The first conversation is free.</span>
+                <span class="note">Run by Nigel Lin, in Singapore. The first conversation is free.</span>
             </div>
 
             <figure class="day" aria-labelledby="day-cap">
                 <figcaption id="day-cap" class="legend-head" hidden>An illustrative working day, before and after</figcaption>
                 <div class="day-row">
-                    <div class="day-label"><span>A typical owner&rsquo;s day</span><span>7am to 11pm</span></div>
+                    <div class="day-label"><span>An example of a stretched working day</span><span>7am to 11pm</span></div>
                     <div class="bar" role="img" aria-label="Before: the work fills the middle of the day; admin fills the gaps and the whole evening, until 11pm.">
-                        <i class="a" style="flex-basis:6.25%"></i><i class="w" style="flex-basis:25%"></i><i class="a" style="flex-basis:6.25%"></i><i class="w" style="flex-basis:25%"></i><i class="a" style="flex-basis:12.5%"></i><i class="a" style="flex-basis:25%"></i>
+                        <i class="a" style="flex-basis:6.25%"></i><i class="w" style="flex-basis:25%"></i><i class="a" style="flex-basis:6.25%"></i><i class="w" style="flex-basis:25%"></i><i class="a" style="flex-basis:12.5%"></i><i class="a e" style="flex-basis:25%"><em>Admin</em></i>
                     </div>
                 </div>
                 <div class="day-row after">
-                    <div class="day-label"><span>The same day, once the leaks are fixed</span><span>evening back</span></div>
-                    <div class="bar" role="img" aria-label="After: the same work, much less admin, and the evening from 7pm free.">
-                        <i class="a" style="flex-basis:3.125%"></i><i class="w" style="flex-basis:28.125%"></i><i class="a" style="flex-basis:3.125%"></i><i class="w" style="flex-basis:28.125%"></i><i class="a" style="flex-basis:12.5%"></i><i class="b" style="flex-basis:25%"><em>Yours<span class="again"> again</span></em></i>
+                    <div class="day-label"><span>The same day, once the evening admin is handled</span><span>evening back</span></div>
+                    <div class="bar" role="img" aria-label="After: the same work and daytime admin; the four evening hours of admin, from 7pm, are free.">
+                        <i class="a" style="flex-basis:6.25%"></i><i class="w" style="flex-basis:25%"></i><i class="a" style="flex-basis:6.25%"></i><i class="w" style="flex-basis:25%"></i><i class="a" style="flex-basis:12.5%"></i><i class="b" style="flex-basis:25%"><em>Yours<span class="again"> again</span></em></i>
                     </div>
                     <div class="ticks" aria-hidden="true"><span style="left:0">7am</span><span style="left:31.25%">12pm</span><span style="left:75%">7pm</span><span style="left:100%">11pm</span></div>
                 </div>
@@ -323,7 +326,7 @@
                     <div>
                         <p>Halfspaces is run by Nigel Lin. He spent fourteen years in consumer research, most recently five years at Milieu Insight in Singapore, working out what people need and what gets in their way.</p>
                         <p class="muted">Now he does that inside small businesses, and builds the fixes himself.</p>
-                        <p style="margin-top:16px"><a href="/nigel/">More about Nigel, and things he has built</a></p>
+                        <p style="margin-top:12px"><a class="more" href="/nigel/">More about Nigel, and things he has built</a></p>
                     </div>
                 </div>
             </div>
