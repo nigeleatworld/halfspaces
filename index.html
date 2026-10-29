@@ -11,7 +11,7 @@
         })();
     </script>
     <title>Halfspaces | Helping businesses run smoother</title>
-    <meta name="description" content="Halfspaces helps businesses run smoother, so people get their time back. Common sense, applied rigorously: whatever is simplest and actually gets used.">
+    <meta name="description" content="Halfspaces helps businesses run smoother and gives them their time back, so they can do more. Common sense, vigorously applied: whatever is simplest and actually gets used.">
     <link rel="canonical" href="https://halfspaces.co/">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <meta name="theme-color" content="#F4F5F2">
@@ -19,7 +19,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Halfspaces">
     <meta property="og:title" content="Halfspaces | Helping businesses run smoother">
-    <meta property="og:description" content="We help businesses run smoother, so people get their time back. Common sense, applied rigorously.">
+    <meta property="og:description" content="We help businesses run smoother and give them their time back, so they can do more. Common sense, vigorously applied.">
     <meta property="og:url" content="https://halfspaces.co/">
     <meta property="og:image" content="https://halfspaces.co/assets/og-company.png">
     <meta property="og:image:width" content="1200">
@@ -27,7 +27,7 @@
     <meta property="og:image:alt" content="Halfspaces: we help businesses run smoother. A working day drawn as a bar, with the evening handed back.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Halfspaces | Helping businesses run smoother">
-    <meta name="twitter:description" content="We help businesses run smoother, so people get their time back. Common sense, applied rigorously.">
+    <meta name="twitter:description" content="We help businesses run smoother and give them their time back, so they can do more. Common sense, vigorously applied.">
     <meta name="twitter:image" content="https://halfspaces.co/assets/og-company.png">
 
     <script type="application/ld+json">
@@ -99,11 +99,13 @@
         .btn:hover { background: #24322B; }
         .btn-quiet { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); min-height: 44px; padding: 8px 18px; font-size: 16px; }
         .btn-quiet:hover { background: rgba(22, 32, 27, 0.06); }
+        .btn-line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+        .btn-line:hover { background: rgba(22, 32, 27, 0.06); }
 
         /* Hero */
         .hero { padding-top: clamp(36px, 6vw, 72px); padding-bottom: clamp(40px, 6vw, 72px); }
         .hero h1 { font-size: clamp(40px, 6.6vw, 80px); line-height: 1.04; max-width: 20ch; }
-        .hero .sub { margin-top: 22px; font-size: clamp(21px, 2.3vw, 27px); line-height: 1.4; max-width: 30ch; }
+        .hero .sub { margin-top: 22px; font-size: clamp(21px, 2.3vw, 27px); line-height: 1.4; max-width: 46ch; text-wrap: balance; }
         .hero .how { margin-top: 18px; color: var(--muted); max-width: 52ch; }
         .hero .how strong { color: var(--ink); font-weight: 600; }
         .hero .act { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
@@ -147,6 +149,7 @@
         .sec { display: grid; grid-template-columns: var(--margin) minmax(0, 1fr); column-gap: 24px; }
         .sec > h2 { grid-column: 2; font-size: clamp(30px, 3.8vw, 46px); line-height: 1.12; max-width: 22ch; }
         .sec > .lede { grid-column: 2; margin-top: 16px; color: var(--muted); max-width: 56ch; }
+        .sec > .lede strong { color: var(--ink); font-weight: 600; }
 
         /* Where the day goes */
         .leaks { grid-column: 1 / -1; list-style: none; margin: 40px 0 0; padding: 0; }
@@ -188,8 +191,11 @@
         .finale { background: var(--ink); color: var(--ground); border-top: 0; }
         .finale h2 { font-size: clamp(36px, 5.4vw, 64px); line-height: 1.06; max-width: 16ch; }
         .finale p { margin-top: 18px; color: #C9D0CB; max-width: 48ch; }
-        .finale .btn { margin-top: 30px; background: var(--back); color: var(--ink); }
+        .finale .act { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 14px; }
+        .finale .btn { background: var(--back); color: var(--ink); }
         .finale .btn:hover { background: #F0B232; }
+        .finale .btn-line { background: transparent; color: var(--ground); box-shadow: inset 0 0 0 1.5px var(--ground); }
+        .finale .btn-line:hover { background: rgba(244, 245, 242, 0.08); }
         .finale :focus-visible, footer :focus-visible { outline-color: var(--back); }
 
         footer { background: var(--ink); color: #C9D0CB; font-size: 15px; padding: 28px 0 40px; border-top: 1px solid rgba(244, 245, 242, 0.16); }
@@ -233,11 +239,13 @@
     <main id="main">
         <div class="wrap hero">
             <h1>We help businesses run smoother.</h1>
-            <p class="sub">So people get their time back for the things they&rsquo;d rather be doing.</p>
-            <p class="how"><strong>Common sense, applied rigorously.</strong> Sometimes that means a better process, sometimes a simple tool, sometimes AI. We use whatever is simplest and actually gets used.</p>
+            <p class="sub">So they get their time back and can do more.</p>
+            <p class="how"><strong>Common sense, vigorously applied.</strong> Sometimes that means a better process, sometimes a simple tool, sometimes AI. We use whatever is simplest and actually gets used.</p>
             <div class="act">
                 <a class="btn" href="mailto:nigel@halfspaces.co?subject=Enquiry%20from%20halfspaces.co">Email us</a>
-                <span class="note">Run by Nigel Lin, in Singapore. The first conversation is free.</span>
+                <!-- TODO before publishing: real WhatsApp number (Nigel to supply). -->
+                <a class="btn btn-line" href="https://wa.me/65XXXXXXXX?text=Hi%20Nigel" data-todo="WhatsApp number">WhatsApp</a>
+                <span class="note">Based in Singapore. The first conversation is free.</span>
             </div>
 
             <figure class="day" aria-labelledby="day-cap">
@@ -282,6 +290,7 @@
         <section id="how">
             <div class="wrap sec">
                 <h2>How working with us goes</h2>
+                <p class="lede"><strong>We start with questions, not a template.</strong> We don&rsquo;t ask what your biggest problem is; we ask what happened on your last job, and the fix takes shape from there.</p>
                 <ol class="steps">
                     <li><h3>A conversation</h3><p>You tell us what eats your week. It costs nothing, and you&rsquo;ll know by the end whether we can help.</p></li>
                     <li><h3>A walkthrough of your real work</h3><p>We follow one recent job from the first message to the final payment, on your own phone and files, and mark where time and information leak.</p></li>
@@ -295,6 +304,7 @@
             <div class="wrap sec">
                 <h2>What we won&rsquo;t do</h2>
                 <ul class="wont">
+                    <li>Arrive with the answer before we&rsquo;ve heard the problem.</li>
                     <li>Sell you software you don&rsquo;t need.</li>
                     <li>Add AI for the sake of saying we did.</li>
                     <li>Leave you with something only we can fix.</li>
@@ -324,8 +334,8 @@
                 <div class="founder">
                     <img src="/assets/nigel-neutral.jpg" alt="Portrait of Nigel Lin" width="430" height="520" loading="lazy" decoding="async">
                     <div>
-                        <p>Halfspaces is run by Nigel Lin. He spent fourteen years in consumer research, most recently five years at Milieu Insight in Singapore, working out what people need and what gets in their way.</p>
-                        <p class="muted">Now he does that inside businesses, and builds the fixes himself.</p>
+                        <p>Halfspaces is run by Nigel Lin. He spent fourteen years in consumer research, most recently five years at Milieu Insight in Singapore, writing the kind of questions people answer honestly.</p>
+                        <p class="muted">Now he asks them inside businesses, and builds the fixes himself.</p>
                         <p style="margin-top:12px"><a class="more" href="/nigel/">More about Nigel, and things he has built</a></p>
                     </div>
                 </div>
@@ -335,8 +345,11 @@
     <section class="finale" id="contact">
         <div class="wrap">
             <h2>Tell us what eats your week.</h2>
-            <p>One email is enough to start, and there&rsquo;s nothing to prepare.</p>
-            <a class="btn" href="mailto:nigel@halfspaces.co?subject=Enquiry%20from%20halfspaces.co">Email nigel@halfspaces.co</a>
+            <p>One email or message is enough to start, and there&rsquo;s nothing to prepare.</p>
+            <div class="act">
+                <a class="btn" href="mailto:nigel@halfspaces.co?subject=Enquiry%20from%20halfspaces.co">Email nigel@halfspaces.co</a>
+                <a class="btn btn-line" href="https://wa.me/65XXXXXXXX?text=Hi%20Nigel" data-todo="WhatsApp number">WhatsApp us</a>
+            </div>
         </div>
     </section>
     </main>
@@ -346,6 +359,7 @@
             <p>Halfspaces Pte Ltd &middot; UEN <span class="todo" data-todo="UEN">to add</span> &middot; Singapore &middot; &copy; 2026</p>
             <p><a href="/nigel/">Nigel&rsquo;s portfolio</a></p>
             <p>Named after the half-space in football: the channel between the centre and the wing, where the useful work happens.</p>
+            <p>&ldquo;Common sense, vigorously applied&rdquo; is a phrase attributed to Danaher.</p>
         </div>
     </footer>
 </body>
