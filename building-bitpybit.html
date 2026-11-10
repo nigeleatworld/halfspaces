@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Bitpybit · a build journal · halfspaces</title>
+<meta name="description" content="An iPhone app that teaches people who work with data to read Python and judge whether the answer is right; it started as a daily question and shipped as short analysis cases.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#F6F7F1; --parchment:#E7EBDD; --linen:#EAEEE3; --stone:#C3C9BB;
+    --sage-wash:#DDE6D6; --blue-wash:#DDE8E3; --clay-wash:#F2DED5; --yellow-wash:#EFDDB2;
+    --charcoal:#1C2B21; --slate:#52655A; --ash:#6E7A66;
+    --forest:#3E7A4E; --terracotta:#C2431F; --ochre:#D9A94B; --slate-blue:#3F6B5C;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:32em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
+  article p{margin:0 0 20px}
+  h2{font-size:25px; line-height:1.18; margin:38px 0 14px; font-weight:700; letter-spacing:-.01em}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
+    color:var(--charcoal); font-size:19px}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+
+  .figure{margin:26px 0; padding:24px 18px; border:1px solid var(--line); border-radius:5px;
+    background:var(--warm-white); text-align:center}
+  .figure svg{display:block; margin:0 auto}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em; margin-top:14px}
+
+  .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:44px}
+
+  @media (max-width:640px){ body{font-size:17px} }
+
+  /* Grass & Chalk: serif headings, matching the front page */
+  h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
+  h1 { font-weight:400; font-variation-settings:"opsz" 130 }
+  h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+</style>
+
+<style>
+  /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
+  :root{
+    --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
+    --serif:"Source Serif 4",Georgia,serif;
+    --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
+    --mono:"Source Sans 3",system-ui,-apple-system,sans-serif;
+  }
+  h1,h2,h3{font-weight:400}
+  h1,h2{font-family:var(--serif)}
+  .kicker,.aside .tag,.datechip,.runmeta,.figcaption,.footer-note,.flowrail{text-transform:none; letter-spacing:0}
+  .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
+  code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Building Bitpybit</h1>
+    <p class="standfirst">An iPhone app that teaches people who work with data to read Python and judge whether the answer is right. It started as a daily question and shipped as short analysis cases.</p>
+    <p class="runmeta">April&ndash;October 2026 &middot; SwiftUI &middot; first built with Claude, finished with Codex, reviewed by Claude &middot; approved by Apple on 6 October</p>
+  </header>
+
+  <article>
+    <h2>A question a day</h2>
+    <p>On 13 April I described it to Codex as &ldquo;an app that throws a user one python question a day - as a notification&rdquo;. Codex wrote a build brief, Claude built the first version from it, and I named it the same afternoon: bitpybit, a play on bit by bit. By 23 April it was on my phone, sending me a question every morning. In May I parked it.</p>
+
+    <h2>Coming back to an app that was quietly wrong</h2>
+    <p>In September I picked it up again, with Codex running point and Claude reviewing. The first audit said fix before shipping, for two reasons that had both survived the April review. One question marked a wrong answer as correct. And tapping B on every question scored 65% without reading a line of code.</p>
+
+    <h2>What&rsquo;s the point of it?</h2>
+    <p>I asked Codex to &ldquo;figure out, objectively, what my point of differentiation is or could be&rdquo;, and to go back to the drawing board if we couldn&rsquo;t find one. The answer was blunt: no demonstrated strong point of differentiation. Plenty of apps teach Python syntax.</p>
+    <p>So it was rebuilt around the thing I know: the mistakes I&rsquo;ve spent years catching in research. Each case is a short script and a task. The scripts go wrong the way real analysis goes wrong: a valid zero dropped as missing, the wrong denominator, a duplicate counted twice. In the flagship case the script prints 5.0 when the right answer is 3.75. Some scripts are already correct, and the lesson is knowing that. The app shows the Python; it never runs it.</p>
+
+    <h2>Using it on my phone</h2>
+    <p>The tests all passed; the problems showed up when I used it on my phone. The background music irritated me, so it went. The opening line didn&rsquo;t make sense. A week later I called the whole thing &ldquo;very &lsquo;wordy&rsquo;&rdquo; and &ldquo;not beginner-friendly at all&rdquo;. The review that followed put it in four words: sound app, wrong teaching method. The first case needed ideas the app didn&rsquo;t teach until weeks in.</p>
+    <p>Claude built a beginner-first redesign to address that feedback, because Codex had run low on its allowance that week. The two providers swapped jobs for a few days, and the reviewing carried on in the other direction.</p>
+
+    <h2>Apple&rsquo;s six questions</h2>
+    <p>I submitted on 25 September. Apple&rsquo;s first answer was a request for more information: a screen recording on a real phone and six questions. My first recording failed our own frame-by-frame check, because it never reached the paid content Apple wanted to see. The second passed all 200 frames we checked, and was squeezed down to 9.1 MB to fit a 10 MB upload limit. I resubmitted on 28 September, and version 1.0 was approved on 6 October.</p>
+
+    <h2>Nerves, and honesty after launch</h2>
+    <p>The night it was approved, I wrote this:</p>
+    <blockquote>i&rsquo;m supposed to feel excited but now i&rsquo;m also a little worried - what if users download, or pay, and then complaints come in</blockquote>
+    <p>I held the release until one more independent review came back, then pressed the button myself on 7 October. Two things bothered me straight after. The subtitle, &ldquo;Python for Data&rdquo;, was a confusing phrase. And the App Store screenshots were brighter than the app; I asked, &ldquo;wouldn&rsquo;t that be ...false advertising&rdquo;. They were redone in the app&rsquo;s real colours, and an update with a clearer name and a plainer opening went to Apple on 9 October.</p>
+
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>AI wrote the code, the lessons, the tests, the audits, the store text and the screenshots, and ran the reviews: 24 cases across 8 topics with three decisions each, 181 foundation questions, 224 practice variations, and a release check that runs all of them. Learning progress stays on the phone, and Apple handles purchases.</p>
+    <p>My part was the goal, which I set as &ldquo;a functional, sustainable, useful app that at least one user will pay for&rdquo;, every taste and scope call, testing on my own phone, every legal and payment step with Apple, recording the video, and pressing Submit and Release. During development I also wrote this:</p>
+    <blockquote>i find myself approving approving approving stuff but i don&rsquo;t really know what&rsquo;s going on now behind the scenes</blockquote>
+    <p>Whether the app teaches anyone is still unproven; no real learner has been measured yet.</p>
+
+    <p class="footer-note"><a href="https://apps.apple.com/app/bitpybit-python-for-data/id6814713544">Bitpybit on the App Store</a> &middot; <a href="bitpybit.html">Support and privacy</a> &middot; <a href="index.html#work">Back to halfspaces.co</a></p>
+  </article>
+</div>
+</body>
+</html>

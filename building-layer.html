@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Layer · a build journal · halfspaces</title>
+<meta name="description" content="A checker for finished research decks that grew out of a deck generator I stopped building after one comparison showed it caught no more errors and took longer.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#F6F7F1; --parchment:#E7EBDD; --linen:#EAEEE3; --stone:#C3C9BB;
+    --sage-wash:#DDE6D6; --blue-wash:#DDE8E3; --clay-wash:#F2DED5; --yellow-wash:#EFDDB2;
+    --charcoal:#1C2B21; --slate:#52655A; --ash:#6E7A66;
+    --forest:#3E7A4E; --terracotta:#C2431F; --ochre:#D9A94B; --slate-blue:#3F6B5C;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:32em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
+  article p{margin:0 0 20px}
+  h2{font-size:25px; line-height:1.18; margin:38px 0 14px; font-weight:700; letter-spacing:-.01em}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
+    color:var(--charcoal); font-size:19px}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+
+  .figure{margin:26px 0; padding:24px 18px; border:1px solid var(--line); border-radius:5px;
+    background:var(--warm-white); text-align:center}
+  .figure svg{display:block; margin:0 auto}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em; margin-top:14px}
+
+  .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:44px}
+
+  @media (max-width:640px){ body{font-size:17px} }
+
+  /* Grass & Chalk: serif headings, matching the front page */
+  h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
+  h1 { font-weight:400; font-variation-settings:"opsz" 130 }
+  h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+</style>
+
+<style>
+  /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
+  :root{
+    --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
+    --serif:"Source Serif 4",Georgia,serif;
+    --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
+    --mono:"Source Sans 3",system-ui,-apple-system,sans-serif;
+  }
+  h1,h2,h3{font-weight:400}
+  h1,h2{font-family:var(--serif)}
+  .kicker,.aside .tag,.datechip,.runmeta,.figcaption,.footer-note,.flowrail{text-transform:none; letter-spacing:0}
+  .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
+  code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Building Layer</h1>
+    <p class="standfirst">A checker for finished research decks. It grew out of a deck generator I stopped building after one comparison: with it, the review caught no more errors and took longer.</p>
+    <p class="runmeta">July&ndash;November 2026 &middot; Python, runs on your own machine &middot; built and reviewed by Claude and Codex, swapping roles &middot; private alpha</p>
+  </header>
+
+  <article>
+    <h2>Fifteen to twenty rounds per deck</h2>
+    <p>The problem started with AI-made report decks. Each one took fifteen to twenty rounds before I could send it: bars showing the same percentage at different lengths on different slides, decimals that changed from chart to chart, charts nobody could edit. Writing the rules down didn&rsquo;t help much, because the model would read a rule and then drift from it. By August I had 59 numbered deck rules. I wanted the rules enforced.</p>
+
+    <h2>Deckforge</h2>
+    <p>In September that became Deckforge: survey data in, a native, editable PowerPoint out, with the typography and chart rules enforced in code instead of in a prompt. It grew fast, to 619 tests and around 8,900 lines. By the end of September it felt endless. I couldn&rsquo;t tell whether a working platform was days, weeks or months away, and when I asked, Codex withdrew its own estimates as unsupported. It was the right answer; I didn&rsquo;t enjoy hearing it.</p>
+
+    <h2>One comparison</h2>
+    <p>On 27 October I ran the comparison I should have run earlier. Two fresh sessions got the same made-up survey packet with eight errors planted in it: one session had Deckforge, one didn&rsquo;t. Both caught all eight, with no false alarms. Without Deckforge took 3 minutes 41 seconds. With it took 5 minutes 8 seconds.</p>
+    <p>In that one comparison, the generator showed no accuracy advantage, and the review with it took longer. The next day I changed direction: stop generating decks, and check finished ones instead. Researchers keep whatever tools they like for the thinking; the checker looks for the mechanical problems in the finished deck. It was briefly called Final Version, which I dropped because it sounds like a promise that the deck is cleared. Layer says what it checked and what it didn&rsquo;t.</p>
+
+    <h2>Show me the deck</h2>
+    <p>Early versions reported their work the way software does: test counts, rule IDs, pass and fail. I turned that down as evidence: I wanted to see the changes on the slides as well as the test results. When the audit report still read as too technical, it was rebuilt to lead with what happened to the deck, with real before-and-after captures of the slides.</p>
+
+    <h2>Close the gap now</h2>
+    <p>Layer also had to keep track of each chart when slides moved, and at first it often lost them. Claude proposed fixing that later. I said no:</p>
+    <blockquote>I&rsquo;m worried about forgetting that these gaps exist &hellip; it&rsquo;s not like I will remember to tell you when a new project exists &hellip; when we see gaps and we can close it, we close it.</blockquote>
+    <p>The fix went in that night. Re-run on a controlled layout revision, every check found the object it belonged to after the slides moved; whether each one still means the same thing stays a person&rsquo;s call.</p>
+
+    <h2>The things a reviewer misses</h2>
+    <p>Some of what Layer catches is invisible on the slide. The common Python library for making PowerPoint files leaves its own author&rsquo;s name in the file properties, and dates from 2013. A file that leaves my hands should carry my name and nothing a library left behind, so Layer now checks and fixes file properties too. The independent reviewer had missed the same leftovers in Word files that Layer finds in seconds.</p>
+    <p>The engine releases since October have each been reviewed by the other provider; the newest piece, an installer, has passed its local checks and still waits for that review. One release came back NO GO with twelve findings, each fixed with a test that would catch it again. Another needed four rounds before it passed.</p>
+
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>All of the code and tests are AI-written. Codex built the first five alpha releases with Claude reviewing; Claude built the next four with Codex reviewing. The engine reached 210 tests, and the installer checks bring it to 215. My part: the change of direction, the name, the standards it checks against, the rule about file properties, the rule about closing gaps, refusing test counts as proof, supplying real decks to test it on, and being the last check.</p>
+    <p>What it can&rsquo;t claim yet: there&rsquo;s no measured time saving, and no proof it beats a careful human reviewer. Its first rule says a completed run never means the whole report is correct; a person still reviews the findings.</p>
+
+    <p class="footer-note"><a href="index.html#work">Back to halfspaces.co</a></p>
+  </article>
+</div>
+</body>
+</html>

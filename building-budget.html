@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building the budget dashboard · a build journal · halfspaces</title>
+<meta name="description" content="One page, built from my own bank and card exports, that shows where the money goes; most of the work was making sure it never shows a plausible wrong number.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#F6F7F1; --parchment:#E7EBDD; --linen:#EAEEE3; --stone:#C3C9BB;
+    --sage-wash:#DDE6D6; --blue-wash:#DDE8E3; --clay-wash:#F2DED5; --yellow-wash:#EFDDB2;
+    --charcoal:#1C2B21; --slate:#52655A; --ash:#6E7A66;
+    --forest:#3E7A4E; --terracotta:#C2431F; --ochre:#D9A94B; --slate-blue:#3F6B5C;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:32em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
+  article p{margin:0 0 20px}
+  h2{font-size:25px; line-height:1.18; margin:38px 0 14px; font-weight:700; letter-spacing:-.01em}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
+    color:var(--charcoal); font-size:19px}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+
+  .figure{margin:26px 0; padding:24px 18px; border:1px solid var(--line); border-radius:5px;
+    background:var(--warm-white); text-align:center}
+  .figure svg{display:block; margin:0 auto}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em; margin-top:14px}
+
+  .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:44px}
+
+  @media (max-width:640px){ body{font-size:17px} }
+
+  /* Grass & Chalk: serif headings, matching the front page */
+  h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
+  h1 { font-weight:400; font-variation-settings:"opsz" 130 }
+  h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+</style>
+
+<style>
+  /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
+  :root{
+    --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
+    --serif:"Source Serif 4",Georgia,serif;
+    --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
+    --mono:"Source Sans 3",system-ui,-apple-system,sans-serif;
+  }
+  h1,h2,h3{font-weight:400}
+  h1,h2{font-family:var(--serif)}
+  .kicker,.aside .tag,.datechip,.runmeta,.figcaption,.footer-note,.flowrail{text-transform:none; letter-spacing:0}
+  .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
+  code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Building the budget dashboard</h1>
+    <p class="standfirst">One page, built from my own bank and card exports, that shows where the money goes. Most of the work was making sure it never shows a plausible wrong number.</p>
+    <p class="runmeta">2026 &middot; five Python scripts and one HTML file &middot; built by Claude, with Codex reviewing at each major step &middot; private; there are no figures on this page, on purpose</p>
+  </header>
+
+  <article>
+    <h2>A page that was wrong because someone typed it</h2>
+    <p>The first version was a spreadsheet, then a dashboard whose summary sections were written by hand. That&rsquo;s how, in August, it ended up showing an old figure and telling me to decide on options that had expired three weeks earlier. Nothing had crashed; the page loaded normally and gave no sign those sections were out of date.</p>
+    <p>So in August it was rebuilt as a program, with one rule at the top of the code: if a number appears, it was computed from the ledger. Five scripts read nine sources, apply categorising rules kept as data, and produce one self-contained page.</p>
+
+    <h2>Seven bugs, none of them crashes</h2>
+    <p>These seven bugs all produced believable output:</p>
+    <ul>
+      <li>income swallowed by a rule that sat above the income rule;</li>
+      <li>an export that read zero rows because its dates had a time stuck on the end;</li>
+      <li>a transfer between my own accounts counted as spending;</li>
+      <li>a sort by filename that picked an older file, because &ldquo;to 8 May&rdquo; sorts after &ldquo;to 7 Aug&rdquo;;</li>
+      <li>a missing column that came back as zeros, which look exactly like real data;</li>
+      <li>amounts in two currencies added together;</li>
+      <li>cash counted as shares.</li>
+    </ul>
+    <p>The checking script looks for errors that would leave the totals looking believable. If it fails, the page doesn&rsquo;t get published.</p>
+
+    <h2>A checker that agreed with itself</h2>
+    <p>For months, refunds never reduced spending, and the check passed every time. It passed because it reused the same function as the thing it was checking, so it made the same mistake and agreed with it. The new check deliberately does the sum a different way. Run against the old method, it flags five affected months.</p>
+
+    <h2>It disagreed, and it was right</h2>
+    <p>In August Claude proposed upgrades: a monitor for drifting spending, a simulation of how long savings last, and a model of the risk of being forced to sell investments. Codex took them apart. The drift monitor would have cleanly caught none of the four real problems we&rsquo;d found. The forced-sale model was, in its word, theatre. And it found something Claude had missed: no alert for a source that simply stops arriving.</p>
+    <p>A machine-learning categoriser went the same way. It would have scored about 97% while proving nothing, because it would be learning the rules it was being tested against. What got built instead: fixed rules, a few simple monitors and a calendar of what&rsquo;s due. One example: a bill that moved from weekly to monthly billing looked like a price rise when compared charge by charge, even though the monthly cost fell. A rule that knows how often the bill comes reads that correctly.</p>
+
+    <h2>Checking cancelled transactions</h2>
+    <p>One card&rsquo;s app marks cancelled transactions only with a strikethrough, which makes its screenshots harder to transcribe correctly. So each transcription gets checked against the app&rsquo;s own monthly total, to the cent. Mr. B tried taking on the downloads and ran into too many limits. The method now is simple: I download every file myself, and Claude does everything after that.</p>
+
+    <h2>Could a local model do it?</h2>
+    <p>In November I tried small AI models running entirely on my own computer. My statements stood in for the kind of client data that should never go to a cloud model. Three of the four runs gave no answer at all. In two runs, adding the instruction that a transfer between my own accounts isn&rsquo;t spending led to reasoning that went round in circles without an answer. The best run scored two out of five for usefulness. A second round is planned.</p>
+
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>Claude writes the code, reads the screenshots, runs each build and proposed every model, good and bad. Codex reviews the calculations and argues with proposed changes. My part: I download the files, identify the merchants it can&rsquo;t place, make the classification and policy calls, approve new checks, and decide what the page is allowed to tell me.</p>
+
+    <p class="footer-note"><a href="index.html#work">Back to halfspaces.co</a></p>
+  </article>
+</div>
+</body>
+</html>
