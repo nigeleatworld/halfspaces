@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Researching for Keynote · a build journal · halfspaces</title>
+<meta name="description" content="My first independent research client: a Singapore tuition centre, 300 screened parents and one recommendation; how it was run, and where the AI needed catching.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#F6F7F1; --parchment:#E7EBDD; --linen:#EAEEE3; --stone:#C3C9BB;
+    --sage-wash:#DDE6D6; --blue-wash:#DDE8E3; --clay-wash:#F2DED5; --yellow-wash:#EFDDB2;
+    --charcoal:#1C2B21; --slate:#52655A; --ash:#6E7A66;
+    --forest:#3E7A4E; --terracotta:#C2431F; --ochre:#D9A94B; --slate-blue:#3F6B5C;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:32em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
+  article p{margin:0 0 20px}
+  h2{font-size:25px; line-height:1.18; margin:38px 0 14px; font-weight:700; letter-spacing:-.01em}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
+    color:var(--charcoal); font-size:19px}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+
+  .figure{margin:26px 0; padding:24px 18px; border:1px solid var(--line); border-radius:5px;
+    background:var(--warm-white); text-align:center}
+  .figure svg{display:block; margin:0 auto}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em; margin-top:14px}
+
+  .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:44px}
+
+  @media (max-width:640px){ body{font-size:17px} }
+
+  /* Grass & Chalk: serif headings, matching the front page */
+  h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
+  h1 { font-weight:400; font-variation-settings:"opsz" 130 }
+  h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+</style>
+
+<style>
+  /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
+  :root{
+    --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
+    --serif:"Source Serif 4",Georgia,serif;
+    --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
+    --mono:"Source Sans 3",system-ui,-apple-system,sans-serif;
+  }
+  h1,h2,h3{font-weight:400}
+  h1,h2{font-family:var(--serif)}
+  .kicker,.aside .tag,.datechip,.runmeta,.figcaption,.footer-note,.flowrail{text-transform:none; letter-spacing:0}
+  .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
+  code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Researching for Keynote</h1>
+    <p class="standfirst">My first independent client after fourteen years in research: a tuition centre that wanted to know which position it could credibly own.</p>
+    <p class="runmeta">June&ndash;July 2026 &middot; an online survey of 300 screened parents &middot; built with Claude, each step reviewed by Codex &middot; Keynote&rsquo;s findings stay with Keynote</p>
+  </header>
+
+  <article>
+    <h2>The brief</h2>
+    <p>Keynote Learning came to me in June wanting a reason to be chosen that no other centre had claimed, and wanting it tested before they put it on anything. Before writing a proposal, I spent two days on desk research: the public register of tuition centres, company records, a scan of the competing brands and a profile of the area they draw from. The proposal went through five rounds of review with Codex before I sent it.</p>
+
+    <h2>The questionnaire took longer than the survey</h2>
+    <p>Most of June went into the questionnaire. A founder meeting, a two-hour feedback session and a written pre-read from their team all fed into it, and I rebuilt several versions by hand myself. The client signed off the final version on 25 June.</p>
+    <p>A few of its design choices are worth explaining. Importance is measured by asking parents to pick their top three, then their single most important choice. Satisfaction is a net, the share who like something minus the share who dislike it. The zones on the chart split at the median. Any group under 30 people is flagged and excluded from significance testing; groups under 15 aren&rsquo;t shown.</p>
+
+    <h2>Fieldwork, and quality over a neat split</h2>
+    <p>The survey ran in Alchemer, with parents from a research panel. Before launch, a test script drove the live survey end to end. Claude couldn&rsquo;t log into the survey platform itself, so I wired the panel&rsquo;s redirects by hand.</p>
+    <p>Fieldwork closed on 3 July. Cleaning checked every response for quality and consistency, and caught something newer than the usual problems: an open-ended answer pasted straight from an AI chatbot. I put response quality ahead of an even split between primary and secondary parents. My instruction at the time:</p>
+    <blockquote>Pick the n=300 with the highest quality from a QC perspective; don&rsquo;t need whole numbers for Primary vs Secondary, focus on least QC fails.</blockquote>
+
+    <h2>Testing the brief</h2>
+    <p>My job was to test the positioning ideas we started with and build the recommendation from what parents said.</p>
+    <p>Two edits to the draft stayed with me. I narrowed one competitive claim to what the desk research could support, because you can&rsquo;t prove a negative about every centre in Singapore. And the cover had a row of headline numbers that I cut as &ldquo;jumpy data points&rdquo;.</p>
+
+    <h2>Where the AI needed catching</h2>
+    <p>Claude built most of the machinery, and it made mistakes that looked like finished work:</p>
+    <ul>
+      <li>a text-matching bug that quietly dropped one school subject from the analysis;</li>
+      <li>an old sample size left hard-coded across the report after the sample changed;</li>
+      <li>an interpretation that went further than its evidence, which Claude logged as its own error;</li>
+      <li>a blank page in the PDF that the automated check couldn&rsquo;t see, because it only checked the code.</li>
+    </ul>
+    <p>Each one was caught before Keynote saw anything, mostly by rendering the output and reading it the way the client would. Since then, reading the rendered output is a standing rule for anything I hand over.</p>
+
+    <h2>What they got</h2>
+    <p>On 8 and 9 July, ahead of their deadline: a 15-page deck, a written insights piece, data tables and a de-identified copy of the raw data. The main piece was one recommendation they could act on: a positioning line for their materials, who to prioritise, what to stop saying and the risks to watch. The findings stay with Keynote; the exhibit on my homepage runs the same method on a fictional brand.</p>
+    <p>They have since run a second survey on their own, and I reviewed it for them in September.</p>
+
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>Claude drafted the questionnaire versions, built the survey test script, the analysis code, the deck and the data tables. Codex reviewed every substantive step, a different provider checking the first one&rsquo;s work. My part: the research design, which questions made the cut, every cleaning and sample call, the story and the recommendation, and the final read of every page before it went out.</p>
+
+    <p class="footer-note"><a href="/nigel/#work">Back to halfspaces.co</a></p>
+  </article>
+</div>
+</body>
+</html>

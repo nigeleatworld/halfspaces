@@ -5,6 +5,8 @@ index.original.html
 assets/*
 !assets/nigel-neutral.jpg
 !assets/favicon.svg
+!assets/favicon-company.svg
+!assets/lockup.svg
 !assets/og-image.png
 !assets/og-company.png
 !assets/pokerspace-table.jpg

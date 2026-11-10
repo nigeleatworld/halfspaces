@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Mr. B · a build journal · halfspaces</title>
+<meta name="description" content="An AI chief of staff who talks to me on Slack; most of the work was deciding what he gets to see and what he is allowed to do.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#F6F7F1; --parchment:#E7EBDD; --linen:#EAEEE3; --stone:#C3C9BB;
+    --sage-wash:#DDE6D6; --blue-wash:#DDE8E3; --clay-wash:#F2DED5; --yellow-wash:#EFDDB2;
+    --charcoal:#1C2B21; --slate:#52655A; --ash:#6E7A66;
+    --forest:#3E7A4E; --terracotta:#C2431F; --ochre:#D9A94B; --slate-blue:#3F6B5C;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:32em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
+  article p{margin:0 0 20px}
+  h2{font-size:25px; line-height:1.18; margin:38px 0 14px; font-weight:700; letter-spacing:-.01em}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
+    color:var(--charcoal); font-size:19px}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+
+  .figure{margin:26px 0; padding:24px 18px; border:1px solid var(--line); border-radius:5px;
+    background:var(--warm-white); text-align:center}
+  .figure svg{display:block; margin:0 auto}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em; margin-top:14px}
+
+  .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:44px}
+
+  @media (max-width:640px){ body{font-size:17px} }
+
+  /* Grass & Chalk: serif headings, matching the front page */
+  h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
+  h1 { font-weight:400; font-variation-settings:"opsz" 130 }
+  h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+</style>
+
+<style>
+  /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
+  :root{
+    --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
+    --serif:"Source Serif 4",Georgia,serif;
+    --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
+    --mono:"Source Sans 3",system-ui,-apple-system,sans-serif;
+  }
+  h1,h2,h3{font-weight:400}
+  h1,h2{font-family:var(--serif)}
+  .kicker,.aside .tag,.datechip,.runmeta,.figcaption,.footer-note,.flowrail{text-transform:none; letter-spacing:0}
+  .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
+  code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Building Mr. B</h1>
+    <p class="standfirst">An AI chief of staff who talks to me on Slack. Setting him up took a few days; most of the work since has been deciding what he gets to see and what he is allowed to do.</p>
+    <p class="runmeta">April&ndash;November 2026 &middot; built on the open-source Hermes agent &middot; in daily use &middot; reviewed by Claude and Codex</p>
+  </header>
+
+  <article>
+    <h2>Two weeks of reading first</h2>
+    <p>I wanted an assistant to help me move the right things forward. My wife named him.</p>
+    <p>Before installing anything, I spent two weeks in April reading about the agents people were running at home, with Claude doing most of the digging. It came down to two open-source options, and I picked Hermes, from Nous Research. The reason in the notes from then: for someone who wants it seamless and isn&rsquo;t a developer, it fit better. I also chose a flat monthly subscription over paying per use, so the cost stayed predictable while I worked out what he was for.</p>
+    <p>He went live at the end of April on Telegram, with a morning briefing and a few nudges.</p>
+
+    <h2>What he knows, and how</h2>
+    <p>My notes live in one private place that Claude and Codex both read and write. I didn&rsquo;t want to hand B the whole thing; a chief of staff doesn&rsquo;t need everything.</p>
+    <p>So in June he got a curated copy instead: who I am, how I like to work, where each project stands, refreshed every time I save. Only what the job needs goes across, and in July I took money out too. It started at 41 files and is about 120 now.</p>
+    <p>The harder question was the other direction. If B learns something worth keeping, where does it go? Three AIs writing to the same notes risked three versions of the truth, so B can&rsquo;t write to them. He adds an entry to a queue, and when I save, Claude reads the queue and moves the real ones in.</p>
+
+    <h2>Good work nobody could see</h2>
+    <p>The first real problem was knowing what B had finished, and it went wrong three ways. Some work never went into version control at all. A scheduled job ran for days on his side and never sent anything back, so it sat one reset away from gone, and when Claude checked, it saw no new changes. And once, the work was saved and sent exactly right, and still nobody knew it existed.</p>
+    <p>So I added detection: a check on my side that lists everything that exists and flags anything my notes don&rsquo;t mention.</p>
+    <p>B&rsquo;s side was stranger. He had a working way to write back for a month and had never used it once. The cause turned out to be wording. Everything he had been told described the queue as something he could use when I told him something worth keeping, so nothing he did on his own ever triggered it. The fix was a rule tied to his own actions: when he starts a project, ships something, drops a direction or makes a call someone will need the reasoning for, he writes one line. He started using it in September.</p>
+
+    <h2>The day Claude was wrong about him</h2>
+    <p>In September, Claude flagged one of B&rsquo;s &ldquo;batch complete&rdquo; messages as false, in a shared channel. It wasn&rsquo;t. Every piece was done and saved; Claude had looked in the wrong place. B didn&rsquo;t argue. He re-checked all fifteen files three ways, found no mismatches, and posted the proof.</p>
+    <p>Since then, every agent has to check the evidence before saying work is missing, the same as before recommending a deletion. B already had a veto over deleting anything in his own workspace, because he knows it better than anyone looking in from outside. That veto has caught three wrong calls to delete.</p>
+
+    <h2>From Telegram to Slack</h2>
+    <p>By late August, Telegram had stopped working for this. In my words at the time, it &ldquo;feels messy with B, all the threads and stuff.&rdquo; In September we moved to Slack, where each piece of work has its own channel and where, from October, Claude could join him. The old Telegram topics were closed and kept.</p>
+
+    <h2>Too many hats, so a charter</h2>
+    <p>When I incorporated Halfspaces in October, I looked at who did what and didn&rsquo;t like the answer. Three agents could touch my calendar. My chief of staff was running personal projects. Nobody had written down who owned anything.</p>
+    <p>So I wrote a charter, with Claude drafting and Codex reviewing. B became the company&rsquo;s chief of staff: client work, the pipeline, the company brief, and drafts of anything going to a client, which I send myself. Shortbread, my personal assistant, became the only one allowed to write to my calendar. Miss D took production and admin under B. Claude and Codex became the board: they keep the memory, build the shared tools and review each other&rsquo;s work. B gave up writing to the calendar and taking on new personal projects; the ones already running were handed over in stages.</p>
+    <p>The same week, B spent about eight hours on a repair plus a system nobody had asked for. I kept the repair, shelved the rest, and added a rule: he gets my go before starting anything new.</p>
+
+    <h2>Reviews without me in the middle</h2>
+    <p>B runs on OpenAI&rsquo;s models. My rule for anything that goes to a client is that a different provider reviews it before I see it as ready, and for B&rsquo;s work that means Claude. For months that meant me carrying files between them. In November we built a direct route: B asks Claude for a review in Slack, and I get tagged when it&rsquo;s done. It took eleven rounds of code review from Codex before it passed, and its first live run on client work is still to come.</p>
+
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>B does the running: briefs, chasing, drafting, scheduled jobs, keeping work on track. Claude wrote his original briefing pack and built most of the plumbing around him; Codex checks it. I decide who does what and approve anything involving money, and anything going to a client goes out from me.</p>
+
+    <h2>Where he stands</h2>
+    <p>Seven months in, he&rsquo;s in use every day. If I set him up again, I&rsquo;d start with the fences around him: one copy of the truth, a queue instead of write access, drafts instead of sends, and a written answer to &ldquo;whose job is this?&rdquo;</p>
+
+    <p class="footer-note"><a href="/nigel/">Back to halfspaces.co</a></p>
+  </article>
+</div>
+</body>
+</html>

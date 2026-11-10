@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building the Cai Fan Test · a build journal · halfspaces</title>
+<meta name="description" content="A personality read from what you put on a cai fan tray, built as a research instrument; fifteen versions in, paused, and still live.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#F6F7F1; --parchment:#E7EBDD; --linen:#EAEEE3; --stone:#C3C9BB;
+    --sage-wash:#DDE6D6; --blue-wash:#DDE8E3; --clay-wash:#F2DED5; --yellow-wash:#EFDDB2;
+    --charcoal:#1C2B21; --slate:#52655A; --ash:#6E7A66;
+    --forest:#3E7A4E; --terracotta:#C2431F; --ochre:#D9A94B; --slate-blue:#3F6B5C;
+    --line:rgba(17,27,46,.12); --line-strong:rgba(17,27,46,.28);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"DM Sans",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Menlo",monospace;
+    --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; font-family:var(--sans); color:var(--charcoal);
+    background:var(--warm-white); line-height:1.62; font-size:18px; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  a{color:var(--slate-blue); text-underline-offset:2px}
+
+  header.masthead{padding:66px 0 14px}
+  .kicker{font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terracotta); margin:0 0 14px}
+  h1{font-size:clamp(34px,6.2vw,56px); line-height:1.04; margin:0 0 18px; font-weight:700; letter-spacing:-.015em}
+  .standfirst{font-size:21px; color:var(--slate); margin:0 0 6px; max-width:32em}
+  .runmeta{font-family:var(--mono); font-size:12.5px; color:var(--ash); margin-top:22px; letter-spacing:.02em}
+
+  article p{margin:0 0 20px}
+  h2{font-size:25px; line-height:1.18; margin:38px 0 14px; font-weight:700; letter-spacing:-.01em}
+  blockquote{margin:24px 0; padding:6px 0 6px 20px; border-left:3px solid var(--terracotta);
+    color:var(--charcoal); font-size:19px}
+  code{font-family:var(--mono); font-size:.84em; background:var(--linen); padding:1px 6px; border-radius:3px}
+
+  .figure{margin:26px 0; padding:24px 18px; border:1px solid var(--line); border-radius:5px;
+    background:var(--warm-white); text-align:center}
+  .figure svg{display:block; margin:0 auto}
+  .figcaption{font-family:var(--mono); font-size:12px; color:var(--ash); letter-spacing:.02em; margin-top:14px}
+
+  .footer-note{font-family:var(--mono); font-size:13px; color:var(--ash);
+    border-top:1px solid var(--line); padding:24px 0 80px; margin-top:44px}
+
+  @media (max-width:640px){ body{font-size:17px} }
+
+  /* Grass & Chalk: serif headings, matching the front page */
+  h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
+  h1 { font-weight:400; font-variation-settings:"opsz" 130 }
+  h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+</style>
+
+<style>
+  /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
+  :root{
+    --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
+    --serif:"Source Serif 4",Georgia,serif;
+    --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
+    --mono:"Source Sans 3",system-ui,-apple-system,sans-serif;
+  }
+  h1,h2,h3{font-weight:400}
+  h1,h2{font-family:var(--serif)}
+  .kicker,.aside .tag,.datechip,.runmeta,.figcaption,.footer-note,.flowrail{text-transform:none; letter-spacing:0}
+  .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
+  code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+    <p class="kicker">Build journal</p>
+    <h1>Building the Cai Fan Test</h1>
+    <p class="standfirst">A personality read from what you put on a cai fan tray, built as a research instrument. Fifteen versions in, paused, and still live.</p>
+    <p class="runmeta">July&ndash;September 2026 &middot; built with Claude and Codex, each checking the other &middot; alpha15 live at cft.halfspaces.co &middot; development paused</p>
+  </header>
+
+  <article>
+    <h2>Why lunch</h2>
+    <p>Everyone in Singapore has a cai fan ritual: the queue, the pointing, the gravy call at the end. It&rsquo;s a set of fast choices made under a little social pressure, with real trade-offs, which suits a behavioural measure.</p>
+    <p>The first prototype went up on 19 July. The next day the stallholder became the mechanism: the longer you take, the more impatient he gets, through his words and a restrained change in how he looks. There&rsquo;s no countdown, no penalty and no forced choice; it just feels like a real queue. How long you were exposed to his impatience is recorded, and it never touches your score.</p>
+    <p>Alongside it sits an optional short Big Five questionnaire, an established one, so that one day the plate reads can be checked against real answers instead of my assumptions.</p>
+
+    <h2>Every possible tray</h2>
+    <p>By 23 July the menu had grown to 36 dishes across three counters, and you pick between two and four. Twelve reads came out of the scoring. To check they didn&rsquo;t pile everyone into the same two or three, every valid tray was scored, gravy choices included: 1,333,500 of them. The reads are still labelled provisional, and they stay that way until a calibration study says otherwise.</p>
+
+    <h2>The pilot broke the measurement</h2>
+    <p>In August a few friends took it, and the pilot exposed a misunderstanding: the two-to-four dish limit could read as applying to each counter instead of the whole plate, so when the test made someone put dishes back, the data recorded it as a change of mind. One person never found the second and third counters at all.</p>
+    <p>So the data was recording confusion as if it were behaviour. Alpha14 fixed the wording, and moved the study to a new version number so that data would never be pooled with what came after.</p>
+    <p>One proposed fix was to group the dishes by type, vegetables in one place and meat in another. Codex advised against it, because grouping could steer people&rsquo;s choices and suggest what a normal plate looks like. I agreed, and the dishes stayed ungrouped.</p>
+
+    <h2>The share card</h2>
+    <p>I wanted a result card people would post. Claude wanted to leave it for later; I pushed back, because you can&rsquo;t measure whether people will share something that doesn&rsquo;t exist yet, and it got built.</p>
+    <p>The first round went through Canva, and Codex called it &ldquo;generic chinoiserie, not Singaporean&rdquo;. I agreed. Canva also baked the text into the image, so nothing on it could change per person, and the card moved into code. I chose dish names over a photo, and &ldquo;ZHUP&rdquo; over &ldquo;GRAVY&rdquo;.</p>
+
+    <h2>&ldquo;Everything is stall paper&rdquo;</h2>
+    <p>The first screens looked like a hawker stall. The later ones quietly turned into a generic survey: rounded app-style cards for consent, plain browser form fields further on. I flagged it, Claude reviewed the whole journey separately, and the redesign got a four-word direction that every screen has followed since: everything is stall paper.</p>
+
+    <h2>Eight agents, one folder</h2>
+    <p>At one point eight AI coding processes were working in the same project at once, and they swept each other&rsquo;s changes into unrelated commits. A guard that runs the tests before anything is committed limited the damage. Avoiding it meant giving each session its own working copy, or running one at a time. I still avoid running two sessions in the same project at once.</p>
+
+    <h2>Research standards, as far as they go</h2>
+    <p>By the pilot it had the basics a real study needs: separate consent for the research part, a deletion code so anyone can remove their answers, scoring that&rsquo;s versioned so different versions never mix, and small groups kept out of any result. What it doesn&rsquo;t have is validation. Nobody has shown yet that tray choices predict personality; in October a freshness check by Mr. B caught the homepage saying &ldquo;calibrated&rdquo;, and it now says &ldquo;can be calibrated&rdquo;. The counter photos and the stallholder are AI-generated.</p>
+
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>The code and the reviews were AI. Claude reviewed the scoring and the Big Five items and ran the design audit and release checks; Codex vetted the share card and the pilot fixes, and built alpha15; Grok, a third provider, gave alpha15 its final ship call. The idea, the ambition, the look and the words were mine, and so were recruiting the pilot and deciding to pause.</p>
+
+    <h2>Paused, still live</h2>
+    <p>At the end of September I paused development with alpha15 live. The latest version explains each read dish by dish, from what went on your tray. The next real step would be the calibration study, and I haven&rsquo;t run it.</p>
+
+    <p class="footer-note"><a href="https://cft.halfspaces.co">Take the Cai Fan Test</a> &middot; <a href="/nigel/#work">Back to halfspaces.co</a></p>
+  </article>
+</div>
+</body>
+</html>
