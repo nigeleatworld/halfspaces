@@ -82,7 +82,7 @@
   .svgsub{font-family:"JetBrains Mono",monospace; font-size:10.5px; fill:#52655A}
   .svgnote{font-family:"DM Sans",sans-serif; font-size:12px; fill:#52655A}
   .svgbig{font-family:"DM Sans",sans-serif; font-size:15px; font-weight:700; fill:#1C2B21}
-  /* responsive HTML pipeline diagram — reflows row->stack, real text, fluid sizes */
+  /* responsive HTML pipeline diagram: reflows row->stack, real text, fluid sizes */
   .diagram{margin:2px 0}
   .pipe{display:flex; flex-direction:column; gap:9px; align-items:stretch}
   .stage{flex:1 1 0; min-width:0; border:1px solid var(--line-strong); border-radius:11px;
@@ -167,11 +167,11 @@
     <p class="kicker">Build journal</p>
     <h1>Building Beebee</h1>
     <p class="standfirst">A palm-sized screen in the kitchen that pages our helper, keeps my AI budgets honest, and times my son's television. It was built for a different job entirely.</p>
-    <p class="runmeta">16 Aug – 6 Sep 2026 · built with Claude · one ESP32 touchscreen, a Mac&nbsp;Mini as its brain</p>
+    <p class="runmeta">16 Aug – 6 Sep 2026 · built with Claude · one ESP32 touchscreen, my Mac as its brain</p>
   </header>
 
   <article>
-    <p>The hardware was a deliberate purchase: an M5Stack CoreS3, a palm-sized touchscreen computer with a battery and a speaker, bought so I could experiment with building things I can actually hold. The first experiment I outsourced. I run a second AI assistant on its own Mac in a corner of the study, and an AI on that machine wrote the device its first firmware, a physical conscience for the resident assistant: when it wanted to do something risky, the little screen would light up and wait for me to press and hold "approve". A dedicated consent button for a machine. The idea was sound, the handover back to me was a solid-state drive and a note, and the software on it didn't work; one bug made every request read as already expired, and the security layer had been switched off entirely, a known gap the handover note owned up to.</p>
+    <p>The hardware was a deliberate purchase: an M5Stack CoreS3, a palm-sized touchscreen computer with a battery and a speaker, bought so I could experiment with building things I can hold. The first experiment I outsourced. I run a second AI assistant, and an AI on its machine wrote the device its first firmware, a physical conscience for the resident assistant: when it wanted to do something risky, the little screen would light up and wait for me to press and hold "approve". A dedicated consent button for a machine. The idea was sound, the handover back to me was a solid-state drive and a note, and the software on it didn't work; one bug made every request read as already expired, and there was a security gap, which the handover note owned up to.</p>
 
     <p>What follows is the log of the three weeks after that, in which the consent button got used for consent exactly once, to prove it worked, and the gadget slowly became the most useful screen in the house. Same arrangement as the other journals: Claude did the building and the typing, I did the deciding, and the deciding turned out to be most of the story. The outages are in here too, including the one I caused personally.</p>
 
@@ -187,11 +187,11 @@
 
 <div class="wide">
   <div class="figure plain hero">
-    <div class="diagram" role="img" aria-label="A button on my phone reaches a bridge program on the Mac Mini, which feeds Beebee, a palm-sized touchscreen. Her screen serves three jobs: a pager that rings until acknowledged, six usage meters for the household's AI accounts, and a toddler timer that drains from green to amber to red.">
+    <div class="diagram" role="img" aria-label="A button on my phone reaches a bridge program on my Mac, which feeds Beebee, a palm-sized touchscreen. Her screen serves three jobs: a pager that rings until acknowledged, six usage meters for the household's AI accounts, and a toddler timer that drains from green to amber to red.">
       <div class="pipe">
         <div class="stage src"><p class="t">my phone</p><p class="s">one button</p></div>
         <div class="arrow"></div>
-        <div class="stage read"><p class="t">the bridge</p><p class="s">a program on the Mac&nbsp;Mini</p></div>
+        <div class="stage read"><p class="t">the bridge</p><p class="s">a program on my Mac</p></div>
         <div class="arrow"></div>
         <div class="stage understood"><span class="hardpart">THE DEVICE</span><p class="t">Beebee</p><p class="s">palm-sized touchscreen,<br>battery, speaker, WiFi</p></div>
       </div>
@@ -212,8 +212,8 @@
   <div class="entry">
     <div class="datechip"><span class="d">16–17 Aug</span><span class="wk">the handover</span></div>
     <h2>Fix it first, then ask what it's for</h2>
-    <p>The two launch bugs were satisfying in the way only other people's bugs are. The expiry timestamps were being sent as decimal numbers and read by code that fails closed on anything unexpected, so every consent request was born already expired; correct behaviour, wrong input, nothing on screen. And the security layer was off because the chip genuinely cannot verify a certificate for a bare IP address; whoever built it hit that wall and shrugged. We stopped arguing with the chip and pinned the exact certificate's fingerprint instead; Beebee now refuses to talk to anything except the one bridge she was married to.</p>
-    <p>By the second night the consent flow worked end to end, screen to press-and-hold to decision, and with it finally working I could see clearly that I didn't want it. What I wanted, and had wanted for months, was a pager. Our helper has a late-morning stretch when her phone is out of reach, which is precisely when lunch questions come up, and the household's most advanced piece of communication technology at that hour was me, going to look for her. A loud screen that lives in the kitchen and rings when I press a button on my phone; that was the actual product. The consent feature got parked, the bridge moved onto my own Mac, and the gadget got a new job description.</p>
+    <p>The two launch bugs were satisfying in the way only other people's bugs are. The expiry timestamps were being sent as decimal numbers and read by code that fails closed on anything unexpected, so every consent request was born already expired; correct behaviour, wrong input, nothing on screen. And the security gap came from a limit in the chip; whoever built it hit that wall and shrugged. We found a way round it, and Beebee now refuses to talk to anything except the one bridge she was married to.</p>
+    <p>By the second night the consent flow worked end to end, screen to press-and-hold to decision, and with it finally working I could see clearly that I didn't want it. What I wanted, and had wanted for months, was a pager. Our helper's phone is often out of reach when questions come up, and the household's most advanced piece of communication technology at those moments was me, going to look for her. A loud screen that lives in the kitchen and rings when I press a button on my phone; that was the actual product. The consent feature got parked, the bridge moved onto my own Mac, and the gadget got a new job description.</p>
   </div>
 
   <div class="entry">
@@ -226,27 +226,27 @@
   <div class="entry">
     <div class="datechip"><span class="d">20–21 Aug</span><span class="wk">week 2</span></div>
     <h2>The gauge that lied politely</h2>
-    <p>One of the meters is an estimate: my heaviest AI model's weekly usage, reconstructed from local logs because the provider only reports it on a panel I'd have to go open. Checked against that panel, the estimate read 80.7% when the truth was 64. The cause was a decision, not a typo. The code treated cached reads as "nearly free" and left them out of the count, and nearly free multiplied by 633 million tokens is a real number. We rebuilt the estimate to weight every token type by what it costs, and it has tracked the panel within a point or two since.</p>
+    <p>One of the meters is an estimate: my heaviest AI model's weekly usage, reconstructed from local logs because the provider only reports it on a panel I'd have to go open. Checked against that panel, the estimate read 80.7% when the truth was 64. The cause was a decision, not a typo. The code treated cached reads as "nearly free" and left them out of the count, and nearly free multiplied by 633 million tokens is a real number. We rebuilt the estimate to weight every token type by what it costs, and it matched the provider's panel after that fix. It drifted again in September and needed fixing a second time.</p>
     <p>The habit that came out of this: any gauge I build gets audited against ground truth on a schedule, because a dashboard that's wrong is worse than a terminal command that's annoying. Market research instincts, it turns out, transfer directly to hardware.</p>
   </div>
 
   <div class="entry">
     <div class="datechip"><span class="d">22 Aug</span><span class="wk">week 2</span></div>
     <h2>Updates over the air, with a parachute</h2>
-    <p>Every firmware change had meant carrying Beebee to the desk and plugging in a cable, which is why small improvements kept getting deferred. So she learned to update herself over WiFi, with the safety design carrying all the weight: a freshly installed update boots on probation, and only after it proves it can still reach the bridge, which exercises the WiFi, the clock, the security pinning and the authentication in one go, does it become permanent. Any crash before that point and she reboots into the previous version like nothing happened. We proved the whole cycle on the first attempt, then made publishing an update a deliberate separate step from building one, on the theory that a build nobody has smoke-tested has no business being beamed into the kitchen.</p>
+    <p>Every firmware change had meant carrying Beebee to the desk and plugging in a cable, which is why small improvements kept getting deferred. So she learned to update herself over WiFi, with the safety design carrying all the weight: a freshly installed update boots on probation, and only after it proves it can still reach the bridge, which exercises the WiFi, the clock and the security checks in one go, does it become permanent. Any crash before that point and she reboots into the previous version like nothing happened. We proved the whole cycle on the first attempt, then made publishing an update a deliberate separate step from building one, on the theory that a build nobody has smoke-tested has no business being beamed into the kitchen.</p>
   </div>
 
   <div class="entry">
     <div class="datechip"><span class="d">24 Aug</span><span class="wk">week 2</span></div>
     <h2>Two features we refused to build, one nearly by accident</h2>
     <p>The tempting one was a walkie-talkie; speak into the phone, have Beebee play it aloud, let the helper answer through her. Entirely buildable with parts we already had, and rejected on the simplest test: once she's been paged, WhatsApp does everything the walkie-talkie would, for zero build. The feature would have saved one walk to a phone.</p>
-    <p>The near-miss was quieter. Reviewing battery life, I asked why Beebee polls the bridge every two seconds when the consent feature it polls for has been parked since week one. It looked exactly like dead code, and removing it would have silently killed the pager, because the pager's messages ride that same poll under the old feature's name. We renamed everything a week later. Code that misleads its own author about what's load-bearing is a defect even when it works perfectly.</p>
+    <p>The near-miss was quieter. Reviewing battery life, Claude proposed removing Beebee's constant check-ins with the bridge, since the consent feature they were for had been parked since week one. It looked exactly like dead code. I asked why it was there, and the answer was that removing it would have silently killed the pager, because the pager's messages ride that same poll under the old feature's name. We renamed everything a week later. Code that misleads its own author about what's load-bearing is a defect even when it works perfectly.</p>
   </div>
 
   <div class="entry">
     <div class="datechip"><span class="d">31 Aug</span><span class="wk">week 3</span></div>
     <h2>Paging from the street, and forty quiet hours</h2>
-    <p>The pager had one gap: it only worked from home WiFi, and the first time the button got pressed away from that WiFi it reached nothing, twice. The fix was a secure public tunnel to the bridge, so the same button now works from anywhere; the proof was ringing the kitchen from the phone on 5G.</p>
+    <p>The pager had one gap: it only worked from home WiFi, and the first time the button got pressed away from that WiFi it reached nothing, twice. The fix let the button reach the bridge from anywhere; the proof was ringing the kitchen from the phone on 5G.</p>
     <p>The same day's log check found something worse. The bridge's log had grown to 92 megabytes, and inside it the same error repeated 72,678 times: the bridge refusing Beebee's check-ins, every two seconds, for roughly forty hours, after which it quietly healed itself. The pager had been dead for nearly two days and the household simply hadn't needed it, which is the most dangerous kind of luck. The cause was a classic Python trap; database connections that a <code>with</code> statement looks like it closes and doesn't, leaking one handle per check-in until the process ran out. We fixed the leak, capped the log, and I updated a personal rule: prefer detection to discipline, because a system that fails loudly is an inconvenience and one that heals itself before you look is a trap.</p>
   </div>
 
@@ -270,7 +270,7 @@
   <div class="entry">
     <div class="datechip"><span class="d">5 Sep</span><span class="wk">week 3</span></div>
     <h2>"Why so small"</h2>
-    <p>Two more meters wanted in. My prepaid credits on a third AI service, so I stop logging in just to check a balance, and the usage of the household's other AI, read off its own machine over the private network. That last one meant a small exporter program on the second Mac, and the discovery, around midnight, that the copy of the project living there had never been a git repository at all; it was a folder that arrived on a drive and stayed a folder. It is a repository now.</p>
+    <p>Two more meters wanted in. My prepaid credits on a third AI service, so I stop logging in just to check a balance, and the usage of the household's other AI. That last one meant a small program on the other machine, and the discovery, around midnight, that the copy of the project living there had never been a git repository at all; it was a folder that arrived on a drive and stayed a folder. It is a repository now.</p>
     <p>My actual design contribution that evening was three words, sent after squinting at the new credits row from across the room: "wow, why so small". The dashboard had grown by accretion, card by card, and the numbers had shrunk to fit. So the cards went, replaced by one uniform column of readings, small label, thin meter, big number, six rows and space for a seventh. The screen finally looks designed instead of negotiated.</p>
     <p>The same evening produced my favourite failure of the project. We flashed the new build over the cable before publishing it to the update channel, so for a minute or two the channel still advertised the old version, and Beebee, doing exactly her job, saw an "update", downgraded herself to it, then a quarter of an hour later noticed the corrected channel and upgraded herself back. The parachute got a live demonstration nobody planned. The rule is now: publish first, then flash.</p>
   </div>
@@ -285,12 +285,16 @@
   <hr>
   <div class="entry" style="border-top:0">
     <h2>What three weeks with a screen taught me</h2>
-    <p>Nothing Beebee does today was in her original job description, and the consent button she was born to be sits parked in the code, waiting for a future that may not come. Every feature she has was pulled in by the household: the pager by a phone that goes unanswered at the same hour every day, the dashboard by my laziness about opening terminals, the timer by a 21-month-old. The evictions matter as much. The walkie-talkie lost to WhatsApp; the memos lost to me never once pressing the button for them; and the field test I kept scheduling for the pager got cancelled by the pager just working, week after week, in daily use.</p>
-    <p>The building itself was the cheap part, same as the other journals; Claude wrote or rewrote all of it: the firmware another AI began, the bridge and its collectors, and every one of the failed memo uploads. What cost something was deciding, and the deciding was mostly refusal: of features, of my own first diagnosis when a better one turned up, and once of my own urge to optimise away a poll that turned out to be the pager's heartbeat. I also supplied one of the outages personally.</p>
+    <p>Nothing Beebee does today was in her original job description, and the consent button she was born to be sits parked in the code, waiting for a future that may not come. Every feature she has was pulled in by the household: the pager by a phone that goes unanswered when questions come up, the dashboard by my laziness about opening terminals, the timer by a 21-month-old. The evictions matter as much. The walkie-talkie lost to WhatsApp; the memos lost to me never once pressing the button for them; and the field test I kept scheduling for the pager got cancelled by the pager just working, week after week, in daily use.</p>
     <p>The first red disc hasn't been watched all the way down to zero yet; he's 21 months, and we'll see.</p>
   </div>
 
-  <p class="footer-note">The hardware is an M5Stack CoreS3, an ESP32 with a touchscreen, speaker and battery, smaller than a drink coaster. The bridge is a small Python service on the Mac Mini that also runs <a href="/building-chatpulse">chatpulse</a>. This is the fourth build journal; same deal as the others, dates and dead-ends included. <a href="/nigel/">Back to Nigel&rsquo;s work</a></p>
+  <div class="entry">
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>The building itself was the cheap part, same as the other journals; Claude wrote or rewrote all of it: the firmware another AI began, the bridge and its collectors, and every one of the failed memo uploads. What cost something was deciding, and the deciding was mostly refusal: of features, of my own first diagnosis when a better one turned up, and once of Claude's urge to optimise away a poll that turned out to be the pager's heartbeat. I also supplied one of the outages personally.</p>
+  </div>
+
+  <p class="footer-note">The hardware is an M5Stack CoreS3, an ESP32 with a touchscreen, speaker and battery, smaller than a drink coaster. The bridge is a small Python service on my Mac. This is the fourth build journal; same deal as the others, dates and dead-ends included. <a href="/nigel/">Back to Nigel&rsquo;s work</a></p>
 
   </article>
 </div>

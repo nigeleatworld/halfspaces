@@ -82,7 +82,7 @@
   .svgsub{font-family:"JetBrains Mono",monospace; font-size:10.5px; fill:#52655A}
   .svgnote{font-family:"DM Sans",sans-serif; font-size:12px; fill:#52655A}
   .svgbig{font-family:"DM Sans",sans-serif; font-size:15px; font-weight:700; fill:#1C2B21}
-  /* responsive HTML pipeline diagram — reflows row->stack, real text, fluid sizes */
+  /* responsive HTML pipeline diagram: reflows row->stack, real text, fluid sizes */
   .diagram{margin:2px 0}
   .pipe{display:flex; flex-direction:column; gap:9px; align-items:stretch}
   .stage{flex:1 1 0; min-width:0; border:1px solid var(--line-strong); border-radius:11px;
@@ -167,7 +167,7 @@
     <p class="kicker">Build journal</p>
     <h1>Building chatpulse</h1>
     <p class="standfirst">Five weeks building a system that reads everything I pay to read, and tells me what's worth my attention.</p>
-    <p class="runmeta">7 May – 12 June 2026 · built with Claude · ~16 working sessions · runs on a Mac&nbsp;Mini lodged at a quiet corner of my desk</p>
+    <p class="runmeta">7 May – 12 June 2026 · built with Claude · ~16 working sessions</p>
   </header>
 
   <article>
@@ -179,7 +179,7 @@
 
     <div class="aside">
       <span class="tag">How to read this</span>
-      It's a journal, not a tidy after-the-fact story. The architecture diagrams are here, but so are the days I was confidently wrong. The interesting parts were almost never the code.
+      It's a journal, not a tidy after-the-fact story. The architecture diagrams are here, and so are the days I was confidently wrong. The interesting parts were almost never the code.
     </div>
 
     <h2 style="margin-top:8px">The shape, before the story</h2>
@@ -230,15 +230,11 @@
     <h2>From one source to many, and getting told off by a server</h2>
     <p>By the second week it had to read everyone, not one chat; same database, several publications, both their chats and their article archives. The backfill pulled in thousands of posts and a hundred-odd thousand comments, which is when the politeness problem showed up.</p>
     <p>Their servers rate-limit you, and not the way you'd guess; bursting into a fresh source right after a long run on a shared endpoint trips a "too many requests" wall even when you've been deliberately slow. Several runs failed before I taught it to back off, honour the server's "wait this long" header, and treat a payment-required response as a polite skip rather than a crash. The instinct to go faster is exactly wrong here; the only run that matters long-term is the small daily one, and slow-and-unbothered beats fast-and-blocked.</p>
-    <div class="aside warn">
-      <span class="tag">Lesson</span>
-      Don't parallelise the scraper to feel clever. The data's owners can see you, and the whole thing only works if it looks like a person quietly reading what they pay for.
-    </div>
   </div>
 
   <div class="entry">
     <div class="datechip"><span class="d">12–13 May</span><span class="wk">Tue–Wed · week 1</span></div>
-    <h2>The actual hard part: deciding what counts as a signal</h2>
+    <h2>The hard part: deciding what counts as a signal</h2>
     <p>This is where it stopped being plumbing. A chat is mostly noise; "gm", jokes, screenshots, and people asking what everyone thinks of a name. Out of that, I wanted only the lines where a person is genuinely taking a position, tagged with how much they meant it. Getting a model to do that reliably is less about prompting and more about defining, precisely, the thing you're looking for.</p>
     <p>The rules that took the longest to pin down were all about <em>restraint</em>. A reader asking "thoughts on this one?" mentions a company while holding no view of it; that's not a signal. "There'll always be a buyer for these" is an observation, not a stance. A pasted news headline is the news's opinion, not the author's, unless they say otherwise. Each of these is obvious to a human and slippery to a model, and each one is a rule I had to write and then defend against the system's eagerness to find meaning in everything.</p>
 
@@ -260,12 +256,12 @@
   <div class="entry">
     <div class="datechip"><span class="d">14–17 May</span><span class="wk">week 2</span></div>
     <h2>Choosing the cheap brain on purpose</h2>
-    <p>Reading every message with a frontier model would be lovely and would also quietly bleed money. So I ran a bake-off; the same few-shot examples against a flagship model and a much cheaper one, graded by hand. The cheap one agreed with the expensive one about ninety-odd percent of the time, at a small fraction of the cost, and its failures leaned the safe way; it under-read rather than hallucinated. Easy call. The expensive model gets saved for the single thing a human actually reads each day; the morning synthesis. Everything else, the millions of tiny reads, runs cheap.</p>
+    <p>Reading every message with a frontier model would be lovely and would also quietly bleed money. So I ran a bake-off; the same few-shot examples against a flagship model and a much cheaper one, graded by hand. The cheap one agreed with the expensive one about ninety-odd percent of the time, at a small fraction of the cost, and its failures leaned the safe way; it under-read rather than hallucinated. Easy call. The expensive model gets saved for the single thing a human reads each day; the morning synthesis. Everything else, the millions of tiny reads, runs cheap.</p>
     <div class="figure plain">
       <div class="diagram" role="img" aria-label="A cheap model does the millions of small reads; an expensive model is reserved for the one daily synthesis a human reads.">
         <div class="cols">
-          <div class="stage c-sage"><p class="t">the cheap model</p><p class="s">reads every message &amp; article · millions of small reads · a few cents a day</p></div>
-          <div class="stage c-gold"><p class="t">the expensive model</p><p class="s">writes the one daily brief a human actually reads · once a day, on purpose</p></div>
+          <div class="stage c-sage"><p class="t">the cheap model</p><p class="s">reads every message &amp; article · millions of small reads · very low cost</p></div>
+          <div class="stage c-gold"><p class="t">the expensive model</p><p class="s">writes the one daily brief a human reads · once a day, on purpose</p></div>
         </div>
       </div>
       <div class="figcaption">spend the money where a person is looking; nowhere else</div>
@@ -274,7 +270,7 @@
 
   <div class="entry">
     <div class="datechip"><span class="d">17–19 May</span><span class="wk">week 2</span></div>
-    <h2>Turning signals into something I'd actually open</h2>
+    <h2>Turning signals into something I'd open</h2>
     <p>Now there were signals in a database; useless until shaped into a read. The brief got a fixed structure: what's new, what's converging across sources, the blunt action calls, the early first-mentions, the risks. And one rule that does most of the work; rank by <em>agreement</em>, not by volume. Counting mentions just surfaces whatever's loudest. What I care about is the quieter event of several independent writers landing on the same name, the same way, around the same time.</p>
     <p>That forced a distinction I now think is the heart of the whole thing: whose voice it is. The people who write the publications are one tier; their own calls are what count toward conviction. Everyone else in the chat is a second tier, kept as colour and early warning, never quietly promoted into "the author said so." Conflating those two is the single easiest way to make a signal feed lie to you.</p>
 
@@ -296,8 +292,8 @@
   <div class="entry">
     <div class="datechip"><span class="d">20 May</span><span class="wk">Wednesday · the long day</span></div>
     <h2>The day everything came back half-written</h2>
-    <p>This is my favourite entry, because it's the most honest about how building actually goes. The brief kept feeling thin on exactly the long, meaty articles that should have mattered most. The signals were there for short posts and missing for the big pieces, which made no sense until I looked at what was actually landing in the database: the long paid articles were arriving <em>truncated</em>, cut off right where the paywall sits, even though I was sending a valid paid login.</p>
-    <p>What followed was a couple of hours of detective work, almost all of it in Claude's hands; probe after probe, while I watched and guessed out loud. Was the login being ignored? No. A redirect? No. At one point the culprit looked like a compression setting quietly mangling the response, a real red herring Claude chased for a while. The actual answer was that one endpoint serves a polite truncated preview to everyone, and a different, less obvious endpoint serves the full body to a paid session. Switch endpoints, re-pull everything, problem gone.</p>
+    <p>This is my favourite entry, because it's the most honest about how building goes. The brief kept feeling thin on exactly the long, meaty articles that should have mattered most. The signals were there for short posts and missing for the big pieces, which made no sense until I looked at what was landing in the database: the long paid articles were arriving <em>truncated</em>, cut off right where the paywall sits, even though I was sending a valid paid login.</p>
+    <p>What followed was a couple of hours of detective work, almost all of it in Claude's hands; probe after probe, while I watched and guessed out loud. Was the login being ignored? No. A redirect? No. At one point the culprit looked like a compression setting quietly mangling the response, a real red herring Claude chased for a while. The answer was that one endpoint serves a polite truncated preview to everyone, and a different, less obvious endpoint serves the full body to a paid session. Switch endpoints, re-pull everything, problem gone.</p>
 
     <div class="figure plain">
       <div class="diagram" role="img" aria-label="The obvious endpoint returned a truncated article cut at the paywall; a different by-id endpoint returned the full paid body.">
@@ -315,27 +311,27 @@
   <div class="entry">
     <div class="datechip"><span class="d">23 May</span><span class="wk">Saturday</span></div>
     <h2>A wall I'd built for myself</h2>
-    <p>Claude had built a neat way for my own separate agent to query all of this directly. Then I remembered the agent doesn't live on the same machine as the data; it runs on its own isolated box. You can't reach a database on one computer by pointing at a file path on another. The clever thing I'd built simply couldn't work, and the honest move was to write that down, mark it not-deployable, and sketch the real fix for later rather than pretend otherwise. It sat unsolved for almost two weeks.</p>
+    <p>Claude had built a neat way for my own separate agent to query all of this directly. Then I remembered the agent doesn't live on the same machine as the data. You can't reach a database on one computer by pointing at a file path on another. The clever thing I'd built simply couldn't work, and the honest move was to write that down, mark it not-deployable, and sketch the real fix for later rather than pretend otherwise. It sat unsolved for almost two weeks.</p>
   </div>
 
   <div class="entry">
     <div class="datechip"><span class="d">4 June</span><span class="wk">Thursday · week 4, after living with it</span></div>
     <h2>Grading my own homework</h2>
-    <p>After a fortnight of actually receiving the daily brief, I stopped and audited it properly; ten briefs checked against what the system could have known. The test I trust most was a ground-truth one: I browsed the sources myself, wrote down three things I'd have wanted flagged, then traced each through the pipeline to see where it was won or lost. All three were sitting in the database. None had surfaced cleanly.</p>
-    <p>The verdict was clarifying and a little humbling: the reading and understanding were fine; the <em>last</em> step, deciding what to show, was the weak link. The worst offender was the risk section quietly attributing a community member's offhand quip to a named author. Good thing to catch, since misattribution in a trust-based feed is close to the worst failure it can have. I fixed it, then built the thing the audit told me I actually needed; a live layer.</p>
+    <p>After a fortnight of receiving the daily brief, I stopped and audited it properly; ten briefs checked against what the system could have known. The test I trust most was a ground-truth one: I browsed the sources myself, wrote down three things I'd have wanted flagged, then traced each through the pipeline to see where it was won or lost. All three were sitting in the database. None had surfaced cleanly.</p>
+    <p>The verdict was clarifying and a little humbling: the reading and understanding were fine; the <em>last</em> step, deciding what to show, was the weak link. The worst offender was the risk section quietly attributing a community member's offhand quip to a named author. Good thing to catch, since misattribution in a trust-based feed is close to the worst failure it can have. I fixed it, then built the thing the audit told me I needed; a live layer.</p>
   </div>
 
   <div class="entry">
     <div class="datechip"><span class="d">4–6 June</span><span class="wk">week 4</span></div>
     <h2>From a morning newspaper to a wire</h2>
-    <p>The single daily brief was good for "what did I miss overnight" and bad for "something is happening now." So it grew an intraday layer that stays silent unless an event actually fires; a writer opens a position, a quiet name suddenly heats up across several voices, a new article lands. The morning brief stayed as the orienting read; the live nudges sit on top for urgency. The rule I held to was that a pure schedule ("nothing new, here's your 3pm ping") trains you to ignore the feed, so it only ever speaks when there's a reason.</p>
+    <p>The single daily brief was good for "what did I miss overnight" and bad for "something is happening now." So it grew an intraday layer that stays silent unless an event fires; a writer opens a position, a quiet name suddenly heats up across several voices, a new article lands. The morning brief stayed as the orienting read; the live nudges sit on top for urgency. The rule I held to was that a pure schedule ("nothing new, here's your 3pm ping") trains you to ignore the feed, so it only ever speaks when there's a reason.</p>
     <p>I also spent a session teaching it two things it kept getting subtly wrong; that "new position" means someone just bought, the single most newsworthy fact in a chat, and that "that short worked out nicely" is a closed trade being remembered fondly, not a live bearish call. Both are the difference between a stance and a memory, and both are exactly the kind of judgement the model won't make unless you make it explicit.</p>
   </div>
 
   <div class="entry">
-    <div class="datechip"><span class="d">7 June</span><span class="wk">Saturday</span></div>
+    <div class="datechip"><span class="d">7 June</span><span class="wk">Sunday</span></div>
     <h2>Giving it a second mouth</h2>
-    <p>Two weeks after admitting the cross-machine wall, I built the real fix: a small, locked-down query service on the machine that holds the data, reachable only over my private network, that answers questions instead of handing over files. Now I can ask it things. "Why is this name showing up?" returns who said what, in their own words, even for names too thinly covered to ever make the morning brief. The brief pushes what it decided mattered; this lets me pull everything it didn't. That push-and-pull pairing is, I think, when it stopped being a report and started being a tool.</p>
+    <p>Two weeks after admitting the cross-machine wall, I built the real fix: a small query service that answers questions instead of handing over files. Now I can ask it things. "Why is this name showing up?" returns who said what, in their own words, even for names too thinly covered to ever make the morning brief. The brief pushes what it decided mattered; this lets me pull everything it didn't. That push-and-pull pairing is, I think, when it stopped being a report and started being a tool.</p>
     <div class="figure plain">
       <div class="diagram" role="img" aria-label="Push: the brief and live nudges decide what I see. Pull: I can ask about anything, including names that never made the brief.">
         <div class="cols">
@@ -348,10 +344,10 @@
   </div>
 
   <div class="entry">
-    <div class="datechip"><span class="d">9 June</span><span class="wk">Monday · a detour that was my fault</span></div>
+    <div class="datechip"><span class="d">9 June</span><span class="wk">Tuesday · a detour that was my fault</span></div>
     <h2>Confidently wrong about my own desk</h2>
-    <p>Connecting that agent to the query service should have been quick. It turned into an evening, and the wrong idea was mine. I'd taken my own second machine for some separate, untrusted thing, and Claude, taking my word for it, built out a careful, fiddly way of sharing one machine across two private networks, with access-control rules and the works. It half-worked in a way that's worse than not working; the connection would say it was reachable, then quietly refuse on the one port that mattered, because that setup needs permission on <em>both</em> networks and I'd only granted it on one.</p>
-    <p>The thing is, both machines are mine. They sit on the same desk. The moment I said that out loud, the whole elaborate solution evaporated; just put the second machine on my own network like the others, done. There was a smaller comedy inside it too, where the login kept silently signing in as the wrong account until we forced a fresh browser window. The two of us, Claude and me, both capable of real work, spending an hour solving a problem I'd invented by misremembering where my own computers live.</p>
+    <p>Connecting that agent to the query service should have taken minutes. It turned into an evening, and the wrong idea was mine. I'd taken my own second machine for some separate, untrusted thing, and Claude, taking my word for it, built out a careful, fiddly way of keeping the two apart. It half-worked in a way that's worse than not working; the connection would say it was there, then quietly refuse.</p>
+    <p>The thing is, both machines are mine. They sit on the same desk. The moment I said that out loud, the whole elaborate solution evaporated; treat the second machine like the others, done. There was a smaller comedy inside it too, where the login kept silently signing in as the wrong account until we forced a fresh browser window. The two of us, Claude and me, both capable of real work, spending an hour solving a problem I'd invented by misremembering where my own computers live.</p>
     <div class="aside warn">
       <span class="tag">The pattern</span>
       Almost none of the errors were the code being hard. They were one of us being confidently slightly wrong about something we should have known, and the other building cleverly on top of the wrong premise before either noticed. The fix was usually for someone to say the obvious thing out loud.
@@ -360,9 +356,9 @@
 
   <div class="entry">
     <div class="datechip"><span class="d">11–12 June</span><span class="wk">week 5</span></div>
-    <h2>The last source, and a flag I forgot</h2>
-    <p>The final piece was folding in the Asian-equities publication, which was awkward because it lives on a different platform <em>and</em> has its member chat on a different one again; articles fetched one way, chat read another, both needing to land as a single voice so they'd converge together. That part went smoothly. The part that didn't, again, was me.</p>
-    <p>We lost a chunk of the night to what looked like a deep data-loss bug; a backfill kept reporting it had processed two hundred items while saving exactly none. Claude read the code three times and even checked whether two processes were fighting over the database. The cause was a single flag Claude had left off the command, the one that says "actually write this down." It had been doing precisely what it was told, which was a dry run. Twice. My job that night was the unglamorous half of the partnership: keep asking "are you sure that's it?" until the embarrassingly simple answer surfaced.</p>
+    <h2>The last source, and a missing flag</h2>
+    <p>The final piece was folding in the Asian-equities publication, which was awkward because it lives on a different platform <em>and</em> has its member chat on a different one again; articles fetched one way, chat read another, both needing to land as a single voice so they'd converge together. That part went smoothly. The backfill didn't.</p>
+    <p>We lost a chunk of the night to what looked like a deep data-loss bug; a backfill kept reporting it had processed two hundred items while saving exactly none. Claude read the code three times and even checked whether two processes were fighting over the database. The cause was a single flag Claude had left off the command, the one that says "write this down for real." It had been doing precisely what it was told, which was a dry run. Twice. My job that night was the unglamorous half of the partnership: keep asking "are you sure that's it?" until the embarrassingly simple answer surfaced.</p>
     <p>In the same stretch we trimmed the cost where it had crept; the daily article summaries had been quietly using the expensive model, so Claude moved them to a cheaper one that does the job just as well, roughly halving the monthly spend. Boring, satisfying, the kind of thing that only matters because nobody's watching it.</p>
   </div>
 
@@ -373,12 +369,18 @@
     <p>Getting a second model to attack your own work, with no ego in it, is one of the genuinely new things about building this way. It doesn't get tired or defensive, and it doesn't care that you just declared yourself finished.</p>
   </div>
 
+  <div class="entry">
+    <div class="datechip"><span class="d">Nov 2026</span><span class="wk">postscript</span></div>
+    <h2>Five months on</h2>
+    <p>It still reads everything, every day. Since the end of September nothing from it goes to my phone, so it no longer hands me the shortlist; what it gathers is there when I want to ask it something.</p>
+  </div>
+
   <hr>
   <div class="entry" style="border-top:0">
-    <h2>What the five weeks actually taught me</h2>
+    <h2>What AI did, and what it didn&rsquo;t</h2>
     <p>Claude wrote almost all of the code, which is the least interesting thing about the whole project. What Claude could not do was decide what counted. It had no opinion on whether a wry one-liner was a real short or a joke, on how much to trust the crowd against the writer, on when "this aged well" is a position and when it's a postcard. It would happily extract a signal from a shrug if I let it. Every threshold in the thing is a judgement I had to make and then defend against the system's own eagerness to find meaning everywhere.</p>
-    <p>So the division of labour was clean and a little surprising: AI made iteration almost free, and taste still had to come from somewhere. The taste came out of a lot of imperfect reactions; this is noise, that's real, you're over-reading, you're attributing the wrong person, miss it rather than fake it. That loop was the work. The fumbles in this journal are not incidental to it; they <em>are</em> it. The good version of building with AI isn't fewer mistakes, it's cheaper ones, made faster, with Claude to say the obvious thing back to you, and you to Claude, when one of you has talked both of you somewhere silly.</p>
-    <p>It replaced a fight I was never going to win: reading several chats and several article streams every day and trusting myself, at midnight, with eleven tabs open, to notice the one line that mattered. A quieter version of that attention now runs without me and hands me the shortlist. It isn't always right. It's reliably less wrong than me at midnight, and on the mornings it surfaces something I'd have walked straight past, it pays for the whole month of subscriptions in a single message.</p>
+    <p>So the division of labour was clean and a little surprising: iteration was almost free, and the taste came out of a lot of imperfect reactions; this is noise, that's real, you're over-reading, you're attributing the wrong person, miss it rather than fake it. That loop was the work. The fumbles in this journal are not incidental to it; they <em>are</em> it. The good version of building with AI isn't fewer mistakes, it's cheaper ones, made faster, with Claude to say the obvious thing back to you, and you to Claude, when one of you has talked both of you somewhere silly.</p>
+    <p>It replaced a fight I was never going to win: reading several chats and several article streams every day and trusting myself, at midnight, with eleven tabs open, to notice the one line that mattered. By June, a quieter version of that attention ran without me and handed me the shortlist. It wasn't always right. It was reliably less wrong than me at midnight, and on the mornings it surfaced something I'd have walked straight past, it paid for the whole month of subscriptions in a single message.</p>
   </div>
 
   <p class="footer-note">A note on sources. This reads publications I personally pay for, for my own use, and I've deliberately kept every name out of it; the publications, the writers, the tickers, all of it. The system is the point, not the people I read. This journal is the first of a few; I'm planning to document the other things I've built the same way, dates and dead-ends included. <a href="/nigel/">Back to Nigel&rsquo;s work</a></p>
