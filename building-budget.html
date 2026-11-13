@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Building the budget dashboard · a build journal · halfspaces</title>
 <meta name="description" content="One page, built from my own bank and card exports, that shows where the money goes; most of the work was making sure it never shows a plausible wrong number.">
+<link rel="canonical" href="https://halfspaces.co/building-budget">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building the budget dashboard · a build journal · halfspaces">
+<meta property="og:description" content="One page, built from my own bank and card exports, that shows where the money goes; most of the work was making sure it never shows a plausible wrong number.">
+<meta property="og:url" content="https://halfspaces.co/building-budget">
+<meta property="og:image" content="https://halfspaces.co/assets/og-journal.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Building the budget dashboard · a build journal · halfspaces">
+<meta name="twitter:description" content="One page, built from my own bank and card exports, that shows where the money goes; most of the work was making sure it never shows a plausible wrong number.">
+<meta name="twitter:image" content="https://halfspaces.co/assets/og-journal.png">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,13 +67,14 @@
   h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
   h1 { font-weight:400; font-variation-settings:"opsz" 130 }
   h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+  .footer-note a{display:inline-flex;min-height:44px;align-items:center}
 </style>
 
 <style>
   /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
   :root{
     --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
-    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#6A6A72; --slate-blue:#0E0E10;
     --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
     --serif:"Source Serif 4",Georgia,serif;
     --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
@@ -73,8 +86,10 @@
   .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
   code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
+<main id="journal">
 <div class="wrap">
 <header class="masthead">
     <p class="kicker">Build journal</p>
@@ -117,8 +132,9 @@
     <h2>What AI did, and what it didn&rsquo;t</h2>
     <p>Claude writes the code, reads the screenshots, runs each build and proposed every model, good and bad. Codex reviews the calculations and argues with proposed changes. My part: I download the files, identify the merchants it can&rsquo;t place, make the classification and policy calls, approve new checks, and decide what the page is allowed to tell me.</p>
 
-    <p class="footer-note"><a href="/nigel/#work">Back to halfspaces.co</a></p>
+    <p class="footer-note"><a href="/nigel/">Back to Nigel&rsquo;s work</a></p>
   </article>
 </div>
+</main>
 </body>
 </html>

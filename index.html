@@ -7,7 +7,11 @@
 /* Old portfolio links (halfspaces.co/#work and friends) now live at /nigel/. */
 (function () {
     var moved = ['#why', '#work', '#p1', '#p2', '#p3', '#p3run', '#p3fl', '#bitpybit', '#bench', '#notes', '#name'];
-    if (moved.indexOf(location.hash) !== -1) location.replace('/nigel/' + location.hash);
+    function forwardPortfolioLink() {
+        if (moved.indexOf(location.hash) !== -1) location.replace('/nigel/' + location.hash);
+    }
+    addEventListener('hashchange', forwardPortfolioLink);
+    forwardPortfolioLink();
 })();
 </script>
 <title>Halfspaces | We help businesses run smoother</title>
@@ -68,10 +72,14 @@ button, input { font: inherit; }
 .btn-line:hover { background: rgba(22, 32, 27, .06); }
 .btn svg { width: 18px; height: 18px; }
 
+.contact-address { display: block; font-size: 16px; color: var(--muted); overflow-wrap: anywhere; }
+.payoff .contact-address { margin-top: 12px; }
+
 /* Header */
 .top { display: flex; justify-content: space-between; align-items: center; height: 84px; }
 .top img { height: 30px; width: auto; display: block; }
 .top .contact { font-weight: 600; font-size: 16px; padding: 10px 0; text-underline-offset: 4px; }
+.top .links { display: flex; gap: 24px; }
 
 /* Hero */
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 64px; align-items: center; padding: 36px 0 72px; }
@@ -208,7 +216,7 @@ button, input { font: inherit; }
 .chat { padding: 14px 14px 0; display: grid; gap: 10px; transition: opacity .3s ease, transform .5s var(--ease); }
 .day { justify-self: center; font: 500 11px/1 var(--sans); color: var(--ui); background: #F2F4F1; padding: 5px 8px; border-radius: 8px; }
 .out { justify-self: end; max-width: 82%; background: #DDF2E2; padding: 9px 12px 7px; border-radius: 16px 16px 4px 16px; font-size: 13px; line-height: 1.35; }
-.out small { display: block; text-align: right; color: var(--ui); font-size: 10.5px; margin-top: 3px; }
+.out small { display: block; text-align: right; color: #5C6661; font-size: 10.5px; margin-top: 3px; }
 .moment.done .chat { opacity: 0; transform: translateX(-30px); }
 .orders { position: absolute; left: 14px; right: 14px; top: 108px; display: grid; gap: 8px; }
 .orders .oh { opacity: 0; transition: opacity .3s ease .25s; display: flex; justify-content: space-between; font: 500 11px/1 var(--sans); color: var(--ui); text-transform: uppercase; letter-spacing: .06em; padding: 4px 4px 2px; }
@@ -454,13 +462,14 @@ footer a { display: inline-block; padding: 6px 0; }
     .moment.done .w3 { transform: translateY(-232px) scale(.94); }
 }
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
 <script>document.documentElement.classList.add('js');</script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-status" viewBox="0 0 79 15"><g fill="currentColor"><rect x="0.000" y="7.34" width="3.333" height="6.33" rx="1.667"/><rect x="5.667" y="5.00" width="3.333" height="8.67" rx="1.667"/><rect x="11.334" y="2.67" width="3.333" height="11" rx="1.667"/><rect x="17.001" y="0.00" width="3.333" height="13.67" rx="1.667"/><path transform="translate(25 0)" fill-rule="evenodd" d="M0.415933 5.54283C0.902185 6.04412 1.66017 5.95818 2.27513 5.41393C4.30595 3.58064 6.83731 2.63535 9.66901 2.63535C12.5007 2.63535 15.0464 3.60928 17.0629 5.41393C17.6636 5.97251 18.4215 6.0298 18.9221 5.54283C19.4226 5.02722 19.4942 4.2538 18.9793 3.70954C16.8341 1.51819 13.3302 0 9.66901 0C6.00783 0 2.48965 1.53251 0.358727 3.72387C-0.156127 4.2538 -0.0989213 5.02722 0.415933 5.55715L0.415933 5.54283ZM3.94841 9.13779C4.50617 9.68205 5.22124 9.62476 5.85051 9.10915C6.88022 8.29276 8.25316 7.73418 9.66901 7.7485C11.0706 7.7485 12.4435 8.29276 13.4875 9.12347C14.1168 9.63908 14.8605 9.66773 15.4039 9.12347C15.9331 8.57921 16.0189 7.7485 15.4611 7.23289C14.0739 5.98683 11.9859 5.11315 9.68332 5.11315C7.38077 5.11315 5.27845 5.98683 3.9055 7.23289C3.41925 7.69121 3.31914 8.47896 3.96271 9.13779L3.94841 9.13779ZM8.72511 13.8929C9.34008 14.4801 9.98365 14.4801 10.5986 13.8929L11.757 12.7757C12.372 12.1742 12.5007 11.4151 11.7999 10.8995C11.2136 10.4841 10.4699 10.212 9.66901 10.212C8.86813 10.212 8.11015 10.4841 7.53809 10.9138C6.83731 11.4151 6.98033 12.1885 7.59529 12.7757L8.73942 13.8929L8.72511 13.8929Z"/><path transform="translate(49.6 0.3)" d="M0 6.4C0 4.15979 0 3.03969 0.435974 2.18404C0.819467 1.43139 1.43139 0.819467 2.18404 0.435974C3.03969 0 4.15979 0 6.4 0L19.933 0C22.1732 0 23.2933 0 24.149 0.435974C24.9016 0.819467 25.5135 1.43139 25.897 2.18404C26.333 3.03969 26.333 4.15979 26.333 6.4L26.333 7.26666C26.333 9.50687 26.333 10.627 25.897 11.4826C25.5135 12.2353 24.9016 12.8472 24.149 13.2307C23.2933 13.6667 22.1732 13.6667 19.933 13.6667L6.4 13.6667C4.15979 13.6667 3.03969 13.6667 2.18404 13.2307C1.43139 12.8472 0.819467 12.2353 0.435974 11.4826C0 10.627 0 9.50687 0 7.26666L0 6.4Z"/><path transform="translate(76.9 4.6)" d="M0 0L0 5C0.601505 4.8625 2 3.75 2 2.5C2 1.25 0.601505 0.1375 0 0Z"/></g></symbol><symbol id="i-bell" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 1.25a4.25 4.25 0 0 0-4.25 4.25v3.1l-1.3 2.1a.6.6 0 0 0 .5.9h10.1a.6.6 0 0 0 .5-.9l-1.3-2.1V5.5A4.25 4.25 0 0 0 8 1.25ZM6.2 13.1a1.9 1.9 0 0 0 3.6 0Z"/></symbol><symbol id="i-cal" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M3.5 2h9A2 2 0 0 1 14.5 4v8.5a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm-.5 4.5v6a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-6ZM4.2 7.6h1.6v1.6h-1.6ZM7.2 7.6h1.6v1.6h-1.6ZM10.2 7.6h1.6v1.6h-1.6ZM4.2 10.2h1.6v1.6h-1.6ZM7.2 10.2h1.6v1.6h-1.6ZM10.2 10.2h1.6v1.6h-1.6Z"/></symbol><symbol id="i-chat" viewBox="0 0 16 16"><path fill="currentColor" d="M8 2c3.6 0 6.5 2.4 6.5 5.4S11.6 12.8 8 12.8c-.8 0-1.6-.1-2.3-.3L2.6 14l.8-2.8C2.2 10.2 1.5 8.9 1.5 7.4 1.5 4.4 4.4 2 8 2Z"/></symbol></svg>
 <header class="wrap top">
-    <a href="#" aria-label="Halfspaces home"><img src="/assets/lockup.svg" alt="Halfspaces" width="131" height="30"></a>
-    <a class="contact" href="#contact">Contact</a>
+    <a href="/" aria-label="Halfspaces home"><img src="/assets/lockup.svg" alt="Halfspaces" width="131" height="30"></a>
+    <nav class="links" aria-label="Site"><a class="contact" href="/about/">About</a><a class="contact" href="#contact">Contact</a></nav>
 </header>
 
 <main>
@@ -471,6 +480,7 @@ footer a { display: inline-block; padding: 6px 0; }
             <p class="how"><strong>Common sense, vigorously applied.</strong> We work alongside you to find what slows the business down, then set up the simplest fix that actually gets used: a better process, a simple tool, sometimes AI.</p>
             <div class="act">
                 <a class="btn" href="mailto:nigel@halfspaces.co?subject=Enquiry%20from%20halfspaces.co">Email us</a>
+                <span class="contact-address">nigel@halfspaces.co</span>
                 <span class="note">Based in Singapore; the first conversation is free.</span>
             </div>
         </div>
@@ -497,6 +507,7 @@ footer a { display: inline-block; padding: 6px 0; }
         <p>Each fix is something we&rsquo;d set up with you. Skip any that aren&rsquo;t yours; the meter only counts what you fix.</p>
     </section>
 
+    <div class="time-zone">
     <div class="meter">
         <div class="wrap">
             <span class="label">Time back<span class="lg"> in this day</span>: <output id="total" aria-live="polite">0 min</output></span>
@@ -692,10 +703,13 @@ footer a { display: inline-block; padding: 6px 0; }
                 <p class="picked" id="picked" aria-live="polite"></p>
                 <div class="act">
                     <a class="btn" href="mailto:nigel@halfspaces.co?subject=Enquiry%20from%20halfspaces.co">Email us about yours</a>
+                    <span class="contact-address">nigel@halfspaces.co</span>
                 </div>
             </div>
         </div>
     </section>
+
+    </div>
 
     <section class="wrap sec" id="who">
         <div class="person">
@@ -738,7 +752,7 @@ footer a { display: inline-block; padding: 6px 0; }
 <footer>
     <div class="wrap">
         <p>Halfspaces Pte Ltd &middot; Singapore &middot; &copy; 2026</p>
-        <p><a href="/nigel/">Nigel&rsquo;s portfolio</a> &middot; <a href="/privacy/">Privacy</a></p>
+        <p><a href="/">Halfspaces home</a> &middot; <a href="/about/">About</a> &middot; <a href="/nigel/">Nigel&rsquo;s portfolio</a> &middot; <a href="/privacy/">Privacy</a></p>
         <p>Named after the half-space in football: the channel between the centre and the wing, where the useful work happens.</p>
         <p>&ldquo;Common sense, vigorously applied&rdquo; is a phrase attributed to Danaher.</p>
     </div>

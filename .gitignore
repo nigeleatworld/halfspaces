@@ -21,3 +21,17 @@ CONTEXT.md
 
 # working drafts stay local; the deploy publishes every tracked file
 *.md
+
+# Public share cards and optimised portfolio images
+!assets/og-journal.png
+!assets/og-about.png
+!assets/og-bitpybit.png
+!assets/og-pokerspace.png
+!assets/peek-poker.webp
+!assets/peek-app.webp
+!assets/peek-test.webp
+!assets/peek-study.webp
+!assets/peek-bah.webp
+!assets/caifan-live.webp
+!assets/pokerspace-table.webp
+!assets/bitpybit-neutral.webp

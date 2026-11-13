@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Building BAH! · a build journal · halfspaces</title>
 <meta name="description" content="A bus-spotting game I built for my toddler, who shouts BAH! at every bus; how it stayed one small rule while the street around it kept growing.">
+<link rel="canonical" href="https://halfspaces.co/building-bah">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building BAH! · a build journal · halfspaces">
+<meta property="og:description" content="A bus-spotting game I built for my toddler, who shouts BAH! at every bus; how it stayed one small rule while the street around it kept growing.">
+<meta property="og:url" content="https://halfspaces.co/building-bah">
+<meta property="og:image" content="https://halfspaces.co/assets/og-journal.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Building BAH! · a build journal · halfspaces">
+<meta name="twitter:description" content="A bus-spotting game I built for my toddler, who shouts BAH! at every bus; how it stayed one small rule while the street around it kept growing.">
+<meta name="twitter:image" content="https://halfspaces.co/assets/og-journal.png">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,13 +67,14 @@
   h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
   h1 { font-weight:400; font-variation-settings:"opsz" 130 }
   h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+  .footer-note a{display:inline-flex;min-height:44px;align-items:center}
 </style>
 
 <style>
   /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
   :root{
     --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
-    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#6A6A72; --slate-blue:#0E0E10;
     --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
     --serif:"Source Serif 4",Georgia,serif;
     --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
@@ -73,8 +86,10 @@
   .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
   code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
+<main id="journal">
 <div class="wrap">
   <header class="masthead">
     <p class="kicker">Build journal</p>
@@ -127,9 +142,6 @@
     <h2>The junction</h2>
     <p>The piece I&rsquo;m most pleased with is a pedestrian crossing. I wanted animals to be able to cross the road, which sounds simple and isn&rsquo;t. My first attempt waited for a gap in the traffic; with cars coming both ways on two roads, a gap never comes. The fix was the obvious real-world one I&rsquo;d been avoiding: stop the cars. The light turns red, the traffic holds at the line, and two or three animals cross together and then walk off down the far pavement. It took an embarrassing number of goes; at one point they crossed the road and walked straight up into the sky, which my son found funnier than I did.</p>
 
-    <h2>What AI did, and what it didn&rsquo;t</h2>
-    <p>AI built most of this with me; it drew the shapes, wrote the game logic, and could even render the screen and check its own work without a browser open. What it couldn&rsquo;t do was feel it. It kept playing the crocodile&rsquo;s snap before the crocodile arrived, and had no way to hear that it was wrong. It moved the big button into a row and didn&rsquo;t notice the button now jerked sideways on every press; my son noticed in about four seconds. The taste, the &ldquo;the sound is early,&rdquo; the &ldquo;they&rsquo;re flying,&rdquo; the &ldquo;do it again,&rdquo; stayed mine. The generation was cheap; the noticing was the job.</p>
-
     <h2>The spine never moved</h2>
     <p>It grew far past what it needed to be: three colours of bus, weather, a sky that can be morning or evening, a button that fills the screen with bubbles, a whole working crossing. Most of that is there because it was fun to make and he kept reacting. Underneath all of it the thing never changed:</p>
 
@@ -137,8 +149,12 @@
 
     <p>The easy version of this was a YouTube video; I made him his own thing instead, tied to the buses and animals and trains he already loved, and kept changing it so it stayed interesting to him. It did most of what I built it for: he ate, he got the hang of waiting for the bus, and he still asks for it by name. He also still shouts BAH! at every real bus, which the game has done nothing to cure, and I hope it never does.</p>
 
-    <p class="footer-note"><a href="bah-bus.html">Play BAH!</a> &middot; <a href="/nigel/">Back to halfspaces.co</a></p>
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>AI built most of this with me; it drew the shapes, wrote the game logic, and could even render the screen and check its own work without a browser open. What it couldn&rsquo;t do was feel it. It kept playing the crocodile&rsquo;s snap before the crocodile arrived, and had no way to hear that it was wrong. It moved the big button into a row and didn&rsquo;t notice the button now jerked sideways on every press; my son noticed in about four seconds. The taste, the &ldquo;the sound is early,&rdquo; the &ldquo;they&rsquo;re flying,&rdquo; the &ldquo;do it again,&rdquo; stayed mine. The generation was cheap; the noticing was the job.</p>
+
+    <p class="footer-note"><a href="/bah-bus">Play BAH!</a> &middot; <a href="/nigel/">Back to Nigel&rsquo;s work</a></p>
   </article>
 </div>
+</main>
 </body>
 </html>

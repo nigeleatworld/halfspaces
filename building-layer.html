@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Building Layer · a build journal · halfspaces</title>
 <meta name="description" content="A checker for finished research decks that grew out of a deck generator I stopped building after one comparison showed it caught no more errors and took longer.">
+<link rel="canonical" href="https://halfspaces.co/building-layer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building Layer · a build journal · halfspaces">
+<meta property="og:description" content="A checker for finished research decks that grew out of a deck generator I stopped building after one comparison showed it caught no more errors and took longer.">
+<meta property="og:url" content="https://halfspaces.co/building-layer">
+<meta property="og:image" content="https://halfspaces.co/assets/og-journal.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Building Layer · a build journal · halfspaces">
+<meta name="twitter:description" content="A checker for finished research decks that grew out of a deck generator I stopped building after one comparison showed it caught no more errors and took longer.">
+<meta name="twitter:image" content="https://halfspaces.co/assets/og-journal.png">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,13 +67,14 @@
   h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
   h1 { font-weight:400; font-variation-settings:"opsz" 130 }
   h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+  .footer-note a{display:inline-flex;min-height:44px;align-items:center}
 </style>
 
 <style>
   /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
   :root{
     --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
-    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#6A6A72; --slate-blue:#0E0E10;
     --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
     --serif:"Source Serif 4",Georgia,serif;
     --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
@@ -73,8 +86,10 @@
   .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
   code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
+<main id="journal">
 <div class="wrap">
 <header class="masthead">
     <p class="kicker">Build journal</p>
@@ -110,8 +125,9 @@
     <p>All of the code and tests are AI-written. Codex built the first five alpha releases with Claude reviewing; Claude built the next four with Codex reviewing. The engine reached 210 tests, and the installer checks bring it to 215. My part: the change of direction, the name, the standards it checks against, the rule about file properties, the rule about closing gaps, refusing test counts as proof, supplying real decks to test it on, and being the last check.</p>
     <p>What it can&rsquo;t claim yet: there&rsquo;s no measured time saving, and no proof it beats a careful human reviewer. Its first rule says a completed run never means the whole report is correct; a person still reviews the findings.</p>
 
-    <p class="footer-note"><a href="/nigel/#work">Back to halfspaces.co</a></p>
+    <p class="footer-note"><a href="/nigel/">Back to Nigel&rsquo;s work</a></p>
   </article>
 </div>
+</main>
 </body>
 </html>

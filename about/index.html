@@ -12,11 +12,11 @@
 <meta property="og:title" content="Why I started Halfspaces">
 <meta property="og:description" content="Nigel Lin on why he started Halfspaces: to help people get their time back for what matters.">
 <meta property="og:url" content="https://halfspaces.co/about/">
-<meta property="og:image" content="https://halfspaces.co/assets/og-company.png">
+<meta property="og:image" content="https://halfspaces.co/assets/og-about.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://halfspaces.co/assets/og-company.png">
+<meta name="twitter:image" content="https://halfspaces.co/assets/og-about.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -36,6 +36,7 @@ a { color: inherit; }
 .top { display: flex; justify-content: space-between; align-items: center; height: 84px; }
 .top img { height: 30px; width: auto; display: block; }
 .top .contact { font-weight: 600; font-size: 16px; padding: 10px 0; text-underline-offset: 4px; }
+.top .links { display: flex; gap: 24px; }
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 24px; border-radius: 4px; background: var(--ink); color: var(--paper); font-weight: 700; text-decoration: none; }
 .btn:hover { background: #26352D; }
 
@@ -66,12 +67,13 @@ footer a { display: inline-block; padding: 6px 0; }
     .cta .btn { width: 100%; }
 }
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
 
 <header class="wrap top">
     <a href="/" aria-label="Halfspaces home"><img src="/assets/lockup.svg" alt="Halfspaces" width="131" height="30"></a>
-    <a class="contact" href="#contact">Contact</a>
+    <nav class="links" aria-label="Site"><a class="contact" href="/about/" aria-current="page">About</a><a class="contact" href="#contact">Contact</a></nav>
 </header>
 
 <main>
@@ -102,7 +104,7 @@ footer a { display: inline-block; padding: 6px 0; }
 <footer>
     <div class="wrap">
         <p>Halfspaces Pte Ltd &middot; Singapore &middot; &copy; 2026</p>
-        <p><a href="/">Halfspaces home</a> &middot; <a href="/nigel/">Nigel&rsquo;s portfolio</a> &middot; <a href="/privacy/">Privacy</a></p>
+        <p><a href="/">Halfspaces home</a> &middot; <a href="/about/">About</a> &middot; <a href="/nigel/">Nigel&rsquo;s portfolio</a> &middot; <a href="/privacy/">Privacy</a></p>
     </div>
 </footer>
 

@@ -5,11 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Building Pokerspace · a build journal · halfspaces</title>
 <meta name="description" content="How a one-shot browser poker game became a serious rules engine, an unreliable teacher, and eventually a much clearer product.">
-<link rel="canonical" href="https://halfspaces.co/building-pokerspace.html">
+<link rel="canonical" href="https://halfspaces.co/building-pokerspace">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Building Pokerspace · a build journal">
 <meta property="og:description" content="I asked for pro-level browser poker in one shot, then kept finding out where it was bluffing.">
-<meta property="og:url" content="https://halfspaces.co/building-pokerspace.html">
+<meta property="og:url" content="https://halfspaces.co/building-pokerspace">
+<meta property="og:image" content="https://halfspaces.co/assets/og-journal.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Building Pokerspace · a build journal">
+<meta name="twitter:description" content="I asked for pro-level browser poker in one shot, then kept finding out where it was bluffing.">
+<meta name="twitter:image" content="https://halfspaces.co/assets/og-journal.png">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,7 +87,7 @@
   /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
   :root{
     --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
-    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#6A6A72; --slate-blue:#0E0E10;
     --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
     --serif:"Source Serif 4",Georgia,serif;
     --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
@@ -92,12 +99,13 @@
   .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
   code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
 <a class="skip-link" href="#journal">Skip to journal</a>
 <nav class="sitebar" aria-label="Halfspaces journal navigation">
   <a href="/nigel/" aria-label="Halfspaces home">halfspaces</a>
-  <a class="workshop-badge" href="pokerspace.html">Play Pokerspace</a>
+  <a class="workshop-badge" href="/pokerspace">Play Pokerspace</a>
 </nav>
 <main id="journal">
 <div class="wrap">
@@ -218,14 +226,14 @@
 
     <div class="status-card">
       <strong>Where it stands</strong>
-      Out of the workshop as of October, and <a href="pokerspace.html">playable here</a>. One canonical game file, 264 automated tests, a release check that proves the packaged ZIP matches the tested file, and geometry checks at 320, 360 and 390 pixels, and on desktop. The first days of October added the two things the August review said were missing: a career (a play-money bankroll, a ladder of shootout events from a Freeroll to a 10,000 Main Event, real payout tables, and a record that names your recurring leak) and opponents that get harder up that ladder: short-stack push/fold charts from a solver written for the purpose, bubble awareness, adaptation to how you play, and from the third tier five distinct strategy families. The benchmark behind that claim ran 1.4 million hands; at the top tier nothing simple beats them, and tier-four bots win about two tables in three against the old ones. Still not solver-grade, and the README says so. The last round came from my own play-test: the table was too wordy, chips never visibly moved, and nothing taught a first hand. Now bets slide out as chips and sweep into the pot, the table says less, and a guided hand teaches the controls by doing. The opponents are credible recreational players rather than proven strong ones; tell me where they fall short.
+      Out of the workshop as of October, and <a href="/pokerspace">playable here</a>. One canonical game file, 264 automated tests, a release check that proves the packaged ZIP matches the tested file, and geometry checks at 320, 360 and 390 pixels, and on desktop. The first days of October added the two things the August review said were missing: a career (a play-money bankroll, a ladder of shootout events from a Freeroll to a 10,000 Main Event, real payout tables, and a record that names your recurring leak) and opponents that get harder up that ladder: short-stack push/fold charts from a solver written for the purpose, bubble awareness, adaptation to how you play, and from the third tier five distinct strategy families. The benchmark behind that claim ran 1.4 million hands; at the top tier nothing simple beats them, and tier-four bots win about two tables in three against the old ones. Still not solver-grade, and the README says so. The last round came from my own play-test: the table was too wordy, chips never visibly moved, and nothing taught a first hand. Now bets slide out as chips and sweep into the pot, the table says less, and a guided hand teaches the controls by doing. The opponents are credible recreational players rather than proven strong ones; tell me where they fall short.
     </div>
 
     <p>The original brief was to make world-class poker opponents in one shot. Two months later, the useful result is almost the opposite of that sentence. Good poker software is a stack of unglamorous truths: every chip conserved, every action legal, every opponent kept away from hidden cards, every lesson consistent with the last one. The visuals make it inviting; the restraint makes it worth trusting.</p>
 
     <p>The playable game now sits beside this journal. Not as proof that one prompt can make a finished product, because it cannot; as proof that a loose prompt can start a serious process, if you are willing to keep finding the part that is pretending.</p>
 
-    <p class="footer-note"><a href="/nigel/">Back to halfspaces.co</a> &middot; <a href="pokerspace.html">Play Pokerspace</a> &middot; <a href="mailto:nigel@halfspaces.co?subject=Pokerspace%20feedback">Send feedback</a></p>
+    <p class="footer-note"><a href="/nigel/">Back to Nigel&rsquo;s work</a> &middot; <a href="/pokerspace">Play Pokerspace</a> &middot; <a href="mailto:nigel@halfspaces.co?subject=Pokerspace%20feedback">Send feedback</a></p>
   </article>
 </div>
 </main>

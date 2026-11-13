@@ -36,6 +36,7 @@ a { color: inherit; }
 .top { display: flex; justify-content: space-between; align-items: center; height: 84px; }
 .top img { height: 30px; width: auto; display: block; }
 .top .contact { font-weight: 600; font-size: 16px; padding: 10px 0; text-underline-offset: 4px; }
+.top .links { display: flex; gap: 24px; }
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 24px; border-radius: 4px; background: var(--ink); color: var(--paper); font-weight: 700; text-decoration: none; }
 .btn:hover { background: #26352D; }
 
@@ -69,12 +70,13 @@ footer a { display: inline-block; padding: 6px 0; }
 .essay h2 + p { margin-top: 10px; }
 .essay .updated { margin-top: 36px; font-size: 16px; color: var(--muted); }
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
 
 <header class="wrap top">
     <a href="/" aria-label="Halfspaces home"><img src="/assets/lockup.svg" alt="Halfspaces" width="131" height="30"></a>
-    <a class="contact" href="mailto:nigel@halfspaces.co?subject=Privacy%20question">Contact</a>
+    <nav class="links" aria-label="Site"><a class="contact" href="/about/">About</a><a class="contact" href="mailto:nigel@halfspaces.co?subject=Privacy%20question">Contact</a></nav>
 </header>
 
 <main>
@@ -113,7 +115,7 @@ footer a { display: inline-block; padding: 6px 0; }
 <footer>
     <div class="wrap">
         <p>Halfspaces Pte Ltd &middot; Singapore &middot; &copy; 2026</p>
-        <p><a href="/">Halfspaces home</a> &middot; <a href="/about/">About</a> &middot; <a href="/nigel/">Nigel&rsquo;s portfolio</a></p>
+        <p><a href="/">Halfspaces home</a> &middot; <a href="/about/">About</a> &middot; <a href="/nigel/">Nigel&rsquo;s portfolio</a> &middot; <a href="/privacy/">Privacy</a></p>
     </div>
 </footer>
 

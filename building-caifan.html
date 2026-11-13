@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Building the Cai Fan Test · a build journal · halfspaces</title>
 <meta name="description" content="A personality read from what you put on a cai fan tray, built as a research instrument; fifteen versions in, paused, and still live.">
+<link rel="canonical" href="https://halfspaces.co/building-caifan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building the Cai Fan Test · a build journal · halfspaces">
+<meta property="og:description" content="A personality read from what you put on a cai fan tray, built as a research instrument; fifteen versions in, paused, and still live.">
+<meta property="og:url" content="https://halfspaces.co/building-caifan">
+<meta property="og:image" content="https://halfspaces.co/assets/og-journal.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Building the Cai Fan Test · a build journal · halfspaces">
+<meta name="twitter:description" content="A personality read from what you put on a cai fan tray, built as a research instrument; fifteen versions in, paused, and still live.">
+<meta name="twitter:image" content="https://halfspaces.co/assets/og-journal.png">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,13 +67,14 @@
   h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
   h1 { font-weight:400; font-variation-settings:"opsz" 130 }
   h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+  .footer-note a{display:inline-flex;min-height:44px;align-items:center}
 </style>
 
 <style>
   /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
   :root{
     --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
-    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#6A6A72; --slate-blue:#0E0E10;
     --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
     --serif:"Source Serif 4",Georgia,serif;
     --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
@@ -73,8 +86,10 @@
   .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
   code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
+<main id="journal">
 <div class="wrap">
 <header class="masthead">
     <p class="kicker">Build journal</p>
@@ -110,14 +125,15 @@
     <h2>Research standards, as far as they go</h2>
     <p>By the pilot it had the basics a real study needs: separate consent for the research part, a deletion code so anyone can remove their answers, scoring that&rsquo;s versioned so different versions never mix, and small groups kept out of any result. What it doesn&rsquo;t have is validation. Nobody has shown yet that tray choices predict personality; in October a freshness check by Mr. B caught the homepage saying &ldquo;calibrated&rdquo;, and it now says &ldquo;can be calibrated&rdquo;. The counter photos and the stallholder are AI-generated.</p>
 
-    <h2>What AI did, and what it didn&rsquo;t</h2>
-    <p>The code and the reviews were AI. Claude reviewed the scoring and the Big Five items and ran the design audit and release checks; Codex vetted the share card and the pilot fixes, and built alpha15; Grok, a third provider, gave alpha15 its final ship call. The idea, the ambition, the look and the words were mine, and so were recruiting the pilot and deciding to pause.</p>
-
     <h2>Paused, still live</h2>
     <p>At the end of September I paused development with alpha15 live. The latest version explains each read dish by dish, from what went on your tray. The next real step would be the calibration study, and I haven&rsquo;t run it.</p>
 
-    <p class="footer-note"><a href="https://cft.halfspaces.co">Take the Cai Fan Test</a> &middot; <a href="/nigel/#work">Back to halfspaces.co</a></p>
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>The code and the reviews were AI. Claude reviewed the scoring and the Big Five items and ran the design audit and release checks; Codex vetted the share card and the pilot fixes, and built alpha15; Grok, a third provider, gave alpha15 its final ship call. The idea, the ambition, the look and the words were mine, and so were recruiting the pilot and deciding to pause.</p>
+
+    <p class="footer-note"><a href="https://cft.halfspaces.co">Take the Cai Fan Test</a> &middot; <a href="/nigel/">Back to Nigel&rsquo;s work</a></p>
   </article>
 </div>
+</main>
 </body>
 </html>

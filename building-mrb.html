@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Building Mr. B · a build journal · halfspaces</title>
 <meta name="description" content="An AI chief of staff who talks to me on Slack; most of the work was deciding what he gets to see and what he is allowed to do.">
+<link rel="canonical" href="https://halfspaces.co/building-mrb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building Mr. B · a build journal · halfspaces">
+<meta property="og:description" content="An AI chief of staff who talks to me on Slack; most of the work was deciding what he gets to see and what he is allowed to do.">
+<meta property="og:url" content="https://halfspaces.co/building-mrb">
+<meta property="og:image" content="https://halfspaces.co/assets/og-journal.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Building Mr. B · a build journal · halfspaces">
+<meta name="twitter:description" content="An AI chief of staff who talks to me on Slack; most of the work was deciding what he gets to see and what he is allowed to do.">
+<meta name="twitter:image" content="https://halfspaces.co/assets/og-journal.png">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,13 +67,14 @@
   h1, h2 { font-family:var(--serif); letter-spacing:-.012em }
   h1 { font-weight:400; font-variation-settings:"opsz" 130 }
   h2 { font-weight:500; font-variation-settings:"opsz" 60 }
+  .footer-note a{display:inline-flex;min-height:44px;align-items:center}
 </style>
 
 <style>
   /* October 2026 redesign: neutral page, Source Serif 4 + Source Sans 3 (matches the homepage) */
   :root{
     --warm-white:#FFFFFF; --parchment:#F2F2F4; --linen:#F2F2F4; --stone:#D6D6DA;
-    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#7A7A82; --slate-blue:#0E0E10;
+    --charcoal:#0E0E10; --slate:#3A3A40; --ash:#6A6A72; --slate-blue:#0E0E10;
     --line:rgba(14,14,16,.10); --line-strong:rgba(14,14,16,.26);
     --serif:"Source Serif 4",Georgia,serif;
     --sans:"Source Sans 3",system-ui,-apple-system,sans-serif;
@@ -73,8 +86,10 @@
   .svglabel,.svgsub,.svgnote,.svgbig{font-family:"Source Sans 3",system-ui,sans-serif}
   code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
+<main id="journal">
 <div class="wrap">
 <header class="masthead">
     <p class="kicker">Build journal</p>
@@ -114,14 +129,15 @@
     <h2>Reviews without me in the middle</h2>
     <p>B runs on OpenAI&rsquo;s models. My rule for anything that goes to a client is that a different provider reviews it before I see it as ready, and for B&rsquo;s work that means Claude. For months that meant me carrying files between them. In November we built a direct route: B asks Claude for a review in Slack, and I get tagged when it&rsquo;s done. It took eleven rounds of code review from Codex before it passed, and its first live run on client work is still to come.</p>
 
-    <h2>What AI did, and what it didn&rsquo;t</h2>
-    <p>B does the running: briefs, chasing, drafting, scheduled jobs, keeping work on track. Claude wrote his original briefing pack and built most of the plumbing around him; Codex checks it. I decide who does what and approve anything involving money, and anything going to a client goes out from me.</p>
-
     <h2>Where he stands</h2>
     <p>Seven months in, he&rsquo;s in use every day. If I set him up again, I&rsquo;d start with the fences around him: one copy of the truth, a queue instead of write access, drafts instead of sends, and a written answer to &ldquo;whose job is this?&rdquo;</p>
 
-    <p class="footer-note"><a href="/nigel/">Back to halfspaces.co</a></p>
+    <h2>What AI did, and what it didn&rsquo;t</h2>
+    <p>B does the running: briefs, chasing, drafting, scheduled jobs, keeping work on track. Claude wrote his original briefing pack and built most of the plumbing around him; Codex checks it. I decide who does what and approve anything involving money, and anything going to a client goes out from me.</p>
+
+    <p class="footer-note"><a href="/nigel/">Back to Nigel&rsquo;s work</a></p>
   </article>
 </div>
+</main>
 </body>
 </html>
