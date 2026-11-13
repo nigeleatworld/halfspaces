@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nigel Lin solves problems by reading the room and reading people. 14 years in consumer research, Singapore. Things he has made: a poker room, an iPhone app, a personality test.">
-    <title>halfspaces / Nigel Lin</title>
+    <meta name="description" content="Nigel Lin runs Halfspaces in Singapore, after fourteen years in consumer research. A client project and the things he has made: an iPhone app, a poker room, a personality test.">
+    <title>Nigel Lin | Halfspaces</title>
     <link rel="canonical" href="https://halfspaces.co/nigel/">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    <meta name="theme-color" content="#FFFFFF">
+    <meta name="theme-color" content="#F4F5F2">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="halfspaces">
-    <meta property="og:title" content="halfspaces / Nigel Lin">
-    <meta property="og:description" content="Nigel Lin solves problems by reading the room and reading people. 14 years in consumer research, Singapore. Things he has made: a poker room, an iPhone app, a personality test.">
+    <meta property="og:site_name" content="Halfspaces">
+    <meta property="og:title" content="Nigel Lin | Halfspaces">
+    <meta property="og:description" content="Nigel Lin runs Halfspaces in Singapore, after fourteen years in consumer research. A client project and the things he has made: an iPhone app, a poker room, a personality test.">
     <meta property="og:url" content="https://halfspaces.co/nigel/">
     <meta property="og:image" content="https://halfspaces.co/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Nigel Lin: I solve problems by reading the room and reading people. A line drawing of a football pitch with a runner in the half-space.">
+    <meta property="og:image:alt" content="Hello! I'm Nigel, and I run Halfspaces. A line drawing of a football pitch with a runner in the half-space.">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="halfspaces / Nigel Lin">
-    <meta name="twitter:description" content="Nigel Lin solves problems by reading the room and reading people. 14 years in consumer research, Singapore. Things he has made: a poker room, an iPhone app, a personality test.">
+    <meta name="twitter:title" content="Nigel Lin | Halfspaces">
+    <meta name="twitter:description" content="Nigel Lin runs Halfspaces in Singapore, after fourteen years in consumer research. A client project and the things he has made: an iPhone app, a poker room, a personality test.">
     <meta name="twitter:image" content="https://halfspaces.co/assets/og-image.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1324,102 +1324,97 @@
         .piece .piece-line .btn { padding-inline: 16px; }
     </style>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* v2, November 2026: the company page's frame (paper, ink, header, button) around the portfolio's serif. */
+        :root { --paper: #F4F5F2; --ink: #16201B; --slate: #3C4842; --ash: #56605B; --accent: #B23C1B; --line: rgba(22, 32, 27, 0.14); --line-strong: rgba(22, 32, 27, 0.3); --nunito: "Nunito", ui-rounded, system-ui, sans-serif; }
+        body { background: var(--paper); color: var(--ink); }
+        .btn { border-radius: 4px; background: var(--ink); color: var(--paper); font-family: var(--nunito); font-weight: 700; }
+        .nv-top { display: flex; justify-content: space-between; align-items: center; height: 84px; }
+        .nv-top img { height: 30px; width: auto; display: block; }
+        .nv-top nav { display: flex; gap: 24px; }
+        .nv-top nav a { color: var(--ink); font: 600 16px/1 var(--nunito); padding: 10px 0; text-underline-offset: 4px; }
+        .nv-top nav a { text-decoration: underline; text-decoration-thickness: 1px; }
+        .nv-top nav a[aria-current] { text-decoration-thickness: 2px; }
+        @media (max-width: 380px) { .nv-top nav { gap: 14px; } .nv-top nav a { font-size: 15px; } .nv-top img { height: 22px; } }
+        .nv-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 28px 0 44px; }
+        .nv-portrait { margin: 0 0 14px; }
+        .nv-portrait img { width: 104px; height: 126px; object-fit: cover; display: block; -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
+        .nv-hero h1 { margin: 0; font: 400 clamp(34px, 5vw, 56px)/1.08 var(--serif); letter-spacing: -.012em; text-wrap: balance; max-width: 13em; }
+        .nv-lede { margin: 20px 0 0; font-size: 18px; line-height: 1.55; color: var(--slate); max-width: 34em; }
+        .nv-lede a, .nv-idx a, .nv-quote a, .nv-close a, .nv-foot a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+        .nv-act { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; margin-top: 26px; }
+        .nv-act .btn { min-height: 50px; padding: 0 22px; font-size: 16px; display: inline-flex; align-items: center; text-decoration: none; }
+        .nv-addr { color: var(--slate); font-size: 16px; overflow-wrap: anywhere; }
+        .nv-quote { margin: 30px 0 0; padding-top: 18px; border-top: 1px solid var(--line); max-width: 34em; }
+        .nv-quote p { margin: 0; font-size: 16px; line-height: 1.5; }
+        .nv-quote .nv-by { margin-top: 6px; color: var(--ash); font-size: 14px; }
+        .nv-idx h2 { margin: 0 0 4px; font: 600 14px/1.4 var(--sans); color: var(--ash); letter-spacing: 0; }
+        .nv-idx dl { margin: 0; }
+        .nv-row { display: grid; grid-template-columns: 5.8rem minmax(0, 1fr); gap: 4px 16px; padding: 13px 0; border-top: 1px solid var(--line); align-items: baseline; }
+        .nv-row:last-child { border-bottom: 1px solid var(--line); }
+        .nv-row dt { color: var(--ash); font-size: 13.5px; line-height: 1.35; }
+        .nv-row dd { margin: 0; min-width: 0; }
+        .nv-row dd > a { display: inline-block; font: 500 19px/1.3 var(--serif); padding: 2px 0; }
+        .nv-row dd span { display: block; color: var(--slate); font-size: 14.5px; margin-top: 2px; }
+        .nv-more { margin: 14px 0 0; font-size: 14.5px; color: var(--ash); }
+        .nv-rest { padding: var(--sp-section, 72px) 0 0; }
+        .nv-rest .nv-idx { max-width: 46rem; }
+        .nv-rest h2 { font: 400 clamp(26px, 3.4vw, 36px)/1.15 var(--serif); color: var(--ink); margin: 0 0 18px; }
+        .nv-close { padding: var(--sp-section, 72px) 0; }
+        .nv-close h2 { font: 400 clamp(28px, 4vw, 44px)/1.12 var(--serif); margin: 0; max-width: 16em; text-wrap: balance; }
+        .nv-close .btn { color: var(--paper); text-decoration: none; }
+        .nv-close .nv-away { margin: 22px 0 0; color: var(--slate); max-width: 34em; }
+        .nv-close .nv-links { margin: 14px 0 0; display: flex; gap: 20px; }
+        .nv-close .nv-links a { display: inline-block; padding: 6px 0; }
+        .nv-foot { background: var(--paper); border-top: 1px solid var(--line); padding: 26px 0 44px; color: var(--slate); font: 15px/1.5 var(--nunito); }
+        .nv-foot p { margin: 0 0 6px; }
+        .nv-foot a { color: inherit; display: inline-block; padding: 6px 0; }
+        .piece .quote { margin: 26px 0 0; padding-top: 18px; border-top: 1px solid var(--line); }
+        @media (min-width: 900px) {
+            .nv-hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 64px; padding: 44px 0 64px; align-items: start; }
+        }
+        @media (max-width: 860px) { .nv-top { height: 68px; } .nv-top img { height: 24px; } }
+    </style>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700&display=swap" rel="stylesheet">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
     <a class="skip-link" href="#work">Skip to the work</a>
 
-    <header class="hero" id="top">
-        <div class="shell">
-            <div class="hero-grid">
-                <figure class="byline"><img src="/assets/nigel-neutral.jpg" alt="Nigel Lin" width="112" height="136" decoding="async"><figcaption>Hello!</figcaption></figure>
-                <div class="in-channel">
-                    <div class="id-row"><img src="/assets/nigel-neutral.jpg" alt="Nigel Lin" width="56" height="68" decoding="async"><p><span>Hello!</span><span class="id-name">Nigel Lin / Singapore</span></p></div>
-                    <p class="label">Nigel Lin / Singapore</p>
-                    <h1><span>I solve problems by reading</span> <span>the room and reading people.</span></h1>
-
-                    <div class="hello-row"><img src="/assets/nigel-neutral.jpg" alt="" width="84" height="102" decoding="async"><p>Hello!</p></div>
-
-
-
-                </div>
-
-                <div class="band">
-                  <div class="band-text">
-                    <p class="made-label">Things I&rsquo;ve made</p>
-                    <p class="made-roll roll" aria-hidden="true"><span class="roll-word is-in">a poker room.</span></p>
-                    <p class="sr-only">Things I have made: a poker room, an iPhone app, a personality test and a toddler distractor. Research I have delivered: a positioning study.</p>
-                  </div>
-                <div class="hero-pic">
-                <a class="frame lately-frame" href="#p3">
-                    <span class="lately-view"><img class="is-in" src="/assets/peek-poker.webp" width="2040" height="600" fetchpriority="high" alt=""></span>
-                    <span class="made-cap">Pokerspace &middot; Launched October 2026</span>
-                </a>
-                <button type="button" class="made-pause" aria-pressed="false">Pause</button>
-                </div>
-                </div>
-            </div>
-            <div class="hero-below">
-                    <dl class="readers">
-                        <div><dt>If you&rsquo;re thinking of working with me</dt><dd>14 years in consumer research. Most recently at Milieu Insight: Head of Research (APAC), then Head of Data &amp; Strategic Solutions.</dd></div>
-                        <div><dt>If you&rsquo;re a stranger chancing upon this site</dt><dd>Hello! I&rsquo;m a BJJ white belt, dad and frenemy to a toddler, and an aspiring triathlete; aspiring for years, training yet to begin.</dd></div>
-                        <div><dt>If you&rsquo;re a friend</dt><dd>What are you doing here?</dd></div>
-                    </dl>
-                    <div class="hero-cta">
-                        <a class="btn" href="mailto:nigel@halfspaces.co?subject=Project%20enquiry">Email me</a>
-                        <span class="contact-address">nigel@halfspaces.co</span>
-                    </div>
-                    <div class="hero-links">
-                        <a class="text-link" href="#work">The work</a>
-                        <a class="text-link" href="https://www.linkedin.com/in/nigellin/">LinkedIn</a>
-                        <a class="text-link" href="https://github.com/nigeleatworld">GitHub</a>
-                    </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="why" id="why" aria-label="Why halfspaces">
-        <div class="shell why-grid">
-            <div class="why-copy">
-                <p class="label">Why &ldquo;halfspaces&rdquo;</p>
-                <p class="why-line">half-space (n.): the channel between the crowded centre and the obvious wing; the most valuable space on the pitch, and the least defended. You find it by reading the game.</p>
-            </div>
-                <figure class="pitch-fig">
-<svg class="p3" viewBox="-630 -194 1109 545" role="img" aria-label="A football pitch drawn in perspective as thin lines. A pass is lofted from midfield into the right half-space channel, where a runner arrives to meet it.">
-<path class="p3-band" d="M28.1 270.6 L211.6 295.7 L199.5 -126.6 L95.2 -134.6 Z"/>
-<path class="p3-line" d="M-608.4 183.5 L456.9 329.3 L335.2 -116.1 L-285.7 -164.0 Z"/>
-<path class="p3-line" d="M27.9 270.6 L29.1 260.7 L29.2 250.9 L28.5 241.3 L26.8 231.9 L24.3 222.9 L20.9 214.2 L16.7 205.9 L11.8 198.0 L6.2 190.6 L-0.1 183.7 L-7.0 177.3 L-14.4 171.4 L-22.3 166.0 L-30.7 161.2 L-39.5 157.0 L-48.7 153.4 L-58.2 150.3 L-68.0 147.9 L-78.1 146.1 L-88.3 144.8 L-98.6 144.2 L-109.1 144.2 L-119.6 144.8 L-130.1 146.0 L-140.6 147.8 L-151.0 150.3 L-161.3 153.3 L-171.4 156.9 L-181.4 161.1 L-191.0 165.9 L-200.3 171.2 L-209.3 177.1 L-217.8 183.5 L-225.8 190.4 L-233.4 197.8 L-240.3 205.6 L-246.6 213.9 L-252.3 222.6 L-257.1 231.6"/>
-<path class="p3-line" d="M-168.2 -155.0 L-220.9 -77.8 L202.0 -40.0 L199.5 -126.6"/>
-<path class="p3-line" d="M-71.7 -147.5 L-83.5 -123.4 L91.0 -109.3 L95.2 -134.6"/>
-<path class="p3-line" d="M-91.8 -66.3 L-89.9 -64.1 L-87.8 -62.0 L-85.5 -59.9 L-82.9 -57.9 L-80.2 -56.0 L-77.3 -54.1 L-74.2 -52.3 L-70.9 -50.6 L-67.5 -48.9 L-63.9 -47.4 L-60.1 -45.9 L-56.2 -44.6 L-52.1 -43.3 L-47.9 -42.2 L-43.6 -41.1 L-39.2 -40.2 L-34.7 -39.4 L-30.1 -38.7 L-25.4 -38.2 L-20.7 -37.7 L-16.0 -37.4 L-11.2 -37.2 L-6.4 -37.2 L-1.6 -37.2 L3.2 -37.5 L7.9 -37.8 L12.6 -38.2 L17.3 -38.8 L21.9 -39.5 L26.4 -40.3 L30.8 -41.3 L35.1 -42.3 L39.3 -43.5 L43.4 -44.8 L47.3 -46.2 L51.1 -47.6 L54.7 -49.2 L58.2 -50.8 L61.5 -52.6"/>
-<path class="p3-chan" d="M-417.5 209.7 L-168.2 -155.0"/>
-<path class="p3-chan" d="M-257.3 231.6 L-71.7 -147.5"/>
-<path class="p3-chan" d="M28.1 270.6 L95.2 -134.6"/>
-<path class="p3-chan" d="M211.6 295.7 L199.5 -126.6"/>
-<path class="p3-goal" d="M-22.4 -143.7 L-22.8 -164.1 L44.9 -159.1 L44.2 -138.6"/>
-<path class="p3-goal2" d="M-22.8 -164.1 L-19.2 -152.1"/>
-<path class="p3-goal2" d="M44.9 -159.1 L46.5 -147.1"/>
-<path class="p3-goal2" d="M-19.2 -152.1 L46.5 -147.1"/>
-<circle class="p3-def" cx="-16.0" cy="-59.5" r="9"/>
-<circle class="p3-def" cx="-158.3" cy="-35.6" r="9"/>
-<circle class="p3-def" cx="270.3" cy="-15.0" r="9"/>
-<circle class="p3-def" cx="26.6" cy="40.1" r="9"/>
-<circle class="p3-passer" cx="-132.9" cy="162.6" r="10"/>
-<path id="p3run" class="p3-run" d="M169.0 145.6 L166.2 138.8 L163.6 132.1 L161.0 125.5 L158.4 119.0 L156.0 112.6 L153.6 106.4 L151.3 100.2 L149.1 94.2 L147.0 88.2 L145.0 82.3 L143.1 76.6 L141.3 70.9 L139.6 65.4 L138.0 59.9 L136.6 54.5 L135.2 49.2 L134.0 44.0 L132.9 38.9 L131.9 33.8 L131.0 28.9 L130.2 24.0 L129.5 19.2 L128.9 14.5 L128.4 9.8 L128.0 5.2 L127.7 0.7 L127.5 -3.7 L127.3 -8.1 L127.3 -12.4 L127.2 -16.7 L127.3 -20.9 L127.4 -25.0 L127.5 -29.1 L127.7 -33.1 L127.9 -37.1 L128.2 -41.0 L128.4 -44.9 L128.7 -48.7 L129.0 -52.5" pathLength="1"/>
-<path class="p3-shadow" d="M-132.9 162.6 L-127.0 157.7 L-121.1 152.9 L-115.3 148.1 L-109.5 143.4 L-103.9 138.8 L-98.2 134.1 L-92.7 129.6 L-87.2 125.1 L-81.8 120.6 L-76.4 116.2 L-71.1 111.8 L-65.8 107.5 L-60.7 103.3 L-55.5 99.1 L-50.4 94.9 L-45.4 90.8 L-40.5 86.7 L-35.5 82.6 L-30.7 78.6 L-25.9 74.7 L-21.1 70.8 L-16.4 66.9 L-11.7 63.1 L-7.1 59.3 L-2.5 55.5 L2.0 51.8 L6.5 48.1 L10.9 44.5 L15.3 40.9 L19.6 37.3 L23.9 33.8 L28.2 30.3 L32.4 26.8 L36.6 23.4 L40.7 20.0 L44.8 16.7 L48.8 13.3 L52.8 10.0 L56.8 6.8 L60.7 3.5 L64.6 0.3 L68.5 -2.8 L72.3 -6.0 L76.1 -9.1 L79.9 -12.2 L83.6 -15.2 L87.3 -18.3 L90.9 -21.3 L94.5 -24.2 L98.1 -27.2 L101.7 -30.1 L105.2 -33.0 L108.7 -35.8 L112.1 -38.7 L115.6 -41.5 L119.0 -44.3 L122.3 -47.0 L125.7 -49.8 L129.0 -52.5" pathLength="1"/>
-<path id="p3fl" class="p3-flight" d="M-132.9 162.6 L-127.4 154.0 L-121.9 145.6 L-116.4 137.4 L-111.0 129.3 L-105.5 121.4 L-100.1 113.7 L-94.7 106.1 L-89.3 98.7 L-84.0 91.5 L-78.6 84.5 L-73.3 77.7 L-68.0 71.0 L-62.8 64.6 L-57.6 58.3 L-52.4 52.2 L-47.2 46.3 L-42.1 40.5 L-37.0 35.0 L-32.0 29.6 L-27.0 24.4 L-22.0 19.4 L-17.1 14.5 L-12.3 9.8 L-7.4 5.4 L-2.7 1.1 L2.1 -3.1 L6.8 -7.0 L11.4 -10.8 L16.0 -14.4 L20.5 -17.9 L25.0 -21.1 L29.5 -24.3 L33.9 -27.2 L38.2 -30.0 L42.5 -32.6 L46.7 -35.1 L50.9 -37.4 L55.0 -39.5 L59.1 -41.5 L63.1 -43.3 L67.1 -45.0 L71.0 -46.6 L74.8 -48.0 L78.6 -49.2 L82.4 -50.3 L86.0 -51.3 L89.7 -52.1 L93.3 -52.9 L96.8 -53.4 L100.2 -53.9 L103.6 -54.2 L107.0 -54.4 L110.3 -54.5 L113.5 -54.4 L116.7 -54.3 L119.9 -54.0 L123.0 -53.6 L126.0 -53.1 L129.0 -52.5" pathLength="1"/>
-<circle class="p3-runner" r="11"><animateMotion dur="1.9s" begin="0.7s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.3 0 0.3 1"><mpath href="#p3run"/></animateMotion></circle>
-<circle class="p3-ball" r="6"><animateMotion dur="1.5s" begin="1.1s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0 0.5 1"><mpath href="#p3fl"/></animateMotion></circle>
-<circle class="p3-pulse" cx="129.0" cy="-52.5" r="11"/>
-<text class="p3-label" x="124.7" y="194.6">half-space</text>
-</svg>
-                    
-                </figure>
-        </div>
-    </section>
-
+    <div class="shell" id="top">
+        <header class="nv-top">
+            <a href="/" aria-label="Halfspaces home"><img src="/assets/lockup.svg" alt="Halfspaces" width="131" height="30"></a>
+            <nav aria-label="Site"><a href="/about/">About</a><a href="#contact">Contact</a></nav>
+        </header>
+    </div>
     <main id="main">
-        <section class="work" id="work">
+    <div class="shell">
+        <div class="nv-hero" id="why">
+            <div>
+                <p class="nv-portrait"><img src="/assets/nigel-cutout.png" alt="Portrait of Nigel Lin" width="104" height="126" fetchpriority="high"></p>
+                <h1>Hello! I&rsquo;m Nigel, and I run Halfspaces.</h1>
+                <p class="nv-lede">I spent fourteen years in consumer research, most recently at Milieu Insight as Head of Research (APAC), then Head of Data &amp; Strategic Solutions. In October 2026 I started <a href="/">Halfspaces</a> to help businesses run smoother. This page is the work: a client project, and the things I&rsquo;ve made.</p>
+                <div class="nv-act"><a class="btn" href="mailto:nigel@halfspaces.co?subject=Project%20enquiry">Email me</a><span class="nv-addr">nigel@halfspaces.co</span></div>
+                <blockquote class="nv-quote"><p>&ldquo;What stood out for us during the whole process was how invested he was in making sure we got something out of it.&rdquo;</p><p class="nv-by">Justin, co-founder of Keynote Learning</p></blockquote>
+            </div>
+            <section class="nv-idx" aria-labelledby="idx-h">
+                <h2 id="idx-h">The work</h2>
+                <dl>
+                    <div class="nv-row"><dt>Client work<br>Delivered</dt><dd><a href="#p1">Positioning research for Keynote Learning</a><span>A survey of 300 screened parents, delivered as one recommendation.</span></dd></div>
+                    <div class="nv-row"><dt>App Store</dt><dd><a href="#bitpybit">Bitpybit</a><span>An iPhone app that teaches you to read Python.</span></dd></div>
+                    <div class="nv-row"><dt>Playable</dt><dd><a href="#p3">Pokerspace</a><span>A poker room that coaches you after the hand.</span></dd></div>
+                    <div class="nv-row"><dt>Private alpha</dt><dd><a href="/building-layer">Layer</a><span>Checks finished report decks against their data.</span></dd></div>
+                    <div class="nv-row"><dt>Live; development paused</dt><dd><a href="#p2">The Cai Fan Test</a><span>An experimental personality test based on a cai fan order.</span></dd></div>
+                    <div class="nv-row"><dt>In use daily</dt><dd><a href="/building-mrb">Mr. B</a><span>An AI chief of staff on Slack.</span></dd></div>
+                </dl>
+                <p class="nv-more"><a href="#bench">More below</a>, including the two I shelved, each with a journal of how it was made.</p>
+            </section>
+        </div>
+    </div>
+
+    
+
+    <section class="work" id="work">
             <div class="shell">
                 <div class="sec-head"><svg class="mk" viewBox="-8 -8 236 112" aria-hidden="true"><rect class="mk-band" x="0" y="36.6" width="210.0" height="44.0"/><path class="mk-line" d="M0 0H210.0V96.0H0"/><path class="mk-line" d="M210.0 80.6H144.0V0"/><path class="mk-line" d="M210.0 36.6H188.0V0"/><path class="mk-goal" d="M210.0 0h9V14.6h-9"/><path class="mk-todo" d="M35.0 58.4 L36.5 58.4 L38.1 58.4 L39.7 58.4 L41.3 58.4 L42.9 58.4 L44.5 58.4 L46.1 58.4 L47.6 58.4 L49.2 58.4 L50.8 58.4 L52.4 58.4 L54.0 58.4 L55.6 58.4 L57.2 58.4 L58.7 58.4 L60.3 58.4 L61.9 58.4 L63.5 58.4 L65.1 58.4 L66.7 58.4 L68.3 58.3 L69.8 58.3 L71.4 58.3 L73.0 58.3 L74.6 58.3 L76.2 58.3 L77.8 58.3 L79.4 58.3 L80.9 58.3 L82.5 58.3 L84.1 58.3 L85.7 58.2 L87.3 58.2 L88.9 58.2 L90.5 58.2 L92.0 58.2 L93.6 58.2 L95.2 58.1 L96.8 58.1 L98.4 58.1 L100.0 58.1 L101.6 58.1 L103.1 58.0 L104.7 58.0 L106.3 58.0 L107.9 58.0 L109.5 57.9 L111.1 57.9 L112.6 57.8 L114.2 57.8 L115.8 57.7 L117.4 57.6 L119.0 57.5 L120.6 57.4 L122.1 57.3 L123.7 57.2 L125.3 57.0 L126.9 56.9 L128.5 56.7 L130.0 56.6 L131.6 56.4 L133.2 56.2 L134.8 56.0 L136.3 55.8 L137.9 55.5 L139.5 55.3 L141.0 55.0 L142.6 54.8 L144.2 54.5 L145.7 54.2 L147.3 53.9 L148.8 53.5 L150.4 53.2 L151.9 52.8 L153.4 52.4 L155.0 52.0 L156.5 51.6 L158.0 51.1 L159.5 50.6 L161.0 50.1 L162.5 49.5 L164.0 48.9 L165.4 48.3 L166.9 47.7 L168.3 47.0 L169.7 46.2 L171.1 45.5 L172.5 44.7 L173.8 43.9 L175.2 43.0 L176.5 42.1 L177.8 41.2 L179.0 40.3 L180.3 39.3 L181.5 38.2 L182.7 37.2 L183.8 36.1 L185.0 35.0 L186.1 33.9 L187.2 32.8 L188.3 31.6 L189.4 30.5 L190.5 29.4 L191.6 28.2 L192.7 27.1 L193.8 25.9 L194.9 24.8 L196.0 23.6 L197.0 22.4 L198.1 21.2 L199.2 20.1 L200.2 18.9 L201.2 17.6 L202.2 16.4 L203.2 15.2 L204.2 13.9 L205.2 12.7 L206.1 11.4 L207.1 10.2 L208.1 8.9 L209.0 7.7 L210.0 6.4"/><path class="mk-done" d="M8.0 58.4 L9.6 58.4 L11.2 58.4 L12.8 58.4 L14.3 58.4 L15.9 58.4 L17.5 58.4 L19.1 58.4 L20.7 58.4 L22.3 58.4 L23.9 58.4 L25.4 58.4 L27.0 58.4 L28.6 58.4 L30.2 58.4 L31.8 58.4 L33.4 58.4 L35.0 58.4"/><circle class="mk-runner" cx="35.0" cy="58.4" r="5.5"/></svg><p class="label label-accent">Selected work</p></div>
 
@@ -1440,6 +1435,13 @@
                             </ul>
                         </details>
                         <p class="piece-line"><a href="/building-keynote">Read the build journal</a></p>
+                        <figure class="quote">
+                        <blockquote style="margin:0;">
+                        <p>&ldquo;We had a view of what parents wanted from tuition centres, but we didn&rsquo;t know how to validate it. We decided to get Nigel&rsquo;s help and we appreciated his guidance; it was our first time running any form of market research. He came back with a positioning line we could put on our materials, plus who to prioritise, what to stop saying, and the risks to watch.</p>
+                        <p>What stood out for us during the whole process was how invested he was in making sure we got something out of it.&rdquo;</p>
+                        </blockquote>
+                        <figcaption>Justin &middot; Keynote Learning</figcaption>
+                        </figure>
                     </div>
                     <div class="piece-art">
                         <p class="demo-note">Keynote&rsquo;s findings stay with Keynote. The exhibit below is the same method run on a fictional brand, with synthetic data.</p>
@@ -1501,13 +1503,7 @@
                                 <details class="chart-data"><summary>View chart data</summary><table><thead><tr><th>#</th><th>Factor</th><th>Importance</th><th>Net satisfaction</th></tr></thead><tbody><tr><td>1</td><td>Price and value</td><td>48%</td><td>+18</td></tr><tr><td>2</td><td>Speed of service</td><td>41%</td><td>+6</td></tr><tr><td>3</td><td>Taste consistency</td><td>38%</td><td>+26</td></tr><tr><td>4</td><td>Seat availability</td><td>35%</td><td>+2</td></tr><tr><td>5</td><td>Location coverage</td><td>30%</td><td>+21</td></tr><tr><td>6</td><td>Opening hours</td><td>25%</td><td>+24</td></tr><tr><td>7</td><td>Food variety</td><td>22%</td><td>+11</td></tr><tr><td>8</td><td>Cleanliness</td><td>20%</td><td>+19</td></tr><tr><td>9</td><td>Queue transparency</td><td>14%</td><td>+8</td></tr><tr><td>10</td><td>Staff friendliness</td><td>12%</td><td>+22</td></tr><tr><td>11</td><td>Loyalty rewards</td><td>10%</td><td>+9</td></tr><tr><td>12</td><td>Power points and wifi</td><td>5%</td><td>+4</td></tr></tbody></table></details>
                                 <p class="exhibit-basenote">Base: 400 synthetic respondents. Importance = % ranking the factor top-3. Net = % like &minus; % dislike. Dashed lines split each axis at its median. Numbers on the dots are hoverable.</p>
                             </div>
-                            <figure class="quote">
-                                <blockquote style="margin:0;">
-                                    <p>&ldquo;We had a view of what parents wanted from tuition centres, but we didn&rsquo;t know how to validate it. We decided to get Nigel&rsquo;s help and we appreciated his guidance; it was our first time running any form of market research. He came back with a positioning line we could put on our materials, plus who to prioritise, what to stop saying, and the risks to watch.</p>
-                                    <p>What stood out for us during the whole process was how invested he was in making sure we got something out of it.&rdquo;</p>
-                                </blockquote>
-                                <figcaption>Justin &middot; Keynote Learning</figcaption>
-                            </figure>
+                            
                             <div class="frame-cap"><span>Method demonstration</span><span>Fictional brand &middot; synthetic data</span></div>
                         </div>
                     </div>
@@ -1585,133 +1581,43 @@
             </div>
         </section>
 
-        <section class="bench" id="bench">
+        <section class="nv-rest" id="bench">
             <div class="shell">
-                <div class="sec-head bench-head"><svg class="mk" viewBox="-8 -8 236 112" aria-hidden="true"><rect class="mk-band" x="0" y="36.6" width="210.0" height="44.0"/><path class="mk-line" d="M0 0H210.0V96.0H0"/><path class="mk-line" d="M210.0 80.6H144.0V0"/><path class="mk-line" d="M210.0 36.6H188.0V0"/><path class="mk-goal" d="M210.0 0h9V14.6h-9"/><path class="mk-todo" d="M100.0 58.1 L101.6 58.1 L103.1 58.0 L104.7 58.0 L106.3 58.0 L107.9 58.0 L109.5 57.9 L111.1 57.9 L112.6 57.8 L114.2 57.8 L115.8 57.7 L117.4 57.6 L119.0 57.5 L120.6 57.4 L122.1 57.3 L123.7 57.2 L125.3 57.0 L126.9 56.9 L128.5 56.7 L130.0 56.6 L131.6 56.4 L133.2 56.2 L134.8 56.0 L136.3 55.8 L137.9 55.5 L139.5 55.3 L141.0 55.0 L142.6 54.8 L144.2 54.5 L145.7 54.2 L147.3 53.9 L148.8 53.5 L150.4 53.2 L151.9 52.8 L153.4 52.4 L155.0 52.0 L156.5 51.6 L158.0 51.1 L159.5 50.6 L161.0 50.1 L162.5 49.5 L164.0 48.9 L165.4 48.3 L166.9 47.7 L168.3 47.0 L169.7 46.2 L171.1 45.5 L172.5 44.7 L173.8 43.9 L175.2 43.0 L176.5 42.1 L177.8 41.2 L179.0 40.3 L180.3 39.3 L181.5 38.2 L182.7 37.2 L183.8 36.1 L185.0 35.0 L186.1 33.9 L187.2 32.8 L188.3 31.6 L189.4 30.5 L190.5 29.4 L191.6 28.2 L192.7 27.1 L193.8 25.9 L194.9 24.8 L196.0 23.6 L197.0 22.4 L198.1 21.2 L199.2 20.1 L200.2 18.9 L201.2 17.6 L202.2 16.4 L203.2 15.2 L204.2 13.9 L205.2 12.7 L206.1 11.4 L207.1 10.2 L208.1 8.9 L209.0 7.7 L210.0 6.4"/><path class="mk-done" d="M8.0 58.4 L9.6 58.4 L11.2 58.4 L12.8 58.4 L14.3 58.4 L15.9 58.4 L17.5 58.4 L19.1 58.4 L20.7 58.4 L22.3 58.4 L23.9 58.4 L25.4 58.4 L27.0 58.4 L28.6 58.4 L30.2 58.4 L31.8 58.4 L33.4 58.4 L35.0 58.4 L36.5 58.4 L38.1 58.4 L39.7 58.4 L41.3 58.4 L42.9 58.4 L44.5 58.4 L46.1 58.4 L47.6 58.4 L49.2 58.4 L50.8 58.4 L52.4 58.4 L54.0 58.4 L55.6 58.4 L57.2 58.4 L58.7 58.4 L60.3 58.4 L61.9 58.4 L63.5 58.4 L65.1 58.4 L66.7 58.4 L68.3 58.3 L69.8 58.3 L71.4 58.3 L73.0 58.3 L74.6 58.3 L76.2 58.3 L77.8 58.3 L79.4 58.3 L80.9 58.3 L82.5 58.3 L84.1 58.3 L85.7 58.2 L87.3 58.2 L88.9 58.2 L90.5 58.2 L92.0 58.2 L93.6 58.2 L95.2 58.1 L96.8 58.1 L98.4 58.1 L100.0 58.1"/><circle class="mk-runner" cx="100.0" cy="58.1" r="5.5"/></svg><p class="label label-accent">The rest of the bench</p></div>
-                <div class="row"><em>05</em><a href="/building-layer"><strong>Layer, checks finished report decks against their data</strong></a><span>Private alpha &middot; the journal</span></div>
-                <div class="row"><em>06</em><a href="/building-beebee"><strong>Beebee, a desk gadget turned house pager</strong></a><span>In use, daily &middot; the journal</span></div>
-                <div class="row"><em>07</em><a href="/building-mrb"><strong>Mr. B, an AI chief-of-staff on Slack</strong></a><span>In use, daily &middot; the journal</span></div>
-                <div class="row"><em>08</em><a href="/building-chatpulse"><strong>chatpulse, newsletters distilled to one briefing</strong></a><span>Being reworked</span></div>
-                <div class="row"><em>09</em><a href="/building-budget"><strong>Budget dashboard, bank exports into answers</strong></a><span>In use, private &middot; the journal</span></div>
-                <div class="row"><em>10</em><a href="/bah-bus"><strong>BAH! Bus, a game for one toddler</strong></a><span>In use &middot; <a href="/building-bah">the note</a></span></div>
-                <div class="row"><em>11</em><a href="/building-podviz"><strong>Podviz, listening with your eyes</strong></a><span>Shelved &middot; the journal</span></div>
-                <div class="row"><em>12</em><a href="/building-oneshot"><strong>One Shot, a sniper game two AIs told me to stop polishing</strong></a><span>Shelved &middot; the journal</span></div>
-            </div>
-        </section>
-
-        <section class="notes" id="notes">
-            <div class="shell">
-                <div class="sec-head"><svg class="mk" viewBox="-8 -8 236 112" aria-hidden="true"><rect class="mk-band" x="0" y="36.6" width="210.0" height="44.0"/><path class="mk-line" d="M0 0H210.0V96.0H0"/><path class="mk-line" d="M210.0 80.6H144.0V0"/><path class="mk-line" d="M210.0 36.6H188.0V0"/><path class="mk-goal" d="M210.0 0h9V14.6h-9"/><path class="mk-todo" d="M165.4 48.3 L166.9 47.7 L168.3 47.0 L169.7 46.2 L171.1 45.5 L172.5 44.7 L173.8 43.9 L175.2 43.0 L176.5 42.1 L177.8 41.2 L179.0 40.3 L180.3 39.3 L181.5 38.2 L182.7 37.2 L183.8 36.1 L185.0 35.0 L186.1 33.9 L187.2 32.8 L188.3 31.6 L189.4 30.5 L190.5 29.4 L191.6 28.2 L192.7 27.1 L193.8 25.9 L194.9 24.8 L196.0 23.6 L197.0 22.4 L198.1 21.2 L199.2 20.1 L200.2 18.9 L201.2 17.6 L202.2 16.4 L203.2 15.2 L204.2 13.9 L205.2 12.7 L206.1 11.4 L207.1 10.2 L208.1 8.9 L209.0 7.7 L210.0 6.4"/><path class="mk-done" d="M8.0 58.4 L9.6 58.4 L11.2 58.4 L12.8 58.4 L14.3 58.4 L15.9 58.4 L17.5 58.4 L19.1 58.4 L20.7 58.4 L22.3 58.4 L23.9 58.4 L25.4 58.4 L27.0 58.4 L28.6 58.4 L30.2 58.4 L31.8 58.4 L33.4 58.4 L35.0 58.4 L36.5 58.4 L38.1 58.4 L39.7 58.4 L41.3 58.4 L42.9 58.4 L44.5 58.4 L46.1 58.4 L47.6 58.4 L49.2 58.4 L50.8 58.4 L52.4 58.4 L54.0 58.4 L55.6 58.4 L57.2 58.4 L58.7 58.4 L60.3 58.4 L61.9 58.4 L63.5 58.4 L65.1 58.4 L66.7 58.4 L68.3 58.3 L69.8 58.3 L71.4 58.3 L73.0 58.3 L74.6 58.3 L76.2 58.3 L77.8 58.3 L79.4 58.3 L80.9 58.3 L82.5 58.3 L84.1 58.3 L85.7 58.2 L87.3 58.2 L88.9 58.2 L90.5 58.2 L92.0 58.2 L93.6 58.2 L95.2 58.1 L96.8 58.1 L98.4 58.1 L100.0 58.1 L101.6 58.1 L103.1 58.0 L104.7 58.0 L106.3 58.0 L107.9 58.0 L109.5 57.9 L111.1 57.9 L112.6 57.8 L114.2 57.8 L115.8 57.7 L117.4 57.6 L119.0 57.5 L120.6 57.4 L122.1 57.3 L123.7 57.2 L125.3 57.0 L126.9 56.9 L128.5 56.7 L130.0 56.6 L131.6 56.4 L133.2 56.2 L134.8 56.0 L136.3 55.8 L137.9 55.5 L139.5 55.3 L141.0 55.0 L142.6 54.8 L144.2 54.5 L145.7 54.2 L147.3 53.9 L148.8 53.5 L150.4 53.2 L151.9 52.8 L153.4 52.4 L155.0 52.0 L156.5 51.6 L158.0 51.1 L159.5 50.6 L161.0 50.1 L162.5 49.5 L164.0 48.9 L165.4 48.3"/><circle class="mk-runner" cx="165.4" cy="48.3" r="5.5"/></svg><p class="label label-accent">Build notes</p></div>
-                <p class="notes-intro in-channel">Longer write-ups on how most of these were made, including the parts that went wrong.</p>
-                <div class="notes-grid">
-                    <a href="/building-keynote"><strong>Researching for Keynote</strong><span>My first client: how a positioning survey was designed, fielded and checked, with the findings left out.</span></a>
-                    <a href="/building-caifan"><strong>Building the Cai Fan Test</strong><span>A personality read from a lunch tray, a pilot that broke the measurement, and a stallholder who gets impatient.</span></a>
-                    <a href="/building-pokerspace"><strong>Building Pokerspace</strong><span>A one-shot poker brief, a rules engine that turned out to be real, and a teacher that had to learn to say ungraded.</span></a>
-                    <a href="/building-bitpybit"><strong>Building Bitpybit</strong><span>A question a day that became an app for judging whether the answer is right, and Apple&rsquo;s six questions.</span></a>
-                    <a href="/building-layer"><strong>Building Layer</strong><span>A deck generator that lost its own comparison, and the checker for finished decks that came out of it.</span></a>
-                    <a href="/building-beebee"><strong>Building Beebee</strong><span>A gadget bought to experiment on becomes the house pager, my AI budget dial, and a toddler&rsquo;s TV timer.</span></a>
-                    <a href="/building-mrb"><strong>Building Mr. B</strong><span>An AI chief of staff on Slack; most of the work was deciding what he sees and what he can do.</span></a>
-                    <a href="/building-chatpulse"><strong>Building chatpulse</strong><span>Five weeks building a system that reads everything I pay to read.</span></a>
-                    <a href="/building-budget"><strong>Building the budget dashboard</strong><span>Seven bugs that never crashed, and a checker that agreed with itself.</span></a>
-                    <a href="/building-bah"><strong>Building BAH! Bus</strong><span>A bus game for my son, kept to one small rule while the street grew.</span></a>
-                    <a href="/building-podviz"><strong>Building Podviz</strong><span>Pictures for a podcast, kill criteria written first, and the listener test I never ran.</span></a>
-                    <a href="/building-oneshot"><strong>Building One Shot</strong><span>Two other AIs told me to throw away my best day&rsquo;s work. They were right.</span></a>
-                    <a href="/building-halfspaces"><strong>Building halfspaces</strong><span>This site, with no design training; mostly saying &ldquo;not that&rdquo; until it fit.</span></a>
+                <div class="nv-idx" id="notes">
+                    <h2>The rest, and how each was made</h2>
+                    <dl>
+                        <div class="nv-row"><dt>In use daily</dt><dd><a href="/building-beebee">Beebee</a><span>A desk gadget turned house pager.</span></dd></div>
+                        <div class="nv-row"><dt>In use, private</dt><dd><a href="/building-budget">Budget dashboard</a><span>Bank exports into answers.</span></dd></div>
+                        <div class="nv-row"><dt>In use</dt><dd><a href="/bah-bus">BAH! Bus</a><span>A game for one toddler. <a href="/building-bah">The journal</a></span></dd></div>
+                        <div class="nv-row"><dt>Private</dt><dd><a href="/building-chatpulse">chatpulse</a><span>A system that reads the newsletters I pay for.</span></dd></div>
+                        <div class="nv-row"><dt>Shelved</dt><dd><a href="/building-podviz">Podviz</a><span>Pictures that play alongside a podcast.</span></dd></div>
+                        <div class="nv-row"><dt>Shelved</dt><dd><a href="/building-oneshot">One Shot</a><span>A sniper game two AIs told me to stop polishing.</span></dd></div>
+                        <div class="nv-row"><dt>This site</dt><dd><a href="/building-halfspaces">Building halfspaces</a><span>How the first version was made, with no design training.</span></dd></div>
+                    </dl>
+                    <p class="nv-more">The four pieces above have journals too: <a href="/building-keynote">Keynote</a>, <a href="/building-caifan">the Cai Fan Test</a>, <a href="/building-pokerspace">Pokerspace</a> and <a href="/building-bitpybit">Bitpybit</a>.</p>
                 </div>
             </div>
         </section>
-    </main>
 
-    <section class="closing" id="contact">
+        
+    
+
+    <section class="nv-close" id="contact">
         <div class="shell">
-            <div class="in-channel">
-                <div class="sec-head sec-head-dark"><svg class="mk" viewBox="-8 -8 236 112" aria-hidden="true"><rect class="mk-band" x="0" y="36.6" width="210.0" height="44.0"/><path class="mk-line" d="M0 0H210.0V96.0H0"/><path class="mk-line" d="M210.0 80.6H144.0V0"/><path class="mk-line" d="M210.0 36.6H188.0V0"/><path class="mk-goal" d="M210.0 0h9V14.6h-9"/><path class="mk-done" d="M8.0 58.4 L9.6 58.4 L11.2 58.4 L12.8 58.4 L14.3 58.4 L15.9 58.4 L17.5 58.4 L19.1 58.4 L20.7 58.4 L22.3 58.4 L23.9 58.4 L25.4 58.4 L27.0 58.4 L28.6 58.4 L30.2 58.4 L31.8 58.4 L33.4 58.4 L35.0 58.4 L36.5 58.4 L38.1 58.4 L39.7 58.4 L41.3 58.4 L42.9 58.4 L44.5 58.4 L46.1 58.4 L47.6 58.4 L49.2 58.4 L50.8 58.4 L52.4 58.4 L54.0 58.4 L55.6 58.4 L57.2 58.4 L58.7 58.4 L60.3 58.4 L61.9 58.4 L63.5 58.4 L65.1 58.4 L66.7 58.4 L68.3 58.3 L69.8 58.3 L71.4 58.3 L73.0 58.3 L74.6 58.3 L76.2 58.3 L77.8 58.3 L79.4 58.3 L80.9 58.3 L82.5 58.3 L84.1 58.3 L85.7 58.2 L87.3 58.2 L88.9 58.2 L90.5 58.2 L92.0 58.2 L93.6 58.2 L95.2 58.1 L96.8 58.1 L98.4 58.1 L100.0 58.1 L101.6 58.1 L103.1 58.0 L104.7 58.0 L106.3 58.0 L107.9 58.0 L109.5 57.9 L111.1 57.9 L112.6 57.8 L114.2 57.8 L115.8 57.7 L117.4 57.6 L119.0 57.5 L120.6 57.4 L122.1 57.3 L123.7 57.2 L125.3 57.0 L126.9 56.9 L128.5 56.7 L130.0 56.6 L131.6 56.4 L133.2 56.2 L134.8 56.0 L136.3 55.8 L137.9 55.5 L139.5 55.3 L141.0 55.0 L142.6 54.8 L144.2 54.5 L145.7 54.2 L147.3 53.9 L148.8 53.5 L150.4 53.2 L151.9 52.8 L153.4 52.4 L155.0 52.0 L156.5 51.6 L158.0 51.1 L159.5 50.6 L161.0 50.1 L162.5 49.5 L164.0 48.9 L165.4 48.3 L166.9 47.7 L168.3 47.0 L169.7 46.2 L171.1 45.5 L172.5 44.7 L173.8 43.9 L175.2 43.0 L176.5 42.1 L177.8 41.2 L179.0 40.3 L180.3 39.3 L181.5 38.2 L182.7 37.2 L183.8 36.1 L185.0 35.0 L186.1 33.9 L187.2 32.8 L188.3 31.6 L189.4 30.5 L190.5 29.4 L191.6 28.2 L192.7 27.1 L193.8 25.9 L194.9 24.8 L196.0 23.6 L197.0 22.4 L198.1 21.2 L199.2 20.1 L200.2 18.9 L201.2 17.6 L202.2 16.4 L203.2 15.2 L204.2 13.9 L205.2 12.7 L206.1 11.4 L207.1 10.2 L208.1 8.9 L209.0 7.7 L210.0 6.4"/><circle class="mk-runner" cx="210.0" cy="6.4" r="5.5"/></svg></div>
-                <h2>Fourteen years deciding what&rsquo;s worth building; <em>now close enough to build it.</em></h2>
-                <div class="closing-cta">
-                    <a class="btn btn-light" href="mailto:nigel@halfspaces.co?subject=Project%20enquiry">Email me</a>
-                        <span class="contact-address">nigel@halfspaces.co</span>
-                </div>
-                <div class="contact-card">
-                    <img src="/assets/nigel-neutral.jpg" alt="Portrait of Nigel Lin" width="76" height="92" loading="lazy" decoding="async">
-                    <div>
-                        <strong>Nigel Lin</strong>
-                        <span>Singapore</span>
-                        <span>Away from the desk: raising a toddler, and a BJJ white belt (taps early, taps often).</span>
-                        <span class="contact-links"><a class="text-link" href="https://www.linkedin.com/in/nigellin/">LinkedIn</a> <a class="text-link" href="https://github.com/nigeleatworld">GitHub</a></span>
-                    </div>
-                </div>
-            </div>
+            <h2>Fourteen years deciding what&rsquo;s worth building; now close enough to build it.</h2>
+            <div class="nv-act"><a class="btn" href="mailto:nigel@halfspaces.co?subject=Project%20enquiry">Email me</a><span class="nv-addr">nigel@halfspaces.co</span></div>
+            <p class="nv-away">Away from the desk: raising a toddler, and a BJJ white belt (taps early, taps often).</p>
+            <p class="nv-links"><a href="https://www.linkedin.com/in/nigellin/">LinkedIn</a><a href="https://github.com/nigeleatworld">GitHub</a></p>
         </div>
     </section>
+    </main>
 
-    <footer id="name">
-        <div class="shell footer-inner">
-            <div class="footer-name">
-                
-                <p class="footer-defs"><strong>halfspaces.</strong> In geometry: one side of a boundary; a region made clear by a constraint. In football: the inside channel between centre and wing; where creative play often resides.</p>
-            </div>
-            <span class="footer-links">
-                <a href="/">Part of Halfspaces Pte Ltd</a>
-                <a href="/privacy/">Privacy</a>
-                <a href="/building-halfspaces">The making of this site</a>
-                <span>Updated November 2026</span>
-                <a href="#top">Top</a>
-            </span>
+    <footer class="nv-foot" id="name">
+        <div class="shell">
+            <p>Halfspaces Pte Ltd &middot; Singapore &middot; &copy; 2026 &middot; Updated November 2026</p>
+            <p><a href="/">Halfspaces home</a> &middot; <a href="/about/">About</a> &middot; <a href="/nigel/">Nigel&rsquo;s portfolio</a> &middot; <a href="/privacy/">Privacy</a></p>
         </div>
     </footer>
 
-
-<script>
-(function(){
-  var items=[
-    {w:'a poker room.', img:'/assets/peek-poker.webp', href:'#p3', cap:'Pokerspace \u00b7 Launched October 2026'},
-    {w:'an iPhone app.', img:'/assets/peek-app.webp', href:'#bitpybit', cap:'Bitpybit \u00b7 Available on the App Store'},
-    {w:'a personality test.', img:'/assets/peek-test.webp', href:'#p2', cap:'Cai Fan Test \u00b7 Live; development paused'},
-    {w:'a positioning study.', label:'Research I\u2019ve delivered', img:'/assets/peek-study.webp', href:'#p1', cap:'Keynote Learning \u00b7 Delivered; illustration uses synthetic data'},
-    {w:'a toddler distractor.', img:'/assets/peek-bah.webp', href:'/bah-bus', cap:'BAH! Bus \u00b7 In use, by one toddler'}
-  ];
-  var roll=document.querySelector('.roll'), view=document.querySelector('.lately-view'), link=document.querySelector('.lately-frame');
-  if(!roll||!view) return;
-  items.forEach(function(it){ var p=new Image(); p.src=it.img; });
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var i=0, paused=false, held=false, btn=document.querySelector('.made-pause');
-  if(btn){ btn.addEventListener('click',function(){ held=!held; btn.setAttribute('aria-pressed', held?'true':'false'); btn.textContent=held?'Play':'Pause'; }); }
-  function swap(box, make, cover){
-    var olds=[].slice.call(box.children), neu=make(); box.appendChild(neu);
-    neu.getBoundingClientRect(); neu.classList.add('is-in');
-    olds.forEach(function(old){
-      if(!cover){ old.classList.remove('is-in'); old.classList.add('is-out'); }
-      setTimeout(function(){ old.remove(); }, 1000);
-    });
-  }
-  function next(){
-    if(paused||held) return;
-    i=(i+1)%items.length; var it=items[i];
-    swap(roll,function(){ var s=document.createElement('span'); s.className='roll-word'; s.textContent=it.w; return s; });
-    swap(view,function(){ var im=document.createElement('img'); im.src=it.img; im.alt=''; return im; }, true);
-    link.setAttribute('href', it.href);
-    var cap=document.querySelector('.made-cap'); if(cap) cap.textContent=it.cap;
-    var lab=document.querySelector('.made-label'), want=it.label||'Things I\u2019ve made';
-    if(lab && lab.textContent!==want){ lab.style.opacity=0; setTimeout(function(){ lab.textContent=want; lab.style.opacity=1; }, 220); }
-  }
-  setInterval(next, 6000);
-  [link, roll].forEach(function(el){
-    el.addEventListener('mouseenter',function(){ paused=true; }); el.addEventListener('mouseleave',function(){ paused=false; });
-    el.addEventListener('focusin',function(){ paused=true; }); el.addEventListener('focusout',function(){ paused=false; });
-  });
-})();
-</script>
-<script>
-/* play the pass when the pitch scrolls into view, not while it is off screen */
-(function(){
-  var fig=document.querySelector('.why .pitch-fig'); if(!fig||!('IntersectionObserver' in window)) return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var done=false, io=new IntersectionObserver(function(es){
-    if(done||!es[0].isIntersecting) return; done=true; io.disconnect();
-    var svg=fig.querySelector('svg'); if(svg){ var c=svg.cloneNode(true); svg.parentNode.replaceChild(c, svg); }
-  },{threshold:0.5});
-  io.observe(fig);
-})();
-</script>
 </body>
 </html>

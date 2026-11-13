@@ -35,3 +35,8 @@ CONTEXT.md
 !assets/caifan-live.webp
 !assets/pokerspace-table.webp
 !assets/bitpybit-neutral.webp
+!assets/nigel-cutout.png
+
+# local emulator state
+.wrangler/
+node_modules/
